@@ -3,7 +3,7 @@ NAME = miniRT
 PRINTF = 010_FT_PRINTF/libftprintf.a
 OBJDIR = 666_OBJ/
 
-VECSRC = ft_vec0.c ft_vec1.c main.c
+VECSRC = ft_vec0.c ft_vec1.c ft_ray.c main.c
 VECDIR = 101_FT_VEC/
 
 OBJ = $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(VECSRC)))

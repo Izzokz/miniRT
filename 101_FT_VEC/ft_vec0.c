@@ -37,7 +37,8 @@ inline void	ft_vec_div(t_vec *newv, const t_vec v1, const t_vec v2)
 		*(v1 + 2) / *(v2 + 2)});
 }
 
-inline void	ft_new_vec(t_vec *newv, const float x, const float y, const float z)
+inline void	ft_new_vec(t_vec *newv, const double x,
+	const double y, const double z)
 {
 	ft_cpy_vec(newv, (t_vec){x, y, z});
 }
