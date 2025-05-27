@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_vec0.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/26 14:29:51 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/05/26 14:32:14 by kzhen-cl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_vec.h"
+
+inline void	ft_vec_add(t_vec *newv, const t_vec v1, const t_vec v2)
+{
+	ft_cpy_vec(newv, (t_vec){(*v1 + *v2), *(v1 + 1) + *(v2 + 1),
+		*(v1 + 2) + *(v2 + 2)});
+}
+
+inline void	ft_vec_sub(t_vec *newv, const t_vec v1, const t_vec v2)
+{
+	ft_cpy_vec(newv, (t_vec){(*v1 - *v2), *(v1 + 1) - *(v2 + 1),
+		*(v1 + 2) - *(v2 + 2)});
+}
+
+inline void	ft_vec_scale(t_vec *newv, const t_vec v1, const t_vec v2)
+{
+	ft_cpy_vec(newv, (t_vec){(*v1 * *v2), *(v1 + 1) * *(v2 + 1),
+		*(v1 + 2) * *(v2 + 2)});
+}
+
+inline void	ft_vec_div(t_vec *newv, const t_vec v1, const t_vec v2)
+{
+	// Determine what to do when dividing by zero (TODO)
+	ft_cpy_vec(newv, (t_vec){(*v1 / *v2), *(v1 + 1) / *(v2 + 1),
+		*(v1 + 2) / *(v2 + 2)});
+}
+
+inline void	ft_new_vec(t_vec *newv, const float x, const float y, const float z)
+{
+	ft_cpy_vec(newv, (t_vec){x, y, z});
+}
