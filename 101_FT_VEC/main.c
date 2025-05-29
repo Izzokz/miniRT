@@ -47,12 +47,12 @@ int	main(void)
 	ft_new_vec(ray, .1f, .1f, .1f);
 	ft_vec_sub(&tmp, (t_vec){1.f, 1.f, 1.f}, *ray);
 	ft_vec_norm(ray + 1, tmp);
-	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n", **ray, *(*ray + 1), *(*ray + 2), *(*(ray + 1)), *(*(ray + 1) + 1), *(*(ray + 1) + 2));
+	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n==\n", **ray, *(*ray + 1), *(*ray + 2), *(*(ray + 1)), *(*(ray + 1) + 1), *(*(ray + 1) + 2));
 	ft_new_ray(anotheray, (t_vec){.1f, .1f, .1f}, (t_vec){1.f, 1.f, 1.f});
-	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n", **anotheray, *(*anotheray + 1), *(*anotheray + 2), *(*(anotheray + 1)), *(*(anotheray + 1) + 1), *(*(anotheray + 1) + 2));
+	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n%d\n==\n", **anotheray, *(*anotheray + 1), *(*anotheray + 2), *(*(anotheray + 1)), *(*(anotheray + 1) + 1), *(*(anotheray + 1) + 2), ft_ray_equals(ray, anotheray));
 	ft_cpy_vec(anotheray, (t_vec){5.3f, 2.6f, 9.6635f});
 	ft_ray_dir(anotheray, (t_vec){1.2f, 3.3f, -.2f});
-	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n", **anotheray, *(*anotheray + 1), *(*anotheray + 2), *(*(anotheray + 1)), *(*(anotheray + 1) + 1), *(*(anotheray + 1) + 2));
+	printf("LOC: {%lf, %lf, %lf}, DIR: {%lf, %lf, %lf}\n%d\n", **anotheray, *(*anotheray + 1), *(*anotheray + 2), *(*(anotheray + 1)), *(*(anotheray + 1) + 1), *(*(anotheray + 1) + 2), ft_ray_equals(ray, anotheray));
 	free(c);
 	return (0);
 }

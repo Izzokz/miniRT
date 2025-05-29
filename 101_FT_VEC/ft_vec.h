@@ -15,21 +15,26 @@
 
 # include <math.h>
 
-typedef double	t_vec[3];
-typedef t_vec	t_ray[2];
+typedef double	t_vec[3]; // x, y, z
+typedef t_vec	t_ray[2]; // pos, dir
+typedef t_ray	t_rmap[3]; // main ray, reflection ray, shadow ray
 
+/* VEC SETTER */
 void	ft_new_vec(t_vec *newv, const double x, const double y, const double z);
 void	ft_cpy_vec(t_vec *newv, const t_vec cpy);
 
+/* VEC ARITHMETICS */
 void	ft_vec_add(t_vec *newv, const t_vec v1, const t_vec v2);
 void	ft_vec_sub(t_vec *newv, const t_vec v1, const t_vec v2);
 void	ft_vec_scale(t_vec *newv, const t_vec v1, const t_vec v2);
 void	ft_vec_div(t_vec *newv, const t_vec v1, const t_vec v2);
 
+/* VEC ALGEBRA */
 double	ft_vec_dot(const t_vec v1, const t_vec v2);
 double	ft_vec_mag(const t_vec v);
 void	ft_vec_norm(t_vec *newv, const t_vec v);
 
+/* RAY SETTER */
 void	ft_new_ray(t_ray newr, const t_vec pos, const t_vec target);
 void	ft_ray_dir(t_ray ray, const t_vec target);
 
