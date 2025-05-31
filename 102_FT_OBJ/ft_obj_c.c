@@ -35,3 +35,8 @@ t_obj	*ft_make_c(t_vec posnorm[2], double dia_hei[2], unsigned char color[3])
 	newobj->hit = ft_hit_c;
 	return (newobj);
 }
+
+char	ft_hit_c(const t_obj cylinder, t_ray ray)
+{
+	return (0);
+}

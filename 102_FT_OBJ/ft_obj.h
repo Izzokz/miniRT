@@ -39,10 +39,11 @@ t_obj	*ft_make_c(t_vec posnorm[2], double dia_hei[2], unsigned char color[3]);
 t_obj	*ft_make_f(t_vec posnorm[2], unsigned char color[3]);
 
 /* OBJ METHODS */
-char	ft_hit_s(const t_obj obj, t_ray ray);
-char	ft_hit_p(const t_obj obj, t_ray ray);
-char	ft_hit_l(const t_obj obj, t_ray ray);
-char	ft_hit_c(const t_obj obj, t_ray ray);
-char	ft_hit_f(const t_obj obj, t_ray ray);
+void	ft_reflect(t_ray ray, const t_vec posnorm[2]);
+char	ft_hit_s(const t_obj sphere, t_ray ray);
+char	ft_hit_p(const t_obj pyramid, t_ray ray);
+char	ft_hit_l(const t_obj light, t_ray ray);
+char	ft_hit_c(const t_obj cylinder, t_ray ray);
+char	ft_hit_f(const t_obj flat, t_ray ray);
 
 #endif

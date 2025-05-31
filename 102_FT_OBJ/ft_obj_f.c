@@ -34,3 +34,8 @@ t_obj	*ft_make_c(t_vec posnorm[2], unsigned char color[3])
 	newobj->hit = ft_hit_f;
 	return (newobj);
 }
+
+char	ft_hit_f(const t_obj flat, t_ray ray)
+{
+	return (0);
+}

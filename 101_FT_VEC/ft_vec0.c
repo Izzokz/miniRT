@@ -12,33 +12,27 @@
 
 #include "ft_vec.h"
 
-inline void	ft_vec_add(t_vec *newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_add(t_vec newv, const t_vec v1, const t_vec v2)
 {
-	ft_cpy_vec(newv, (t_vec){(*v1 + *v2), *(v1 + 1) + *(v2 + 1),
-		*(v1 + 2) + *(v2 + 2)});
+	ft_new_vec(newv, (*v1 + *v2), *(v1 + 1) + *(v2 + 1),
+		*(v1 + 2) + *(v2 + 2));
 }
 
-inline void	ft_vec_sub(t_vec *newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_sub(t_vec newv, const t_vec v1, const t_vec v2)
 {
-	ft_cpy_vec(newv, (t_vec){(*v1 - *v2), *(v1 + 1) - *(v2 + 1),
-		*(v1 + 2) - *(v2 + 2)});
+	ft_new_vec(newv, (*v1 - *v2), *(v1 + 1) - *(v2 + 1),
+		*(v1 + 2) - *(v2 + 2));
 }
 
-inline void	ft_vec_scale(t_vec *newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_scale(t_vec newv, const t_vec v1, const t_vec v2)
 {
-	ft_cpy_vec(newv, (t_vec){(*v1 * *v2), *(v1 + 1) * *(v2 + 1),
-		*(v1 + 2) * *(v2 + 2)});
+	ft_new_vec(newv, (*v1 * *v2), *(v1 + 1) * *(v2 + 1),
+		*(v1 + 2) * *(v2 + 2));
 }
 
-inline void	ft_vec_div(t_vec *newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_div(t_vec newv, const t_vec v1, const t_vec v2)
 {
 	// Determine what to do when dividing by zero (TODO)
-	ft_cpy_vec(newv, (t_vec){(*v1 / *v2), *(v1 + 1) / *(v2 + 1),
-		*(v1 + 2) / *(v2 + 2)});
-}
-
-inline void	ft_new_vec(t_vec *newv, const double x,
-	const double y, const double z)
-{
-	ft_cpy_vec(newv, (t_vec){x, y, z});
+	ft_new_vec(newv, (*v1 / *v2), *(v1 + 1) / *(v2 + 1),
+		*(v1 + 2) / *(v2 + 2));
 }

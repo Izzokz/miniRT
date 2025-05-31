@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ray.c                                           :+:      :+:    :+:   */
+/*   ft_vec2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 17:40:35 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/05/27 17:40:38 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/05/31 18:25:46 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/05/31 18:25:48 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vec.h"
 
-void	ft_ray_dir(t_ray ray, const t_vec target)
+inline void	ft_new_vec(t_vec newv, const double x,
+	const double y, const double z)
 {
-	t_vec	tmp;
-
-	ft_vec_sub(tmp, target, *ray);
-	ft_vec_norm(*(ray + 1), tmp);
+	*newv = x;
+	*(newv + 1) = y;
+	*(newv + 2) = z;
 }
 
-void	ft_new_ray(t_ray newr, const t_vec pos, const t_vec target)
+inline void	ft_cpy_vec(t_vec newv, const t_vec cpy)
 {
-	ft_cpy_vec(*newr, pos);
-	ft_ray_dir(newr, target);
-}
-
-void	ft_cpy_ray(t_ray newr, const t_ray cpy)
-{
-	ft_cpy_vec(*newr, *cpy);
-	ft_cpy_vec(*(newr + 1), *(cpy + 1));
+	ft_new_vec(newv, *cpy, *(cpy + 1), *(cpy + 2));
 }
