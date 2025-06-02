@@ -35,6 +35,12 @@ t_obj	*ft_make_c(t_vec posnorm[2], unsigned char color[3])
 	return (newobj);
 }
 
+void	ft_free_obj(t_obj *obj)
+{
+	free(obj->params);
+	free(obj);
+}
+
 char	ft_hit_f(const t_obj flat, t_ray ray)
 {
 	return (0);

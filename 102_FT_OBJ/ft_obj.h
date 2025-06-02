@@ -46,4 +46,7 @@ char	ft_hit_l(const t_obj light, t_ray ray);
 char	ft_hit_c(const t_obj cylinder, t_ray ray);
 char	ft_hit_f(const t_obj flat, t_ray ray);
 
+/* OBJ FREE FUNCTION */
+void	ft_free_obj(t_obj obj);
+
 #endif
