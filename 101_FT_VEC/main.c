@@ -14,8 +14,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static inline void	print_vec(const t_vec v)
+{
+	printf("{%lf, %lf, %lf}", *v, *(v + 1), *(v + 2));
+}
+
 int	main(void)
 {
+	t_vec		all[6]; //nucleus, goblin, divan, remnants, bal, temple
+	char		i;
+	char		j;
+	double		tmp;
+	double		closest_dist;
+
+	ft_new_vec(*all, 500, 150, 500);
+	ft_new_vec(*(all + 1), 655, 110, 300);
+	ft_new_vec(*(all + 2), -315, 80, 216);
+	ft_new_vec(*(all + 3), 466, 135, -500);
+	ft_new_vec(*(all + 4), 200, 76, -566);
+	ft_new_vec(*(all + 5), 220, 96, -666);
+	closest_dist = 9999;
+	i = -1;
+	while (++i < 6)
+	{
+		j = -1;
+		while (++j < 6)
+		{
+			if (j <= i)
+				continue ;
+			tmp = ft_vec_dist(*(all + i), *(all + j));
+			print_vec(*(all + i));
+			printf(" <-> ");
+			print_vec(*(all + j));
+			printf(" : %lf\n", tmp);
+			if (tmp < closest_dist)
+			{
+				printf("Found closer distance ");
+				print_vec(*(all + i));
+				printf(" <-> ");
+				print_vec(*(all + j));
+				printf(" : %lf\n", tmp);
+				closest_dist = tmp;
+			}
+		}
+	}
+	printf("Closest distance : %lf\n", closest_dist);
+	return (0);
+/*
 	t_vec	a;
 	t_vec	b;
 	t_vec	*c;
@@ -57,4 +102,5 @@ int	main(void)
 	printf("Distance between a and d : %lf\n", ft_vec_dist(a, d));
 	printf("Distance between d and a : %lf\n", ft_vec_dist(d, a));
 	return (0);
+*/
 }
