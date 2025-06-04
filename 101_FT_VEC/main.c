@@ -14,6 +14,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* ME SMASH HEAD */
+void	msh(const t_vec pts[6], t_vec best_path_out[7])
+{
+	double	best_len = 9999999;
+	int		best_path[7];
+
+	for (int a = 1; a <= 5; ++a)
+	for (int b = 1; b <= 5; ++b) if (b != a)
+	for (int c = 1; c <= 5; ++c) if (c != a && c != b)
+	for (int d = 1; d <= 5; ++d) if (d != a && d != b && d != c)
+	for (int e = 1; e <= 5; ++e) if (e != a && e != b && e != c && e != d)
+	{
+		double len = 0;
+		len += ft_vec_dist(pts[0], pts[a]);
+		len += ft_vec_dist(pts[a], pts[b]);
+		len += ft_vec_dist(pts[b], pts[c]);
+		len += ft_vec_dist(pts[c], pts[d]);
+		len += ft_vec_dist(pts[d], pts[e]);
+		len += ft_vec_dist(pts[e], pts[0]);
+
+		if (len < best_len)
+		{
+			best_len = len;
+			best_path[0] = 0;
+			best_path[1] = a;
+			best_path[2] = b;
+			best_path[3] = c;
+			best_path[4] = d;
+			best_path[5] = e;
+			best_path[6] = 0;
+		}
+	}
+
+	for (int i = 0; i < 7; ++i)
+		ft_cpy_vec(*(best_path_out + i), *(pts + *(best_path + i)));
+}
+
 static inline void	print_vec(const t_vec v)
 {
 	printf("{%lf, %lf, %lf}", *v, *(v + 1), *(v + 2));
@@ -21,44 +58,22 @@ static inline void	print_vec(const t_vec v)
 
 int	main(void)
 {
-	t_vec		all[6]; //nucleus, goblin, divan, remnants, bal, temple
-	char		i;
-	char		j;
-	double		tmp;
-	double		closest_dist;
+	t_vec	all[6]; // nucleus, goblin, divan, remnants, bal, temple
+	t_vec	best[7]; // processed run
 
 	ft_new_vec(*all, 500, 150, 500);
-	ft_new_vec(*(all + 1), 655, 110, 300);
-	ft_new_vec(*(all + 2), -315, 80, 216);
-	ft_new_vec(*(all + 3), 466, 135, -500);
-	ft_new_vec(*(all + 4), 200, 76, -566);
-	ft_new_vec(*(all + 5), 220, 96, -666);
-	closest_dist = 9999;
-	i = -1;
-	while (++i < 6)
+	ft_new_vec(*(all + 1), 1000, 110, 500);
+	ft_new_vec(*(all + 2), 632, 80, 867);
+	ft_new_vec(*(all + 3), 95, 135, 874);
+	ft_new_vec(*(all + 4), 235, 76, 199);
+	ft_new_vec(*(all + 5), 735, 96, 250);
+	msh(all, best);
+	for (char i = 0; i < 7; i++)
 	{
-		j = -1;
-		while (++j < 6)
-		{
-			if (j <= i)
-				continue ;
-			tmp = ft_vec_dist(*(all + i), *(all + j));
-			print_vec(*(all + i));
-			printf(" <-> ");
-			print_vec(*(all + j));
-			printf(" : %lf\n", tmp);
-			if (tmp < closest_dist)
-			{
-				printf("Found closer distance ");
-				print_vec(*(all + i));
-				printf(" <-> ");
-				print_vec(*(all + j));
-				printf(" : %lf\n", tmp);
-				closest_dist = tmp;
-			}
-		}
+		printf("[%d]\t", i);
+		print_vec(*(best + i));
+		printf("\n");
 	}
-	printf("Closest distance : %lf\n", closest_dist);
 	return (0);
 /*
 	t_vec	a;
