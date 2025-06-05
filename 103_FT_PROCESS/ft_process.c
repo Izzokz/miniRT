@@ -43,18 +43,21 @@ static void	ft_blend_color(t_ray hit_ray, const t_obj *all, int hit)
 	t_color		reflect;
 	const t_ray	init_ray = hit_ray;
 	char		depth;
+	float		mult;
 
 	ft_memcpy(color, (*(all + hit)).color, 3);
 	doshadowthings(hit_ray, all); // Create a function for that
 	ft_cpy_ray(hit_ray, init_ray);
+	mult = .33f;
 	depth = -1;
 	while (++depth < 4)
 	{
 		hit = ft_hit_nearest_obj(hit_ray, all);
 		if (hit < 0)
 			break ;
-		ft_color_reflect(reflect, (*(all + hit)).color, .25f);
+		ft_color_reflect(reflect, (*(all + hit)).color, mult);
 		ft_color_add(color, reflect);
+		mult *= .75f;
 	}
 	print_color(color); // will print to actual focused pixel :P
 }
