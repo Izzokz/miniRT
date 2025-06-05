@@ -12,19 +12,14 @@
 
 #include "ft_obj.h"
 
-t_obj	*ft_make_spl(char type, t_vec pos, double attr, unsigned char color[3])
+char	ft_make_spl(char type, t_vec pos, double attr, t_color color)
 {
 	t_obj	*newobj;
 
-	newobj = malloc(sizeof(t_obj));
-	if (!newobj)
-		return (NULL);
+	newobj = ft_get_uninit_obj();
 	newobj->params = malloc(sizeof(double) * 4);
 	if (!newobj->params)
-	{
-		free(newobj);
-		return (NULL);
-	}
+		return (-1);
 	ft_memcpy(newobj->params, (double [4]){*pos, *(pos + 1), *(pos + 2), attr},
 		sizeof(double) * 4);
 	newobj->type = type;
@@ -34,7 +29,7 @@ t_obj	*ft_make_spl(char type, t_vec pos, double attr, unsigned char color[3])
 		newobj->hit = ft_hit_s;
 	else if (type == 'p')
 		newobj->hit = ft_hit_l;
-	return (newobj);
+	return (0);
 }
 
 void	ft_reflect(t_ray ray, const t_vec posnorm[2])

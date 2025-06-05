@@ -12,19 +12,14 @@
 
 #include "ft_obj.h"
 
-t_obj	*ft_make_c(t_vec posnorm[2], double dia_hei[2], unsigned char color[3])
+char	ft_make_c(t_vec posnorm[2], double dia_hei[2], t_color color)
 {
 	t_obj	*newobj;
 
-	newobj = malloc(sizeof(t_obj));
-	if (!newobj)
-		return (NULL);
+	newobj = ft_get_uninit_obj();
 	newobj->params = malloc(sizeof(double) * 8);
 	if (!newobj->params)
-	{
-		free(newobj);
-		return (NULL);
-	}
+		return (-1);
 	ft_memcpy(newobj->params,
 		(double [8]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
 		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2),
@@ -33,7 +28,7 @@ t_obj	*ft_make_c(t_vec posnorm[2], double dia_hei[2], unsigned char color[3])
 	newobj->type = 'c';
 	ft_memcpy(newobj->color, color, 3);
 	newobj->hit = ft_hit_c;
-	return (newobj);
+	return (0);
 }
 
 char	ft_hit_c(const t_obj cylinder, t_ray ray)

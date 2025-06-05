@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../102_FT_OBJ/ft_obj.h"
+#include "ft_process.h"
 
 static int	ft_hit_nearest_obj(t_ray ray, const t_obj *all)
 {
@@ -39,21 +39,23 @@ static int	ft_hit_nearest_obj(t_ray ray, const t_obj *all)
 
 static void	ft_blend_color(t_ray hit_ray, const t_obj *all, int hit)
 {
-	char		color[3];
+	t_color		color;
+	t_color		reflect;
 	const t_ray	init_ray = hit_ray;
 	char		depth;
 
 	ft_memcpy(color, (*(all + hit)).color, 3);
+	doshadowthings(hit_ray, all); // Create a function for that
+	ft_cpy_ray(hit_ray, init_ray);
 	depth = -1;
 	while (++depth < 4)
 	{
 		hit = ft_hit_nearest_obj(hit_ray, all);
 		if (hit < 0)
 			break ;
-		blend(color, (*(all + hit)).color); // does not exist yet but will for sure :D
+		ft_color_reflect(reflect, (*(all + hit)).color, .25f);
+		ft_color_add(color, reflect);
 	}
-	ft_cpy_ray(hit_ray, init_ray);
-	doshadowthings(hit_ray, all); // will try every lights :)
 	print_color(color); // will print to actual focused pixel :P
 }
 

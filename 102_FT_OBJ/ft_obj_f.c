@@ -12,19 +12,14 @@
 
 #include "ft_obj.h"
 
-t_obj	*ft_make_c(t_vec posnorm[2], unsigned char color[3])
+char	ft_make_c(t_vec posnorm[2], t_color color)
 {
 	t_obj	*newobj;
 
-	newobj = malloc(sizeof(t_obj));
-	if (!newobj)
-		return (NULL);
+	newobj = ft_get_uninit_obj();
 	newobj->params = malloc(sizeof(double) * 6);
 	if (!newobj->params)
-	{
-		free(newobj);
-		return (NULL);
-	}
+		return (-1);
 	ft_memcpy(newobj->params,
 		(double [6]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
 		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2)},
@@ -32,13 +27,17 @@ t_obj	*ft_make_c(t_vec posnorm[2], unsigned char color[3])
 	newobj->type = 'f';
 	ft_memcpy(newobj->color, color, 3);
 	newobj->hit = ft_hit_f;
-	return (newobj);
+	return (0);
 }
 
-void	ft_free_obj(t_obj *obj)
+void	ft_free_obj(t_obj *all)
 {
-	free(obj->params);
-	free(obj);
+	int	i;
+
+	i = -1;
+	while (*(all + ++i))
+		free(*(all + i).params);
+	free(all);
 }
 
 char	ft_hit_f(const t_obj flat, t_ray ray)
