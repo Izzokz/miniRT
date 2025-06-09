@@ -37,9 +37,9 @@ typedef struct s_obj
 /* OBJ SETTER */
 char	ft_init_obj(const int i);
 char	ft_make_spl(const char type, const t_vec pos,
-	const double attr, const t_color color);
+			const double attr, const t_color color);
 char	ft_make_c(const t_vec posnorm[2], const double dia,
-	const double height, const t_color color);
+			const double height, const t_color color);
 char	ft_make_f(const t_vec posnorm[2], const t_color color);
 
 /* OBJ METHODS */
