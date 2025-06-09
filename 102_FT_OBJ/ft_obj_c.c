@@ -12,7 +12,8 @@
 
 #include "ft_obj.h"
 
-char	ft_make_c(t_vec posnorm[2], double dia_hei[2], t_color color)
+char	ft_make_c(const t_vec posnorm[2], const double dia,
+	const double height, const t_color color)
 {
 	t_obj	*newobj;
 
@@ -23,7 +24,7 @@ char	ft_make_c(t_vec posnorm[2], double dia_hei[2], t_color color)
 	ft_memcpy(newobj->params,
 		(double [8]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
 		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2),
-		*dia_hei, *(dia_hei + 1)},
+		dia, height},
 		sizeof(double) * 8);
 	newobj->type = 'c';
 	ft_memcpy(newobj->color, color, 3);

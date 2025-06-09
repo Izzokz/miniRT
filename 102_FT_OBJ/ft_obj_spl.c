@@ -12,7 +12,8 @@
 
 #include "ft_obj.h"
 
-char	ft_make_spl(char type, t_vec pos, double attr, t_color color)
+char	ft_make_spl(const char type, const t_vec pos,
+	const double attr, const t_color color)
 {
 	t_obj	*newobj;
 
@@ -79,5 +80,5 @@ char	ft_hit_p(const t_obj pyramid, t_ray ray)
 
 char	ft_hit_l(const t_obj light, t_ray ray)
 {
-	return (0);
+	return (1);
 }

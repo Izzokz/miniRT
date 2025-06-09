@@ -24,15 +24,14 @@ inline void	ft_vec_sub(t_vec newv, const t_vec v1, const t_vec v2)
 		*(v1 + 2) - *(v2 + 2));
 }
 
-inline void	ft_vec_scale(t_vec newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_scale(t_vec newv, const t_vec v, const double mult)
 {
-	ft_new_vec(newv, (*v1 * *v2), *(v1 + 1) * *(v2 + 1),
-		*(v1 + 2) * *(v2 + 2));
+	ft_new_vec(newv, (*v1 * mult), *(v1 + 1) * mult,
+		*(v1 + 2) * mult);
 }
 
-inline void	ft_vec_div(t_vec newv, const t_vec v1, const t_vec v2)
+inline void	ft_vec_div(t_vec newv, const t_vec v, const double div)
 {
-	// Determine what to do when dividing by zero (TODO)
-	ft_new_vec(newv, (*v1 / *v2), *(v1 + 1) / *(v2 + 1),
-		*(v1 + 2) / *(v2 + 2));
+	ft_new_vec(newv, (*v1 / div), *(v1 + 1) / div,
+		*(v1 + 2) / div);
 }

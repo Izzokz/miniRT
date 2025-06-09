@@ -36,9 +36,11 @@ typedef struct s_obj
 
 /* OBJ SETTER */
 char	ft_init_obj(int i);
-char	ft_make_spl(char type, t_vec pos, double attr, t_color color);
-char	ft_make_c(t_vec posnorm[2], double dia_hei[2], t_color color);
-char	ft_make_f(t_vec posnorm[2], t_color color);
+char	ft_make_spl(const char type, const t_vec pos,
+	const double attr, const t_color color);
+char	ft_make_c(const t_vec posnorm[2], const double dia,
+	const double height, const t_color color);
+char	ft_make_f(const t_vec posnorm[2], const t_color color);
 
 /* OBJ METHODS */
 void	ft_reflect(t_ray ray, const t_vec posnorm[2]);

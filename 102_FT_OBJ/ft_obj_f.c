@@ -12,7 +12,7 @@
 
 #include "ft_obj.h"
 
-char	ft_make_c(t_vec posnorm[2], t_color color)
+char	ft_make_f(const t_vec posnorm[2], const t_color color)
 {
 	t_obj	*newobj;
 

@@ -25,8 +25,8 @@ void	ft_cpy_vec(t_vec newv, const t_vec cpy);
 /* VEC ARITHMETICS */
 void	ft_vec_add(t_vec newv, const t_vec v1, const t_vec v2);
 void	ft_vec_sub(t_vec newv, const t_vec v1, const t_vec v2);
-void	ft_vec_scale(t_vec newv, const t_vec v1, const t_vec v2);
-void	ft_vec_div(t_vec newv, const t_vec v1, const t_vec v2);
+void	ft_vec_scale(t_vec newv, const t_vec v, const double mult);
+void	ft_vec_div(t_vec newv, const t_vec v, const double div);
 
 /* VEC ALGEBRA */
 double	ft_vec_dot(const t_vec v1, const t_vec v2);
