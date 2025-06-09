@@ -35,7 +35,7 @@ typedef struct s_obj
 }	t_obj;
 
 /* OBJ SETTER */
-char	ft_init_obj(int i);
+char	ft_init_obj(const int i);
 char	ft_make_spl(const char type, const t_vec pos,
 	const double attr, const t_color color);
 char	ft_make_c(const t_vec posnorm[2], const double dia,
@@ -51,7 +51,7 @@ char	ft_hit_c(const t_obj cylinder, t_ray ray);
 char	ft_hit_f(const t_obj flat, t_ray ray);
 
 /* OBJ FREE FUNCTION */
-void	ft_free_obj(t_obj *all);
+void	ft_free_obj(void);
 
 /* OBJ GETTER */
 t_obj	*ft_get_uninit_obj(void);

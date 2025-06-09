@@ -80,5 +80,5 @@ char	ft_hit_p(const t_obj pyramid, t_ray ray)
 
 char	ft_hit_l(const t_obj light, t_ray ray)
 {
-	return (1);
+	return (0);
 }

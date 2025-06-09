@@ -30,10 +30,13 @@ char	ft_make_f(const t_vec posnorm[2], const t_color color)
 	return (0);
 }
 
-void	ft_free_obj(t_obj *all)
+/* Tries to free objects even if they are not set so DO NOT use if they're not */
+void	ft_free_obj(void)
 {
-	int	i;
+	t_obj	*all;
+	int		i;
 
+	*all = ft_get_obj();
 	i = -1;
 	while (*(all + ++i))
 		free(*(all + i).params);

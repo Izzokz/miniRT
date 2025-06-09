@@ -12,10 +12,19 @@
 
 #include "ft_process.h"
 
+/*
+Tries to hit every single object and get the nearest one.
+On hit, returns the index of the nearest object and edits the incoming ray.
+Else returns -1.
+*i = iterator.
+*(i + 1) = nearest_object_index.
+*tmp = outray.
+*(tmp + 1) = tmpray.
+*/
 static int	ft_hit_nearest_obj(t_ray ray, const t_obj *all)
 {
-	t_ray	tmp[2]; // out, tmp
-	int		i[2]; // iterator, nearest_object_index
+	t_ray	tmp[2];
+	int		i[2];
 
 	*i = -1;
 	*(i + 1) = -1;

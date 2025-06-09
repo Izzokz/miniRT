@@ -21,16 +21,17 @@ static t_obj	*ft_obj(const t_obj *all)
 	return (save);
 }
 
-static void	ft_set_obj(const t_obj *all)
+static inline void	ft_set_obj(const t_obj *all)
 {
 	ft_obj(all);
 }
 
-t_obj	*ft_get_obj(void)
+inline t_obj	*ft_get_obj(void)
 {
 	return (ft_obj(NULL));
 }
 
+/* Returns the first uninitialized object. */
 t_obj	*ft_get_uninit_obj(void)
 {
 	t_obj	*all;
@@ -43,7 +44,11 @@ t_obj	*ft_get_uninit_obj(void)
 	return (all + i);
 }
 
-char	ft_init_obj(int i)
+/*
+Initialize objects and sets them.
+Returns 0 on success, -1 on failure.
+*/
+char	ft_init_obj(const int i)
 {
 	t_obj	*newall;
 
