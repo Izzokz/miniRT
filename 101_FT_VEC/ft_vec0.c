@@ -26,12 +26,12 @@ inline void	ft_vec_sub(t_vec newv, const t_vec v1, const t_vec v2)
 
 inline void	ft_vec_scale(t_vec newv, const t_vec v, const double mult)
 {
-	ft_new_vec(newv, (*v1 * mult), *(v1 + 1) * mult,
-		*(v1 + 2) * mult);
+	ft_new_vec(newv, (*v * mult), *(v + 1) * mult,
+		*(v + 2) * mult);
 }
 
 inline void	ft_vec_div(t_vec newv, const t_vec v, const double div)
 {
-	ft_new_vec(newv, (*v1 / div), *(v1 + 1) / div,
-		*(v1 + 2) / div);
+	ft_new_vec(newv, (*v / div), *(v + 1) / div,
+		*(v + 2) / div);
 }

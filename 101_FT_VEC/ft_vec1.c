@@ -27,7 +27,7 @@ void	ft_vec_norm(t_vec newv, const t_vec v)
 	const double	mag = ft_vec_mag(v);
 
 	if (mag > 0)
-		ft_vec_div(newv, v, (t_vec){mag, mag, mag});
+		ft_vec_div(newv, v, mag);
 	else
 		ft_new_vec(newv, .0f, .0f, .0f);
 }

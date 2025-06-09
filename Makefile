@@ -3,11 +3,16 @@ NAME = miniRT
 PRINTF = 010_FT_PRINTF/libftprintf.a
 OBJDIR = 666_OBJ/
 
-VECSRC = ft_vec0.c ft_vec1.c ft_vec2.c ft_ray.c main.c
-VECDIR = 101_FT_VEC/
+UTILDIR = 200_FT_UTILS/
+UTILSRC = $(UTILDIR)ft_utils.c
 
-OBJ = $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(VECSRC)))
-DEP = $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(VECSRC)))
+VECDIR = 101_FT_VEC/
+TOBJDIR = 102_FT_OBJ/
+VECSRC = $(VECDIR)ft_vec0.c $(VECDIR)ft_vec1.c $(VECDIR)ft_vec2.c $(VECDIR)ft_ray.c main.c
+OBJSRC = $(TOBJDIR)ft_init_obj.c $(TOBJDIR)ft_obj_c.c $(TOBJDIR)ft_obj_f.c $(TOBJDIR)ft_obj_spl.c
+
+OBJ = $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(VECSRC) $(OBJSRC) $(UTILSRC)))
+DEP = $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(VECSRC) $(OBJSRC) $(UTILSRC)))
 
 CCA = cc -Wall -Werror -Wextra -g3 -MP -MMD
 
@@ -73,6 +78,15 @@ $(OBJDIR):
 	@printf "\033[32m\033[1mminiRT: \033[1;37m666_OBJ/ Generated !\033[0m\n"
 
 $(OBJDIR)%.o: $(VECDIR)%.c | $(OBJDIR)
+	@$(PRINT_PROGRESS)
+	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
+
+$(OBJDIR)%.o: $(TOBJDIR)%.c | $(OBJDIR)
+	@$(PRINT_PROGRESS)
+	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
+
+$(OBJDIR)%.o: $(UTILDIR)%.c | $(OBJDIR)
+	@$(PRINT_PROGRESS)
 	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
 
 clean:

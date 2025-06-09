@@ -14,6 +14,8 @@
 # define FT_OBJ_H
 
 # include "../101_FT_VEC/ft_vec.h"
+# include "../200_FT_UTILS/ft_utils.h"
+# include <stdlib.h>
 
 typedef struct s_obj	t_obj;
 typedef unsigned char	t_color[3];
@@ -35,7 +37,7 @@ typedef struct s_obj
 }	t_obj;
 
 /* OBJ SETTER */
-char	ft_init_obj(const int i);
+char	ft_init_obj(int i);
 char	ft_make_spl(const char type, const t_vec pos,
 			const double attr, const t_color color);
 char	ft_make_c(const t_vec posnorm[2], const double dia,

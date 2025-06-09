@@ -21,7 +21,7 @@ char	ft_make_c(const t_vec posnorm[2], const double dia,
 	newobj->params = malloc(sizeof(double) * 8);
 	if (!newobj->params)
 		return (-1);
-	ft_memcpy(newobj->params,
+	ft_memcpy((void *)newobj->params,
 		(double [8]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
 		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2),
 		dia, height},
@@ -34,5 +34,7 @@ char	ft_make_c(const t_vec posnorm[2], const double dia,
 
 char	ft_hit_c(const t_obj cylinder, t_ray ray)
 {
+	(void) cylinder;
+	(void) ray;
 	return (0);
 }
