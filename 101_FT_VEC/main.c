@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_vec.h"
+#include "../102_FT_OBJ/ft_obj.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -74,6 +74,20 @@ int	main(void)
 		print_vec(*(best + i));
 		printf("\n");
 	}
+
+	t_obj	*allo;
+	t_ray	ray;
+	int		i;
+	ft_init_obj(5);
+	i = -1;
+	while (++i < 5)
+		ft_make_spl('s', (t_vec){1.5, 2.5, .5}, 3.3, (t_color){255, 0, 0});
+	ft_new_ray(ray, (t_vec){0, 0, 0}, (t_vec){1.5, 2.5, .5});
+	allo = ft_get_obj();
+	(*(allo + 1)).hit(*(allo + 1), ray);
+	print_vec(*ray);
+	print_vec(*(ray + 1));
+	ft_free_obj();
 	return (0);
 /*
 	t_vec	a;

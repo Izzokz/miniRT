@@ -47,7 +47,7 @@ void	ft_reflect(t_ray ray, const t_vec posnorm[2])
 
 char	ft_hit_s(const t_obj sphere, t_ray ray)
 {
-	double	abdt[3];
+	double	abdt[4];
 	t_vec	tmp[2];
 
 	ft_cpy_vec(*(tmp + 1), (t_vec){(*sphere.params),
@@ -60,9 +60,9 @@ char	ft_hit_s(const t_obj sphere, t_ray ray)
 			- (*(sphere.params + 3) * *(sphere.params + 3)));
 	if (*(abdt + 2) < 0)
 		return (0);
-	*(abdt + 3) = (-*(abdt + 1) - sqrt(*(abdt + 3))) / (2.0 * *abdt);
+	*(abdt + 3) = (-*(abdt + 1) - sqrt(*(abdt + 2))) / (2.0 * *abdt);
 	if (*(abdt + 3) < 0)
-		*(abdt + 3) = (-*(abdt + 1) + sqrt(*(abdt + 3))) / (2.0 * *abdt);
+		*(abdt + 3) = (-*(abdt + 1) + sqrt(*(abdt + 2))) / (2.0 * *abdt);
 	if (*(abdt + 3) < 0)
 		return (0);
 	ft_vec_scale(*tmp, *(ray + 1), *(abdt + 3));
