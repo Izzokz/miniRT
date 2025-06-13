@@ -57,7 +57,7 @@ char	ft_hit_s(const t_obj sphere, t_ray ray)
 	*(abdt + 1) = 2.0 * ft_vec_dot(*tmp, *(ray + 1));
 	*(abdt + 2) = (*(abdt + 1) * *(abdt + 1))
 		- 4.0 * *abdt * (ft_vec_dot(*tmp, *tmp)
-			- (*(sphere.params + 3) * *(sphere.params + 3)));
+			- ((*(sphere.params + 3) / 2) * (*(sphere.params + 3) / 2)));
 	if (*(abdt + 2) < 0)
 		return (0);
 	*(abdt + 3) = (-*(abdt + 1) - sqrt(*(abdt + 2))) / (2.0 * *abdt);
