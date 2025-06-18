@@ -46,17 +46,32 @@ static int	ft_hit_nearest_obj(t_ray ray, const t_obj *all)
 	return (*(i + 1));
 }
 
+static void	ft_shadow(t_color color, t_vec pos, const t_obj *all)
+{
+	t_ray	ray;
+	int		i;
+
+	i = -1;
+	while ((*(all + ++i)).params)
+	{
+		if ((*(all + i)).type != 'l')
+			continue ;
+		ft_new_ray(ray, pos, *((*(all + i)).params);
+		if (ft_hit_nearest_obj(ray, all) > -1)
+			ft_color_scale(color, .66f);
+	}
+}
+
 static void	ft_blend_color(t_ray hit_ray, const t_obj *all, int hit)
 {
-	t_color		color;
-	t_color		reflect;
-	const t_ray	init_ray = hit_ray;
-	char		depth;
-	float		mult;
+	t_color	color;
+	t_color	reflect;
+	char	depth;
+	float	mult;
 
+	// calculate (ambient + diffuse + specular)
 	ft_memcpy(color, (*(all + hit)).color, 3);
-	doshadowthings(hit_ray, all); // Create a function for that
-	ft_cpy_ray(hit_ray, init_ray);
+	ft_shadow(color, *hit_ray, all);
 	mult = .33f;
 	depth = -1;
 	while (++depth < 4)
@@ -64,7 +79,9 @@ static void	ft_blend_color(t_ray hit_ray, const t_obj *all, int hit)
 		hit = ft_hit_nearest_obj(hit_ray, all);
 		if (hit < 0)
 			break ;
+		// calculate (ambient + diffuse + specular)
 		ft_color_reflect(reflect, (*(all + hit)).color, mult);
+		ft_shadow(reflect, *hit_ray, all);
 		ft_color_add(color, reflect);
 		mult *= .75f;
 	}
@@ -75,7 +92,7 @@ void	ft_process(t_ray ray, const t_obj *all)
 {
 	int	hit_index;
 
-	while (cross_pixel()) // not set too but will :D
+	while (cross_pixel()) // not set too but will be :D
 	{
 		hit_index = ft_hit_nearest_obj(ray, all);
 		if (hit_index < 0)
