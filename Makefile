@@ -19,12 +19,10 @@ PROCESSDIR		= 103_FT_PROCESS/
 UTILDIR			= 200_FT_UTILS/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
-PRINTFDIR		= 010_FT_PRINTF/
 INCLUDEDIR		= Includes/
 
 
 LIBFT			= $(LIBFTDIR)libft.a
-PRINTF			= $(PRINTFDIR)libftprintf.a
 
 SRCS			= main.c \
                   $(VECDIR)ft_vec0.c \
@@ -35,9 +33,8 @@ SRCS			= main.c \
                   $(TOBJDIR)ft_obj_c.c \
                   $(TOBJDIR)ft_obj_f.c \
                   $(TOBJDIR)ft_obj_spl.c \
-                  $(PROCESSDIR)ft_process.c \
-                  $(PROCESSDIR)ft_color.c \
-                  $(UTILDIR)ft_utils.c \
+#                  $(PROCESSDIR)ft_process.c \
+#                  $(PROCESSDIR)ft_color.c \
                   $(GNLDIR)get_next_line_bonus.c \
                   $(GNLDIR)get_next_line_utils_bonus.c
 
@@ -47,9 +44,9 @@ DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 CC	= cc
 CFLAGS	= -Wall -Werror -Wextra -g3
 CFLAGS	+= -MP -MMD
-INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -I$(PRINTFDIR) -Imlx-linux
-LDFLAGS	= -L$(LIBFTDIR) -L$(PRINTFDIR) -Lmlx-linux
-LDLIBS	= -lft -lftprintf -lmlx_Linux -lXext -lX11 -lm -lz
+INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
+LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux
+LDLIBS	= -lft -lmlx_Linux -lXext -lX11 -lm -lz
 
 TOTAL_FILES = $(words $(OBJ))
 PROGRESS = 0
@@ -81,7 +78,7 @@ MAKEFLAGS += --no-print-directory
 
 all: $(NAME)
 
-$(NAME): libs $(LIBFT) $(PRINTF) $(OBJ)
+$(NAME): libs $(LIBFT) $(OBJ)
 	@$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 	@printf "\n\033[32m\033[1mminiRT: \033[1;97mBuild Complete !\033[0m\n"
 
@@ -95,16 +92,9 @@ libs:
 		cd mlx-linux && ./configure && cd .. && \
 		printf "\033[32m\033[1mminiRT: \033[1;37mmlx_linux Set Up !\033[0m\n"; \
 	fi
-	@if [ ! -d $(PRINTFDIR) ]; then \
-		git clone https://github.com/Izzokz/42-ft_printf.git $(PRINTFDIR) && \
-		printf "\033[32m\033[1mminiRT: \033[1;37mft_printf Cloned !\033[0m\n"; \
-	fi
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFTDIR)
-
-$(PRINTF):
-	@$(MAKE) -C $(PRINTFDIR)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -118,13 +108,11 @@ $(OBJDIR)%.o: %.c | $(OBJDIR)
 
 clean:
 	@$(MAKE) clean -C $(LIBFTDIR)
-	@$(MAKE) clean -C $(PRINTFDIR)
 	@rm -f $(OBJ) $(DEP)
 	@printf "\033[32m\033[1mminiRT: \033[1;37mObject files Cleaned !\033[0m\n"
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFTDIR)
-	@$(MAKE) fclean -C $(PRINTFDIR)
 	@rm -f $(NAME)
 	@rm -rf $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37mFull Clean Complete !\033[0m\n"

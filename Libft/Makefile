@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+MAKEFLAGS += --no-print-directory
+
 SRC = ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
@@ -70,17 +72,20 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: $(OBJ) $(OBJBIS)
-	ar rcs $(NAME) $?
+	@ar rcs $(NAME) $?
 
 clean:
-	rm -f $(OBJ) 
-	rm -f $(OBJBIS)
+	@rm -f $(OBJ)
+	@rm -f $(OBJBIS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re:	fclean all
 
