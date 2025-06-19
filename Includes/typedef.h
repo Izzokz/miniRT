@@ -18,8 +18,8 @@
 typedef struct s_obj	t_obj;
 typedef unsigned char	t_color[3];
 
-typedef double	t_vec[3]; // x, y, z
-typedef t_vec	t_ray[2]; // pos, dir
+typedef double			t_vec[3]; // x, y, z
+typedef t_vec			t_ray[2]; // pos, dir
 /*
 Objects can be:
 - a sphere 's'

@@ -34,8 +34,8 @@ SRCS			= main.c \
                   $(TOBJDIR)ft_obj_c.c \
                   $(TOBJDIR)ft_obj_f.c \
                   $(TOBJDIR)ft_obj_spl.c \
-                #   $(PROCESSDIR)ft_process.c \
-                #   $(PROCESSDIR)ft_color.c \
+                  $(PROCESSDIR)ft_color.c \
+#                 $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
