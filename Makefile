@@ -90,6 +90,7 @@ libs:
 		git clone https://github.com/42Paris/minilibx-linux.git mlx-linux && \
 		chmod 0777 mlx-linux/configure && \
 		cd mlx-linux && ./configure && cd .. && \
+		clear && \
 		printf "\033[32m\033[1mminiRT: \033[1;37mmlx_linux Set Up !\033[0m\n"; \
 	fi
 
