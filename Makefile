@@ -13,6 +13,7 @@
 NAME = miniRT
 
 OBJDIR			= 666_OBJ/
+PARSEDIR		= 001_PARSING/
 VECDIR			= 101_FT_VEC/
 TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
@@ -34,9 +35,7 @@ SRCS			= main.c \
                   $(TOBJDIR)ft_obj_f.c \
                   $(TOBJDIR)ft_obj_spl.c \
 #                  $(PROCESSDIR)ft_process.c \
-#                  $(PROCESSDIR)ft_color.c \
-                  $(GNLDIR)get_next_line_bonus.c \
-                  $(GNLDIR)get_next_line_utils_bonus.c
+                  $(PROCESSDIR)ft_color.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
