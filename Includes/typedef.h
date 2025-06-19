@@ -23,17 +23,16 @@ typedef t_vec			t_ray[2]; // pos, dir
 /*
 Objects can be:
 - a sphere 's'
-- a pyramid 'p'
-- a flat 'f'
+- a plane 'p'
 - a cylinder 'c'
 - a light 'l'
 */
 typedef struct s_obj
 {
-	char			type; // 's' || 'p' || 'f' || 'c' || 'l'
-	t_color			color;
-	const double	*params;
-	char			(*hit)(const t_obj obj, t_ray ray);
+	char	type; // 's' || 'p' || 'c' || 'l'
+	t_color	color;
+	double	*params;
+	char	(*hit)(const t_obj obj, t_ray ray);
 }	t_obj;
 
 #endif
