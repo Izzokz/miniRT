@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:06:41 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/05/26 15:06:42 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:14:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../102_FT_OBJ/ft_obj.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "../Includes/miniRT.h"
 
 /* ME SMASH HEAD */
 void	msh(const t_vec pts[6], t_vec best_path_out[7])

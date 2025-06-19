@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 19:13:33 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/02 19:13:34 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
+/*   Updated: 2025/06/19 13:35:05 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_process.h"
+#include "../Includes/miniRT.h"
 
 /*
 Tries to hit every single object and get the nearest one.
@@ -56,7 +56,7 @@ static void	ft_shadow(t_color color, t_vec pos, const t_obj *all)
 	{
 		if ((*(all + i)).type != 'l')
 			continue ;
-		ft_new_ray(ray, pos, *((*(all + i)).params);
+		ft_new_ray(ray, pos, *((*(all + i)).params));
 		if (ft_hit_nearest_obj(ray, all) > -1)
 			ft_color_scale(color, .66f);
 	}

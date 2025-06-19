@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_obj_spl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:37:22 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/05/29 15:37:23 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:15:02 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_obj.h"
+#include "../Includes/miniRT.h"
 
 char	ft_make_spl(const char type, const t_vec pos,
 	const double attr, const t_color color)

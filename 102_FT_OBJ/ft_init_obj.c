@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_obj.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:36:33 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/05 14:36:34 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:15:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_obj.h"
+#include "../Includes/miniRT.h"
 
 static t_obj	*ft_obj(const t_obj *all)
 {

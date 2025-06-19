@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 13:24:51 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/05 13:24:52 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:10:31 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PROCESS_H
 # define FT_PROCESS_H
 
-# include "../102_FT_OBJ/ft_obj.h"
+# include "miniRT.h"
 
 void	ft_color_scale(t_color edit, const float factor);
 void	ft_color_add(t_color edit, const t_color sum);

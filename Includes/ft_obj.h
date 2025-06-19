@@ -3,38 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_obj.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:40:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/05/29 14:40:24 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:09:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_OBJ_H
 # define FT_OBJ_H
 
-# include "../101_FT_VEC/ft_vec.h"
-# include "../200_FT_UTILS/ft_utils.h"
-# include <stdlib.h>
-
-typedef struct s_obj	t_obj;
-typedef unsigned char	t_color[3];
-
-/*
-Objects can be:
-- a sphere 's'
-- a pyramid 'p'
-- a flat 'f'
-- a cylinder 'c'
-- a light 'l'
-*/
-typedef struct s_obj
-{
-	char			type; // 's' || 'p' || 'f' || 'c' || 'l'
-	t_color			color;
-	const double	*params;
-	char			(*hit)(const t_obj obj, t_ray ray);
-}	t_obj;
+# include "miniRT.h"
 
 /* OBJ SETTER */
 char	ft_init_obj(int i);

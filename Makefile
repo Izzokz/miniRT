@@ -1,20 +1,55 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
+#    Updated: 2025/06/19 13:35:07 by lumugot          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = miniRT
 
-PRINTF = 010_FT_PRINTF/libftprintf.a
-OBJDIR = 666_OBJ/
+OBJDIR			= 666_OBJ/
+VECDIR			= 101_FT_VEC/
+TOBJDIR			= 102_FT_OBJ/
+PROCESSDIR		= 103_FT_PROCESS/
+UTILDIR			= 200_FT_UTILS/
+LIBFTDIR		= Libft/
+GNLDIR			= get_next_line/
+PRINTFDIR		= 010_FT_PRINTF/
+INCLUDEDIR		= Includes/
 
-UTILDIR = 200_FT_UTILS/
-UTILSRC = $(UTILDIR)ft_utils.c
 
-VECDIR = 101_FT_VEC/
-TOBJDIR = 102_FT_OBJ/
-VECSRC = $(VECDIR)ft_vec0.c $(VECDIR)ft_vec1.c $(VECDIR)ft_vec2.c $(VECDIR)ft_ray.c main.c
-OBJSRC = $(TOBJDIR)ft_init_obj.c $(TOBJDIR)ft_obj_c.c $(TOBJDIR)ft_obj_f.c $(TOBJDIR)ft_obj_spl.c
+LIBFT			= $(LIBFTDIR)libft.a
+PRINTF			= $(PRINTFDIR)libftprintf.a
 
-OBJ = $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(VECSRC) $(OBJSRC) $(UTILSRC)))
-DEP = $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(VECSRC) $(OBJSRC) $(UTILSRC)))
+SRCS			= main.c \
+                  $(VECDIR)ft_vec0.c \
+                  $(VECDIR)ft_vec1.c \
+                  $(VECDIR)ft_vec2.c \
+                  $(VECDIR)ft_ray.c \
+                  $(TOBJDIR)ft_init_obj.c \
+                  $(TOBJDIR)ft_obj_c.c \
+                  $(TOBJDIR)ft_obj_f.c \
+                  $(TOBJDIR)ft_obj_spl.c \
+                  $(PROCESSDIR)ft_process.c \
+                  $(PROCESSDIR)ft_color.c \
+                  $(UTILDIR)ft_utils.c \
+                  $(GNLDIR)get_next_line_bonus.c \
+                  $(GNLDIR)get_next_line_utils_bonus.c
 
-CCA = cc -Wall -Werror -Wextra -g3 -MP -MMD
+OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
+DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
+
+CC	= cc
+CFLAGS	= -Wall -Werror -Wextra -g3
+CFLAGS	+= -MP -MMD
+INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -I$(PRINTFDIR) -Imlx-linux
+LDFLAGS	= -L$(LIBFTDIR) -L$(PRINTFDIR) -Lmlx-linux
+LDLIBS	= -lft -lftprintf -lmlx_Linux -lXext -lX11 -lm -lz
 
 TOTAL_FILES = $(words $(OBJ))
 PROGRESS = 0
@@ -26,36 +61,32 @@ RESET_COLOR = "\033[0m"
 
 PRINT_PROGRESS:=
 define PRINT_PROGRESS
-	$(eval PROGRESS := $(shell echo $$(( $(PROGRESS) + 1 ))))
-	@BARS=$$(($(PROGRESS) * $(BAR_WIDTH) / $(TOTAL_FILES))); \
-	EMPTY=$$(( $(BAR_WIDTH) - $$BARS )); \
-	PERCENT=$$(($(PROGRESS) * 100 / $(TOTAL_FILES))); \
-	printf "\033[1;32m\033[1mminiRT: \033[37mCompiling: \033[1;32m[+ "; \
-	for i in $$(seq 1 $$BARS); do \
-		COLOR=$$(echo $(COLORS) | fold -w 7 | shuf -n 1); \
-		CHAR=$$(echo $(CHARACTERS) | fold -w 1 | shuf -n 1); \
-		echo -n "\033[0;40m"$$COLOR$$CHAR$(RESET_COLOR); \
-	done; \
-	for i in $$(seq 1 $$EMPTY); do \
-		echo -n " "; \
-	done; \
-	printf "\033[1;32m +] \033[34m$$PERCENT%%\033[0m\r"
+    $(eval PROGRESS := $(shell echo $$(( $(PROGRESS) + 1 ))))
+    @BARS=$$(($(PROGRESS) * $(BAR_WIDTH) / $(TOTAL_FILES))); \
+    EMPTY=$$(( $(BAR_WIDTH) - $$BARS )); \
+    PERCENT=$$(($(PROGRESS) * 100 / $(TOTAL_FILES))); \
+    printf "\033[1;32m\033[1mminiRT: \033[37mCompiling: \033[1;32m[+ "; \
+    for i in $$(seq 1 $$BARS); do \
+        COLOR=$$(echo $(COLORS) | fold -w 7 | shuf -n 1); \
+        CHAR=$$(echo $(CHARACTERS) | fold -w 1 | shuf -n 1); \
+        echo -n "\033[0;40m"$$COLOR$$CHAR$(RESET_COLOR); \
+    done; \
+    for i in $$(seq 1 $$EMPTY); do \
+        echo -n " "; \
+    done; \
+    printf "\033[1;32m +] \033[34m$$PERCENT%%\033[0m\r"
 endef
 
 MAKEFLAGS += --no-print-directory
 
 all: $(NAME)
 
-$(NAME): libs $(PRINTF) $(OBJ)
-	@$(CCA) $(OBJ) -lmlx_Linux -Lmlx-linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(PRINTF)
+$(NAME): libs $(LIBFT) $(PRINTF) $(OBJ)
+	@$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 	@printf "\n\033[32m\033[1mminiRT: \033[1;97mBuild Complete !\033[0m\n"
 
 dep:
-	@sudo apt-get install gcc
-	@sudo apt-get install make
-	@sudo apt-get install xorg
-	@sudo apt-get install libxext-dev
-	@sudo apt-get install libbsd-dev
+	@sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 
 libs:
 	@if [ ! -d mlx-linux ]; then \
@@ -64,43 +95,42 @@ libs:
 		cd mlx-linux && ./configure && cd .. && \
 		printf "\033[32m\033[1mminiRT: \033[1;37mmlx_linux Set Up !\033[0m\n"; \
 	fi
-
-	@if [ ! -d 010_FT_PRINTF ]; then \
-		git clone https://github.com/Izzokz/42-ft_printf.git 010_FT_PRINTF/ && \
+	@if [ ! -d $(PRINTFDIR) ]; then \
+		git clone https://github.com/Izzokz/42-ft_printf.git $(PRINTFDIR) && \
 		printf "\033[32m\033[1mminiRT: \033[1;37mft_printf Cloned !\033[0m\n"; \
 	fi
 
+$(LIBFT):
+	@$(MAKE) -C $(LIBFTDIR)
+
 $(PRINTF):
-	@$(MAKE) -C 010_FT_PRINTF/
+	@$(MAKE) -C $(PRINTFDIR)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
-	@printf "\033[32m\033[1mminiRT: \033[1;37m666_OBJ/ Generated !\033[0m\n"
+	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-$(OBJDIR)%.o: $(VECDIR)%.c | $(OBJDIR)
-	@$(PRINT_PROGRESS)
-	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) .
 
-$(OBJDIR)%.o: $(TOBJDIR)%.c | $(OBJDIR)
+$(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)
-	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
-
-$(OBJDIR)%.o: $(UTILDIR)%.c | $(OBJDIR)
-	@$(PRINT_PROGRESS)
-	@cc -Wall -Werror -Wextra -MP -MMD -g3 -o $@ -c $< -I.
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@$(MAKE) clean -C 010_FT_PRINTF/
+	@$(MAKE) clean -C $(LIBFTDIR)
+	@$(MAKE) clean -C $(PRINTFDIR)
 	@rm -f $(OBJ) $(DEP)
-	@printf "\033[32m\033[1mminiRT: \033[1;37m666_OBJ/ Cleaned !\033[0m\n"
+	@printf "\033[32m\033[1mminiRT: \033[1;37mObject files Cleaned !\033[0m\n"
 
-fclean:
-	@$(MAKE) fclean -C 010_FT_PRINTF/
-	@rm -f $(NAME) $(OBJ) $(DEP)
-	@printf "\033[32m\033[1mminiRT: \033[1;37mCleaned !\033[0m\n"
+fclean: clean
+	@$(MAKE) fclean -C $(LIBFTDIR)
+	@$(MAKE) fclean -C $(PRINTFDIR)
+	@rm -f $(NAME)
+	@rm -rf $(OBJDIR)
+	@printf "\033[32m\033[1mminiRT: \033[1;37mFull Clean Complete !\033[0m\n"
 
 re: fclean all
 
-.PHONY: all clean fclean re libs
+.PHONY: all clean fclean re libs dep
 
 -include $(DEP)

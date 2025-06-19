@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vec0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:29:51 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/05/26 14:32:14 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:15:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_vec.h"
+#include "../Includes/miniRT.h"
 
 inline void	ft_vec_add(t_vec newv, const t_vec v1, const t_vec v2)
 {
