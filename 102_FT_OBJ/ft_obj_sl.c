@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_obj_spl.c                                       :+:      :+:    :+:   */
+/*   ft_obj_sl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:37:22 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:25:38 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-char	ft_make_spl(const char type, const t_vec pos,
+char	ft_make_sl(const char type, const t_vec pos,
 	const double attr, const t_color color)
 {
 	t_obj	*newobj;
@@ -26,10 +26,9 @@ char	ft_make_spl(const char type, const t_vec pos,
 		sizeof(double) * 4);
 	newobj->type = type;
 	ft_memcpy(newobj->color, color, 3);
-	newobj->hit = ft_hit_l;
 	if (type == 's')
 		newobj->hit = ft_hit_s;
-	else if (type == 'p')
+	else
 		newobj->hit = ft_hit_l;
 	return (0);
 }
@@ -43,6 +42,7 @@ void	ft_reflect(t_ray ray, const t_vec posnorm[2])
 	ft_vec_scale(tmp, *(posnorm + 1), dot);
 	ft_cpy_vec(*ray, *posnorm);
 	ft_vec_sub(*(ray + 1), *(ray + 1), tmp);
+	ft_vec_norm(*(ray + 1), *(ray + 1));
 }
 
 char	ft_hit_s(const t_obj sphere, t_ray ray)
@@ -71,13 +71,6 @@ char	ft_hit_s(const t_obj sphere, t_ray ray)
 	ft_vec_norm(*(tmp + 1), *(tmp + 1));
 	ft_reflect(ray, tmp);
 	return (1);
-}
-
-char	ft_hit_p(const t_obj pyramid, t_ray ray)
-{
-	(void) pyramid;
-	(void) ray;
-	return (0);
 }
 
 char	ft_hit_l(const t_obj light, t_ray ray)

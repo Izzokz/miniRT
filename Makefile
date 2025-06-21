@@ -32,8 +32,8 @@ SRCS			= main.c \
                   $(VECDIR)ft_ray.c \
                   $(TOBJDIR)ft_init_obj.c \
                   $(TOBJDIR)ft_obj_c.c \
-                  $(TOBJDIR)ft_obj_f.c \
-                  $(TOBJDIR)ft_obj_spl.c \
+                  $(TOBJDIR)ft_obj_p.c \
+                  $(TOBJDIR)ft_obj_sl.c \
                   $(PROCESSDIR)ft_color.c \
 #                 $(PROCESSDIR)ft_process.c
 
