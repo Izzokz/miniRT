@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 12:34:35 by lumugot          ###   ########.fr       */
+/*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
+/*   Updated: 2025/06/23 12:35:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef PARSE_H
+# define PARSE_H
 
-# include <math.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include "../Libft/libft.h"
-# include "../get_next_line/get_next_line.h"
-# include "typedef.h"
-# include "parse.h"
-# include "ft_vec.h"
-# include "ft_obj.h"
-# include "ft_process.h"
+# define PARSE_OK 0
+# define PARSE_KO 1
+
+# include "miniRT.h"
 
 #endif

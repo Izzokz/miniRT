@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 12:36:58 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,26 @@ typedef struct s_obj
 	const double	*params;
 	char			(*hit)(const t_obj obj, t_ray ray);
 }	t_obj;
+
+typedef struct s_ambient
+{
+	double	ratio;
+	// t_colorcolor
+}	t_ambient;
+
+typedef struct s_camera
+{
+	// t_vec3position
+	// t_vec3orientation
+	int	fov;
+}	t_camera;
+
+typedef struct s_scene
+{
+	t_ambient	ambient;
+	t_camera	camera;
+	int			has_ambient;
+	int			his_camera;
+}	t_scene;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/06/19 14:33:11 by lumugot          ###   ########.fr        #
+#    Updated: 2025/06/23 10:24:14 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,8 @@ SRCS			= main.c \
                   $(TOBJDIR)ft_obj_c.c \
                   $(TOBJDIR)ft_obj_f.c \
                   $(TOBJDIR)ft_obj_spl.c \
-<<<<<<< HEAD
-                #   $(PROCESSDIR)ft_process.c \
-				#   $(PROCESSDIR)ft_color.c \
-=======
                   $(PROCESSDIR)ft_color.c \
 #                 $(PROCESSDIR)ft_process.c
->>>>>>> origin/unicorn
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
