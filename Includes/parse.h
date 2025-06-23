@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 16:28:47 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:46:26 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define PARSE_OK 0
 # define PARSE_KO 1
+# define MALLOC_FAILED -1
 
 # include "miniRT.h"
 

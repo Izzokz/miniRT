@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 16:25:33 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 18:45:09 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_vec3
 
 typedef struct s_color
 {
-    char	r;
-    char	g;
-    char	b;
+    double	r;
+    double	g;
+    double	b;
 }	t_color;
 
 typedef struct s_ambient
@@ -71,7 +71,7 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-    t_vec3	origin;
+    t_vec3	pos;
     t_vec3	orientation;
     double	fov;
     int		is_set;

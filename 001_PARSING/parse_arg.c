@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 16:25:49 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 18:40:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ int	parse_scene(const char *filename, t_scene *scene)
 	close(fd);
 	if (status != PARSE_OK)
 		return (PARSE_KO);
-	// if (!scene->ambient_light.is_set || !scene->camera.is_set)
-	// {
-	// 	print_error("Scene must contain one Ambient light and one Camera");
-	// 	return (PARSE_KO);
-	// }
+	if (!scene->ambient_light.is_set || !scene->camera.is_set)
+	{
+		print_error("Scene must contain one Ambient light and one Camera");
+		return (PARSE_KO);
+	}
 	return (PARSE_OK);
 }
 
