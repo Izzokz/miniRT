@@ -23,5 +23,6 @@ char	ft_hit_p(const t_obj *plane, t_ray ray);
 
 /* OBJ FREE FUNCTION */
 void	ft_free_obj(t_obj *head);
+void	ft_free_light(t_light *head);
 
 #endif
