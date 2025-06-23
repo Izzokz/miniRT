@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/06/23 10:24:14 by lumugot          ###   ########.fr        #
+#    Updated: 2025/06/23 16:21:19 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,16 @@ INCLUDEDIR		= Includes/
 LIBFT			= $(LIBFTDIR)libft.a
 
 SRCS			= main.c \
-                  $(VECDIR)ft_vec0.c \
-                  $(VECDIR)ft_vec1.c \
-                  $(VECDIR)ft_vec2.c \
-                  $(VECDIR)ft_ray.c \
-                  $(TOBJDIR)ft_init_obj.c \
-                  $(TOBJDIR)ft_obj_c.c \
-                  $(TOBJDIR)ft_obj_f.c \
-                  $(TOBJDIR)ft_obj_spl.c \
-                  $(PROCESSDIR)ft_color.c \
-#                 $(PROCESSDIR)ft_process.c
+                	$(VECDIR)ft_vec0.c \
+                	$(VECDIR)ft_vec1.c \
+                	$(VECDIR)ft_vec2.c \
+                	$(VECDIR)ft_ray.c \
+                	$(TOBJDIR)ft_init_obj.c \
+                	$(TOBJDIR)ft_obj_c.c \
+                	$(TOBJDIR)ft_obj_f.c \
+                	$(TOBJDIR)ft_obj_spl.c \
+                	$(PROCESSDIR)ft_color.c \
+#                	$(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
@@ -100,7 +100,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) .
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR).
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)
@@ -113,7 +113,7 @@ clean:
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFTDIR)
-	@rm -f $(NAME)
+	@rm -f $(NAME)	
 	@rm -rf $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37mFull Clean Complete !\033[0m\n"
 

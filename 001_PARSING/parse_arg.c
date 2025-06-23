@@ -6,11 +6,11 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 14:39:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:25:49 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "../Includes/parse.h"
 
 void	print_error(char *message)
 {
@@ -63,9 +63,11 @@ int	check_element(char **tokens, t_scene *scene)
 {
 	(void)scene;
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
-		parse_ambient(tokens, scene);
+		// parse_ambient(tokens, scene);
+		return (PARSE_OK);
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)
-		parse_camera(tokens, scene);
+		// parse_camera(tokens, scene);
+		return (PARSE_OK);
 	else if (ft_strncmp(tokens[0], "L", 2) == 0)
 		return (PARSE_OK);
 	else if (ft_strncmp(tokens[0], "sp", 3) == 0)
@@ -140,11 +142,11 @@ int	parse_scene(const char *filename, t_scene *scene)
 	close(fd);
 	if (status != PARSE_OK)
 		return (PARSE_KO);
-	if (!scene->ambient_light.is_set || !scene->camera.is_set)
-	{
-		print_error("Scene must contain one Ambient light and one Camera");
-		return (PARSE_KO);
-	}
+	// if (!scene->ambient_light.is_set || !scene->camera.is_set)
+	// {
+	// 	print_error("Scene must contain one Ambient light and one Camera");
+	// 	return (PARSE_KO);
+	// }
 	return (PARSE_OK);
 }
 
@@ -160,6 +162,5 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ft_putendl_fd("Parsing successful.", 1);
-	// Lancer le render de scene...
 	return (0);
 }

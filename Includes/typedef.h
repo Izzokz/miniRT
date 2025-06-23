@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 14:36:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:25:33 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_vec3
 
 typedef struct s_color
 {
-    double	r;
-    double	g;
-    double	b;
+    char	r;
+    char	g;
+    char	b;
 }	t_color;
 
 typedef struct s_ambient
@@ -111,7 +111,7 @@ typedef enum e_object_type
 {
     SPHERE,
     PLANE,
-    CYLINDER
+    CYLINDER,
 }	t_object_type;
 
 typedef struct s_object

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 19:28:46 by lumugot           #+#    #+#             */
-/*   Updated: 2024/11/05 07:48:40 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:01:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "../Libft/libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
-size_t	ft_strlen(const char *str);
 size_t	ft_line_len(const char *str);
-char	*ft_strjoin(char *s1, char *s2);
-int		ft_strchr(const char *str, char c);
 char	*ft_read_and_fill(int fd, char *buffer, char *stash);
 char	*ft_copy_stay(char *str);
 char	*ft_extract_line(char *str);
