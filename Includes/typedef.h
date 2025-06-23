@@ -16,7 +16,8 @@
 # include "miniRT.h"
 
 typedef struct s_obj	t_obj;
-typedef unsigned char	t_color[3];
+typedef struct s_light	t_light;
+typedef unsigned char	t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
@@ -36,6 +37,14 @@ typedef struct s_obj
 	t_obj	*next;
 }	t_obj;
 
+typedef struct s_light
+{
+	t_color	color;
+	t_vec	pos;
+	double	brightness;
+	t_light	*next;
+}	t_light;
+
 typedef struct s_mlx_obj
 {
 	void	*mlx;
@@ -44,5 +53,28 @@ typedef struct s_mlx_obj
 	void	*win;
 	void	*img;
 }	t_mlx_obj;
+
+typedef struct s_ambient
+{
+	double	ratio;
+	t_color	color;
+	int		is_set;
+}	t_ambient;
+
+typedef struct s_camera
+{
+	t_vec	pos;
+	t_vec	orientation;
+	double	fov;
+	int		is_set;
+}	t_camera;
+
+typedef struct s_scene
+{
+	t_ambient	ambient_light;
+	t_camera	camera;
+	t_light		*lights;
+	t_obj		*objects;
+}	t_scene;
 
 #endif
