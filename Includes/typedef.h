@@ -20,19 +20,29 @@ typedef unsigned char	t_color[3];
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
+
 /*
 Objects can be:
 - a sphere 's'
 - a plane 'p'
 - a cylinder 'c'
-- a light 'l'
 */
 typedef struct s_obj
 {
-	char	type; // 's' || 'p' || 'c' || 'l'
+	char	type; // 's' || 'p' || 'c'
 	t_color	color;
 	double	*params;
-	char	(*hit)(const t_obj obj, t_ray ray);
+	char	(*hit)(const t_obj *obj, t_ray ray);
+	t_obj	*next;
 }	t_obj;
+
+typedef struct s_mlx_obj
+{
+	void	*mlx;
+	int		win_i;
+	int		win_j;
+	void	*win;
+	void	*img;
+}	t_mlx_obj;
 
 #endif

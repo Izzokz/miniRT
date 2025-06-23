@@ -17,9 +17,11 @@
 # include <stdio.h>
 # include "../Libft/libft.h"
 # include "../get_next_line/get_next_line.h"
+# include "mlx.h"
 # include "typedef.h"
 # include "ft_vec.h"
 # include "ft_obj.h"
 # include "ft_process.h"
+# include "ft_mlx.h"
 
 #endif

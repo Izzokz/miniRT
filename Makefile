@@ -17,7 +17,7 @@ PARSEDIR		= 001_PARSING/
 VECDIR			= 101_FT_VEC/
 TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
-UTILDIR			= 200_FT_UTILS/
+MLXDIR			= 200_FT_MLX/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -30,11 +30,11 @@ SRCS			= main.c \
                   $(VECDIR)ft_vec1.c \
                   $(VECDIR)ft_vec2.c \
                   $(VECDIR)ft_ray.c \
-                  $(TOBJDIR)ft_init_obj.c \
                   $(TOBJDIR)ft_obj_c.c \
                   $(TOBJDIR)ft_obj_p.c \
-                  $(TOBJDIR)ft_obj_sl.c \
+                  $(TOBJDIR)ft_obj_s.c \
                   $(PROCESSDIR)ft_color.c \
+                  $(MLXDIR)ft_mlx_init.c \
 #                 $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
@@ -100,7 +100,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) .
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(MLXDIR) .
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)

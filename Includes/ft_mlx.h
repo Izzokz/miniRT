@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_obj_c.c                                         :+:      :+:    :+:   */
+/*   ft_mlx.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:01 by lumugot          ###   ########.fr       */
+/*   Created: 2025/06/23 16:08:38 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/06/23 16:08:39 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#ifndef FT_MLX_H
+# define FT_MLX_H
 
-char	ft_hit_c(const t_obj *cylinder, t_ray ray)
-{
-	(void) cylinder;
-	(void) ray;
-	return (0);
-}
+t_mlx_obj	*ft_mlx_obj_init(void);
+void		ft_free_mlx_obj(t_mlx_obj *mobj);
+
+#endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 /* ME SMASH HEAD */
 void	msh(const t_vec pts[6], t_vec best_path_out[7])
@@ -72,35 +72,10 @@ int	main(void)
 		print_vec(*(best + i));
 		printf("\n");
 	}
-
-	t_obj	*allo;
-	t_ray	ray;
-	int		i;
-	ft_init_obj(2);
-	i = -1;
-	ft_make_p((t_vec [2]){{0, -5, 10}, {0, 1, 0}}, (t_color){255, 255, 255});
-	ft_make_p((t_vec [2]){{0, 5, 10}, {0, -1, 0}}, (t_color){255, 255, 255});
-	allo = ft_get_obj();
-	printf("PLANE NORMALS :\n");
-	print_vec((t_vec){*(allo->params + 3), *(allo->params + 4), *(allo->params + 5)});
-	printf("\n");
-	print_vec((t_vec){*((allo + 1)->params + 3), *((allo + 1)->params + 4), *((allo + 1)->params + 5)});
-	ft_new_ray(ray, (t_vec){0, 0, 0}, (t_vec){0, -5, 10});
-	printf("\nBEFORE FIRST HIT :\n");
-	print_vec(*ray);
-	print_vec(*(ray + 1));
-	for (char i = 1; i < 11; ++i)
-	{
-		allo->hit(*allo, ray);
-		printf("\nAFTER HIT FLOOR %d :\n", i);
-		print_vec(*ray);
-		print_vec(*(ray + 1));
-		(allo + 1)->hit(*(allo + 1), ray);
-		printf("\nAFTER HIT CEILING %d :\n", i);
-		print_vec(*ray);
-		print_vec(*(ray + 1));
-	}
-	ft_free_obj();
+	t_mlx_obj	*m;
+	m = ft_mlx_obj_init();
+	if (m)
+		ft_free_mlx_obj(m);
 	return (0);
 /*
 	t_vec	a;
