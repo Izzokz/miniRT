@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 12:34:35 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 12:47:33 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "../Libft/libft.h"
 # include "../get_next_line/get_next_line.h"
 # include "typedef.h"

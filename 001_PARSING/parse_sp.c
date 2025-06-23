@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 12:35:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 13:20:19 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ void	free_split(char **tab)
 	free(tab);
 }
 
-/* Il faudra que je mette a la place de chaque return dans cette 
-fonction le parsing de chaque objet	qui est en rapport avec le token 
-et la ligne a laquel correspond le token dans le .rt */
 int	parse_element(char **tokens, t_scene *scene)
 {
 	(void)scene;
@@ -130,10 +127,14 @@ int	parse_scene(const char *filename, t_scene *scene)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		print_error("Cannot open scene file");
+		print_error("Cannot open scene file !");
+		return (PARSE_KO);
+	} 
+	if (errno == EISDIR)
+	{
+		print_error(".rt is a folder, not a file !");
 		return (PARSE_KO);
 	}
-	// Besoin de checker les perm du fichier ??
 	ft_memset(scene, 0, sizeof(t_scene));
 	status = read_scene_file(fd, scene);
 	close(fd);
@@ -147,8 +148,6 @@ int	parse_scene(const char *filename, t_scene *scene)
 	return (PARSE_OK);
 }
 
-/* Il faudra aussi que je fasse une fonction pour free toute ma struct
-t_scene au cas ou il y a une erreur de parsing ! */
 int	main(int argc, char **argv)
 {
 	t_scene	scene;
