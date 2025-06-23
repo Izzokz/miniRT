@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sp.c                                         :+:      :+:    :+:   */
+/*   parse_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 13:20:19 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/23 14:39:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	free_split(char **tab)
 	free(tab);
 }
 
-int	parse_element(char **tokens, t_scene *scene)
+int	check_element(char **tokens, t_scene *scene)
 {
 	(void)scene;
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
-		return (PARSE_OK);
+		parse_ambient(tokens, scene);
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)
-		return (PARSE_OK);
+		parse_camera(tokens, scene);
 	else if (ft_strncmp(tokens[0], "L", 2) == 0)
 		return (PARSE_OK);
 	else if (ft_strncmp(tokens[0], "sp", 3) == 0)
@@ -89,7 +89,7 @@ int	dispatch_line(char *line, t_scene *scene)
 		free_split(tokens);
 		return (PARSE_KO);
 	}
-	status = parse_element(tokens, scene);
+	status = check_element(tokens, scene);
 	free_split(tokens);
 	return (status);
 }
@@ -140,7 +140,7 @@ int	parse_scene(const char *filename, t_scene *scene)
 	close(fd);
 	if (status != PARSE_OK)
 		return (PARSE_KO);
-	if (!scene->has_ambient || !scene->his_camera)
+	if (!scene->ambient_light.is_set || !scene->camera.is_set)
 	{
 		print_error("Scene must contain one Ambient light and one Camera");
 		return (PARSE_KO);
@@ -152,11 +152,11 @@ int	main(int argc, char **argv)
 {
 	t_scene	scene;
 
-	if (check_arg(argc, argv) != PARSE_OK)
+	if (check_arg(argc, argv) == PARSE_KO)
 		return (1);
-	if (parse_scene(argv[1], &scene) != PARSE_OK)
+	if (parse_scene(argv[1], &scene) == PARSE_KO)
 	{
-		print_error("Error during parsing!");
+		print_error("Error during parsing !");
 		return (1);
 	}
 	ft_putendl_fd("Parsing successful.", 1);
