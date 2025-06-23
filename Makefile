@@ -35,6 +35,8 @@ SRCS			= main.c \
                   $(TOBJDIR)ft_obj_s.c \
                   $(PROCESSDIR)ft_color.c \
                   $(MLXDIR)ft_mlx_init.c \
+                  $(MLXDIR)ft_mlx_key_hook.c \
+                  $(MLXDIR)ft_mlx_loop.c \
 #                 $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))

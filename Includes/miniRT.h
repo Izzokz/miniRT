@@ -15,6 +15,8 @@
 
 # include <math.h>
 # include <stdio.h>
+# include <stdint.h>
+# include <X11/keysym.h>
 # include "../Libft/libft.h"
 # include "../get_next_line/get_next_line.h"
 # include "mlx.h"

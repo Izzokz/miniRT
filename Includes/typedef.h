@@ -45,6 +45,16 @@ typedef struct s_light
 	t_light	*next;
 }	t_light;
 
+typedef struct s_keys
+{
+	unsigned char	w : 1;
+	unsigned char	a : 1;
+	unsigned char	s : 1;
+	unsigned char	d : 1;
+	unsigned char	ctrl : 1;
+	unsigned char	esc : 1;
+}	t_keys;
+
 typedef struct s_mlx_obj
 {
 	void	*mlx;

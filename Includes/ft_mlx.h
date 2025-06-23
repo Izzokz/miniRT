@@ -13,7 +13,12 @@
 #ifndef FT_MLX_H
 # define FT_MLX_H
 
+/* MLX INIT AND FREE */
 t_mlx_obj	*ft_mlx_obj_init(void);
 void		ft_free_mlx_obj(t_mlx_obj *mobj);
+
+/* MLX LOOP */
+void		ft_mlx_key_hook(const t_keys keys, t_scene *scene);
+void		ft_mlx_loop(const t_mlx_obj *mobj, t_scene *scene);
 
 #endif

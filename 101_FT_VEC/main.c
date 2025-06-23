@@ -74,8 +74,7 @@ int	main(void)
 	}
 	t_mlx_obj	*m;
 	m = ft_mlx_obj_init();
-	if (m)
-		ft_free_mlx_obj(m);
+	ft_mlx_loop(m, NULL);
 	return (0);
 /*
 	t_vec	a;
