@@ -6,13 +6,13 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/24 15:25:25 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/24 18:44:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-static int	parse_vec3(char *token, t_vec vec)
+int	parse_vec3(char *token, t_vec vec)
 {
     char	**components;
 
@@ -30,7 +30,7 @@ static int	parse_vec3(char *token, t_vec vec)
     return (PARSE_OK);
 }
 
-static int	parse_color(char *token, t_color color)
+int	parse_color(char *token, t_color color)
 {
 	char	**components;
 	int		i;
@@ -110,7 +110,7 @@ int	parse_light(char **tokens, t_scene *scene)
     t_light	*light;
     t_list	*new_node;
 
-    if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
+    if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
     {
         print_error("Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>");
         return (PARSE_KO);
@@ -147,7 +147,60 @@ int	parse_light(char **tokens, t_scene *scene)
     return (PARSE_OK);
 }
 
-int	parse_plane(char **token, t_scene scene)
+int	parse_sphere(char **tokens, t_scene *scene)
 {
-	
+	t_obj	*new_obj;
+
+	if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
+	{
+		print_error("Invalid light format: sp <pos x,y,z> <diameter> <color r,g,b>");
+		return (PARSE_KO);
+	}
+	new_obj = malloc(sizeof(t_obj));
+	if (!new_obj)
+		return (MALLOC_FAILED);
+	ft_memset(new_obj, 0, sizeof(t_obj));
+	new_obj->params = malloc(sizeof(double) * 4);
+	if (!new_obj)
+	{
+		free(new_obj);
+		return (MALLOC_FAILED);
+	}
+	parse_vec3(tokens[2], new_obj->params);
+	new_obj->params[3] = ft_atod(tokens[3]);
+	parse_color(tokens[4], new_obj->color);
+}
+
+int	parse_plane(char **tokens, t_scene *scene)
+{
+	t_obj	*new_obj;
+
+	if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
+	{
+		print_error("Invalid light format: sp <pos x,y,z> <normal a,b,c> <color r,g,b>");
+		return (PARSE_KO);
+	}
+	new_obj = malloc(sizeof(t_obj));
+	if (!new_obj)
+		return (MALLOC_FAILED);
+	ft_memset(new_obj, 0, sizeof(t_obj));
+	new_obj = malloc(sizeof(double) * 6);
+	if (!new_obj)
+	{
+		free(new_obj);
+		return (MALLOC_FAILED);
+	}
+	parse_vec3(tokens[2], new_obj->params);
+	parse_vec3(tokens[3], new_obj->params + 3);
+	parse_color(tokens[4], new_obj->color);
+}
+
+int	parse_cylinder(char **tokens, t_scene *scene)
+{
+	//Pas encore fait l'objet
+}
+
+int	parse_cone(char **tokens, t_scene *scene)
+{
+	//Pas encore fait l'objet
 }

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 16:46:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/24 17:51:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@
 # define MALLOC_FAILED -1
 
 # include "miniRT.h"
+
+void	print_error(char *message);
 
 #endif
