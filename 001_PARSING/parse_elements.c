@@ -6,13 +6,13 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 18:44:56 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/24 15:25:25 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-static int	parse_vec3(char *token, t_vec3 *vec)
+static int	parse_vec3(char *token, t_vec vec)
 {
     char	**components;
 
@@ -23,14 +23,14 @@ static int	parse_vec3(char *token, t_vec3 *vec)
         free_split(components);
         return (PARSE_KO);
     }
-    vec->x = ft_atod(components[0]);
-    vec->y = ft_atod(components[1]);
-    vec->z = ft_atod(components[2]);
+    vec[0] = ft_atod(components[0]);
+    vec[1] = ft_atod(components[1]);
+    vec[2] = ft_atod(components[2]);
     free_split(components);
     return (PARSE_OK);
 }
 
-static int	parse_color(char *token, t_color *color)
+static int	parse_color(char *token, t_color color)
 {
 	char	**components;
 	int		i;
@@ -44,8 +44,8 @@ static int	parse_color(char *token, t_color *color)
 	}
 	while (i < 3)
 	{
-		color->r = ft_atod(components[i]);
-		if (color->r < 0 || color->r > 255)
+		color[0] = ft_atod(components[i]);
+		if (color[0] < 0 || color[0] > 255)
 		{
 			free_split(components);
 			return (PARSE_KO);
@@ -118,7 +118,7 @@ int	parse_light(char **tokens, t_scene *scene)
     light = malloc(sizeof(t_light));
     if (!light)
 		return (MALLOC_FAILED);
-    if (parse_vec3(tokens[1], &light->origin) != PARSE_OK)
+    if (parse_vec3(tokens[1], &light->pos) != PARSE_OK)
     {
         free(light);
         print_error("Invalid light position format");
@@ -147,85 +147,7 @@ int	parse_light(char **tokens, t_scene *scene)
     return (PARSE_OK);
 }
 
-int	parse_sphere(char **tokens, t_scene *scene)
+int	parse_plane(char **token, t_scene scene)
 {
-	t_sphere	*sphere;
-	t_list		*new_node;
-
-	if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-	{
-		print_error("Invalid sphere format: sp <center x,y,z> <diameter> <color r,g,b>");
-		return (PARSE_KO);
-	}
-	sphere = malloc(sizeof(t_sphere));
-	if (!sphere)
-		return (MALLOC_FAILED);
-	if (parse_vec3(tokens[1], &sphere->center) != PARSE_OK)
-	{
-		free(sphere);
-		print_error("Invalid sphere center format");
-		return (PARSE_KO);
-	}
-	sphere->diameter = ft_atod(tokens[2]);
-	if (sphere->diameter <= 0.0)
-	{
-		free(sphere);
-		print_error("Sphere diameter must be greater than 0");
-		return (PARSE_KO);
-	}
-	if (parse_color(tokens[3], &sphere->color) != PARSE_OK)
-	{
-		free(sphere);
-		print_error("Invalid sphere color");
-		return (PARSE_KO);
-	}
-	new_node = ft_lstnew(sphere);
-	if (!new_node)
-	{
-		free(sphere);
-		return (MALLOC_FAILED);
-	}
-	ft_lstadd_back(&scene->objects, new_node);
-	return (PARSE_OK);
-}
-
-int	parse_plane(char **tokens, t_scene *scene)
-{
-	t_plane		*plane;
-	t_list		*new_node;
-
-	if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-	{
-		print_error("Invalid plane format: pl <point x,y,z> <normal x,y,z> <color r,g,b>");
-		return (PARSE_KO);
-	}
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
-		return (MALLOC_FAILED);
-	if (parse_vec3(tokens[1], &plane->point) != PARSE_OK)
-	{
-		free(plane);
-		print_error("Invalid plane point format");
-		return (PARSE_KO);
-	}
-	if (parse_vec3(tokens[2], &plane->normal) != PARSE_OK)
-	{
-		free(plane);
-		print_error("Invalid plane normal format");
-		return (PARSE_KO);
-	}
-	if (parse_color(tokens[3], &plane->color) != PARSE_OK)
-	{
-		free(plane);
-		print_error("Invalid plane color");
-		return (PARSE_KO);
-	}
-	new_node = ft_lstnew(plane);
-	if (!new_node)
-	{
-		free(plane);
-		retrun (MALLOC_FAILED);
-	}
-	ft_lstadd_back(&scene->objects, new_node);
-	return (PARSE_OK);
+	
 }

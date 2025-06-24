@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 18:40:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/24 14:16:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	check_element(char **tokens, t_scene *scene)
 	else if (ft_strncmp(tokens[0], "pl", 3) == 0)
 		return (PARSE_OK);
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
+		return (PARSE_OK);
+	else if (ft_strncmp(tokens[0], "co", 3) == 0)
 		return (PARSE_OK);
 	print_error("Unknown identifier");
 	return (PARSE_KO);
