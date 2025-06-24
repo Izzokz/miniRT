@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:37:22 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/24 18:56:23 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	ft_reflect(t_ray ray, const t_vec posnorm[2])
 	ft_vec_sub(*(ray + 1), *(ray + 1), tmp);
 }
 
+/*
+abdt = A, B, Delta, t
+*/
 char	ft_hit_s(const t_obj sphere, t_ray ray)
 {
 	double	abdt[4];
