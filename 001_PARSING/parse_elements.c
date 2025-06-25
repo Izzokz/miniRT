@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 10:55:21 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 20:33:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 int	parse_vec3(char *token, t_vec vec)
 {
-    char	**components;
+	char	**components;
 
-    components = ft_split(token, ',');
-    if (!components || !components[0] || !components[1] || !components[2]
-        || components[3])
-    {
-        free_split(components);
-        return (PARSE_KO);
-    }
-    vec[0] = ft_atod(components[0]);
-    vec[1] = ft_atod(components[1]);
-    vec[2] = ft_atod(components[2]);
-    free_split(components);
-    return (PARSE_OK);
+	components = ft_split(token, ',');
+	if (!components || !components[0] || !components[1] || !components[2])
+	{
+		free_split(components);
+		return (PARSE_KO);
+	}
+	vec[0] = ft_atod(components[0]);
+	vec[1] = ft_atod(components[1]);
+	vec[2] = ft_atod(components[2]);
+	free_split(components);
+	return (PARSE_OK);
 }
 
 int	parse_color(char *token, t_color color)
@@ -95,107 +94,129 @@ int	parse_camera(char **tokens, t_scene *scene)
 		print_error("Invalid camera format");
 		return (PARSE_KO);
 	}
-	scene->camera.fov = ft_atoi(tokens[1]);
-	if (scene->camera.fov <= 0 || scene->camera.fov >= 180)
+	scene->camera.fov = ft_atod(tokens[3]);
+	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
 	{
-		print_error("Camera FOV must be between 0 and 180 degrees");
-		return (PARSE_KO);
+		scene->camera.is_set = 1;
+		return (PARSE_OK);
 	}
-	scene->camera.is_set = 1;
-	return (PARSE_OK);
+	print_error("Camera FOV must be between 0 and 180 degrees");
+	return (PARSE_KO);
 }
 
 int	parse_light(char **tokens, t_scene *scene)
 {
-    t_light	*light;
-    t_list	*new_node;
+	t_light	*light;
+	t_list	*new_node;
 
-    if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
-    {
-        print_error("Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>");
-        return (PARSE_KO);
-    }
-    light = malloc(sizeof(t_light));
-    if (!light)
+	if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2] || !tokens[3])
+	{
+		print_error("Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>");
+		return (PARSE_KO);
+	}
+	light = malloc(sizeof(t_light));
+	if (!light)
 		return (MALLOC_FAILED);
-    if (parse_vec3(tokens[1], light->pos) != PARSE_OK)
-    {
-        free(light);
-        print_error("Invalid light position format");
-        return (PARSE_KO);
-    }
-    light->brightness = ft_atod(tokens[2]);
-    if (light->brightness < 0.0 || light->brightness > 1.0)
-    {
-        free(light);
-        print_error("Light brightness ratio must be in range [0.0,1.0]");
-        return (PARSE_KO);
-    }
-    if (parse_color(tokens[3], light->color) != PARSE_OK)
-    {
-        free(light);
-        print_error("Invalid light color");
-        return (PARSE_KO);
-    }
-    new_node = ft_lstnew(light);
-    if (!new_node)
-    {
-        free(light);
+	if (parse_vec3(tokens[1], light->pos) != PARSE_OK)
+	{
+		free(light);
+		print_error("Invalid light position format");
+		return (PARSE_KO);
+	}
+	light->brightness = ft_atod(tokens[2]);
+	if (light->brightness < 0.0 || light->brightness > 1.0)
+	{
+		free(light);
+		print_error("Light brightness ratio must be in range [0.0,1.0]");
+		return (PARSE_KO);
+	}
+	if (parse_color(tokens[3], light->color) != PARSE_OK)
+	{
+		free(light);
+		print_error("Invalid light color");
+		return (PARSE_KO);
+	}
+	new_node = ft_lstnew(light);
+	if (!new_node)
+	{
+		free(light);
 		return (MALLOC_FAILED);
-    }
-    ft_lstadd_back(&scene->lights, new_node);
-    return (PARSE_OK);
+	}
+	ft_lstadd_back(&scene->lights, new_node);
+	return (PARSE_OK);
 }
 
 int	parse_sphere(char **tokens, t_scene *scene)
 {
 	t_obj	*new_obj;
+	t_obj	*last;
 
-	(void)scene;
-	if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
+	if (ft_strncmp(tokens[0], "sp", 3) != 0 || !tokens[1] || !tokens[2] || !tokens[3])
 	{
-		print_error("Invalid light format: sp <pos x,y,z> <diameter> <color r,g,b>");
+		print_error("Invalid sphere format: sp <pos x,y,z> <diameter> <color r,g,b>");
 		return (PARSE_KO);
 	}
 	new_obj = malloc(sizeof(t_obj));
 	if (!new_obj)
 		return (MALLOC_FAILED);
 	ft_memset(new_obj, 0, sizeof(t_obj));
+	new_obj->type = 's';
 	new_obj->params = malloc(sizeof(double) * 4);
-	if (!new_obj)
+	if (!new_obj->params)
 	{
 		free(new_obj);
 		return (MALLOC_FAILED);
 	}
-	parse_vec3(tokens[2], new_obj->params);
-	new_obj->params[3] = ft_atod(tokens[3]);
-	parse_color(tokens[4], new_obj->color);
+	parse_vec3(tokens[1], new_obj->params);
+	new_obj->params[3] = ft_atod(tokens[2]);
+	parse_color(tokens[3], new_obj->color);
+	new_obj->next = NULL;
+	if (!scene->objects)
+		scene->objects = new_obj;
+	else
+	{
+		last = scene->objects;
+		while (last->next)
+			last = last->next;
+		last->next = new_obj;
+	}
 	return (PARSE_OK);
 }
 
 int	parse_plane(char **tokens, t_scene *scene)
 {
 	t_obj	*new_obj;
+	t_obj	*last;
 
-	(void)scene;
-	if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4])
+	if (ft_strncmp(tokens[0], "pl", 3) != 0 || !tokens[1] || !tokens[2] || !tokens[3])
 	{
-		print_error("Invalid light format: sp <pos x,y,z> <normal a,b,c> <color r,g,b>");
+		print_error("Invalid plane format: sp <pos x,y,z> <normal a,b,c> <color r,g,b>");
 		return (PARSE_KO);
 	}
 	new_obj = malloc(sizeof(t_obj));
 	if (!new_obj)
 		return (MALLOC_FAILED);
 	ft_memset(new_obj, 0, sizeof(t_obj));
-	new_obj = malloc(sizeof(double) * 6);
-	if (!new_obj)
+	new_obj->type = 'p';
+	new_obj->params = malloc(sizeof(double) * 6);
+	if (!new_obj->params)
 	{
 		free(new_obj);
 		return (MALLOC_FAILED);
 	}
-	parse_vec3(tokens[2], new_obj->params);
-	parse_vec3(tokens[3], new_obj->params + 3);
-	parse_color(tokens[4], new_obj->color);
+	parse_vec3(tokens[1], new_obj->params);
+	parse_vec3(tokens[2], new_obj->params + 3);
+	parse_color(tokens[3], new_obj->color);
+	new_obj->next = NULL;
+	if (!scene->objects)
+		scene->objects = new_obj;
+	else
+	{
+		last = scene->objects;
+		while (last->next)
+			last = last->next;
+		last->next = new_obj;
+	}
 	return (PARSE_OK);
 }
 
