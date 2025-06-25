@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 20:33:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 20:48:55 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,9 +221,5 @@ int	parse_plane(char **tokens, t_scene *scene)
 }
 
 // int	parse_cylinder(char **tokens, t_scene *scene)
-// {
-// }
-
-// int	parse_cone(char **tokens, t_scene *scene)
 // {
 // }
