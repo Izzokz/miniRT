@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/24 17:50:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 11:26:56 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(char *message)
 {
-	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(message, 2);
 }
 
@@ -152,7 +152,7 @@ int	parse_scene(const char *filename, t_scene *scene)
 	return (PARSE_OK);
 }
 
-int	main(int argc, char **argv)
+int	test(int argc, char **argv)
 {
 	t_scene	scene;
 

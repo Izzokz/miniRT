@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:37:41 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 16:01:43 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 11:25:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-size_t	ft_strlen(const char *str);
+size_t	my_strlen(const char *str);
 size_t	ft_line_len(const char *str);
 char	*ft_strjoin_buf(char *s1, char *s2);
 int		ft_strchr_endl(const char *str, char c);

@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/06/23 16:21:19 by lumugot          ###   ########.fr        #
+#    Updated: 2025/06/25 11:24:21 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ INCLUDEDIR		= Includes/
 LIBFT			= $(LIBFTDIR)libft.a
 
 SRCS			= main.c \
+					$(GNLDIR)get_next_line.c \
+					$(GNLDIR)get_next_line_utils.c \
+					$(PARSEDIR)parse_arg.c \
+					$(PARSEDIR)parse_elements.c \
                 	$(VECDIR)ft_vec0.c \
                 	$(VECDIR)ft_vec1.c \
                 	$(VECDIR)ft_vec2.c \

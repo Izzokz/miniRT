@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/24 18:57:35 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 10:53:55 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ Objects can be:
 - a plane 'p'
 - a cylinder 'c'
 */
-enum blablabla {
-	SPHERE = 's',
-	PLANE = 'p',
-	CYLINDER = 'c'
-};
 
 typedef struct s_obj
 {
@@ -89,7 +84,7 @@ typedef struct s_scene
 {
 	t_ambient	ambient_light;
 	t_camera	camera;
-	t_light		*lights;
+	t_list		*lights;
 	t_obj		*objects;
 }	t_scene;
 

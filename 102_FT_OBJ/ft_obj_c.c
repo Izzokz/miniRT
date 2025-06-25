@@ -6,31 +6,31 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 11:21:37 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-char	ft_make_c(const t_vec posnorm[2], const double dia,
-	const double height, const t_color color)
-{
-	t_obj	*newobj;
+// char	ft_make_c(const t_vec posnorm[2], const double dia,
+// 	const double height, const t_color color)
+// {
+// 	t_obj	*newobj;
 
-	newobj = ft_get_uninit_obj();
-	newobj->params = malloc(sizeof(double) * 8);
-	if (!newobj->params)
-		return (-1);
-	ft_memcpy((void *)newobj->params,
-		(double [8]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
-		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2),
-		dia, height},
-		sizeof(double) * 8);
-	newobj->type = 'c';
-	ft_memcpy(newobj->color, color, 3);
-	newobj->hit = ft_hit_c;
-	return (0);
-}
+// 	newobj = ft_get_uninit_obj();
+// 	newobj->params = malloc(sizeof(double) * 8);
+// 	if (!newobj->params)
+// 		return (-1);
+// 	ft_memcpy((void *)newobj->params,
+// 		(double [8]){**posnorm, *(*posnorm + 1), *(*posnorm + 2),
+// 		**(posnorm + 1), *(*(posnorm + 1) + 1), *(*(posnorm + 1) + 2),
+// 		dia, height},
+// 		sizeof(double) * 8);
+// 	newobj->type = 'c';
+// 	ft_memcpy(newobj->color, color, 3);
+// 	newobj->hit = ft_hit_c;
+// 	return (0);
+// }
 
 char	ft_hit_c(const t_obj cylinder, t_ray ray)
 {
