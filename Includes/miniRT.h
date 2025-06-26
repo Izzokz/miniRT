@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/23 15:57:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:34:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 # include "ft_vec.h"
 # include "ft_obj.h"
 # include "ft_process.h"
+# include "utils.h"
 
 #endif

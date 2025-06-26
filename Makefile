@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/06/25 11:24:21 by lumugot          ###   ########.fr        #
+#    Updated: 2025/06/26 13:04:53 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ PARSEDIR		= 001_PARSING/
 VECDIR			= 101_FT_VEC/
 TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
-UTILDIR			= 200_FT_UTILS/
+UTILDIR			= 200_UTILS/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -28,8 +28,12 @@ LIBFT			= $(LIBFTDIR)libft.a
 SRCS			= main.c \
 					$(GNLDIR)get_next_line.c \
 					$(GNLDIR)get_next_line_utils.c \
+					$(PARSEDIR)free_utils.c \
+					$(PARSEDIR)check_scene.c \
 					$(PARSEDIR)parse_arg.c \
-					$(PARSEDIR)parse_elements.c \
+					$(PARSEDIR)parse_obj.c \
+					$(PARSEDIR)parse_params.c \
+					$(UTILDIR)split_utils.c \
                 	$(VECDIR)ft_vec0.c \
                 	$(VECDIR)ft_vec1.c \
                 	$(VECDIR)ft_vec2.c \
