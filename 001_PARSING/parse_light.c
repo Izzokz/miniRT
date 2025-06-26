@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:34:19 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 14:56:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 18:10:31 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	parse_light(char **tokens, t_scene *scene)
 	if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2]
 		|| !tokens[3])
 	{
-		print_error("Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>");
+		print_error(L_ERROR);
 		return (PARSE_KO);
 	}
 	light = malloc(sizeof(t_light));

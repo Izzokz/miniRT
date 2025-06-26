@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 16:08:07 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 16:54:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,14 @@ int	read_scene_file(int fd, t_scene *scene)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] != '\n' && line[0] != '#')
+		if (status == PARSE_OK && line[0] != '\n' && line[0] != '#')
 		{
 			if (dispatch_line(line, scene) != PARSE_OK)
-			{
 				status = PARSE_KO;
-				break ;
-			}
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
 	return (status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 15:59:53 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 16:18:23 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	main(int argc, char **argv)
 	if (check_arg(argc, argv) == PARSE_KO)
 		return (PARSE_KO);
 	if (parse_scene(argv[1], &scene) == PARSE_KO)
+	{
+		free_scene(&scene);
 		return (PARSE_KO);
+	}
 	else
 	{
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
