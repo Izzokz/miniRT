@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 13:15:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:03:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static void print_all_data(t_scene *scene)
 	printf("\n--- END SCENE DATA ---\n");
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_scene	scene;
@@ -107,8 +106,11 @@ int	main(int argc, char **argv)
 		return (PARSE_KO);
 	if (parse_scene(argv[1], &scene) == PARSE_KO)
 		return (PARSE_KO);
-	ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-	print_all_data(&scene);
+	else
+	{
+		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
+		print_all_data(&scene);
+	}
 	free_scene(&scene);
 	return (PARSE_OK);
 }

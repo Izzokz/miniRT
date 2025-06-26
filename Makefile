@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/06/26 13:04:53 by lumugot          ###   ########.fr        #
+#    Updated: 2025/06/26 14:45:13 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,12 @@ SRCS			= main.c \
 					$(PARSEDIR)free_utils.c \
 					$(PARSEDIR)check_scene.c \
 					$(PARSEDIR)parse_arg.c \
-					$(PARSEDIR)parse_obj.c \
 					$(PARSEDIR)parse_params.c \
 					$(UTILDIR)split_utils.c \
+					$(PARSEDIR)parse_light.c \
+					$(PARSEDIR)parse_sphere.c \
+					$(PARSEDIR)parse_plane.c \
+					$(PARSEDIR)parse_cylinder.c \
                 	$(VECDIR)ft_vec0.c \
                 	$(VECDIR)ft_vec1.c \
                 	$(VECDIR)ft_vec2.c \

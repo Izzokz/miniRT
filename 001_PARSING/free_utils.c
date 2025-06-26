@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:07:52 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 12:48:13 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 14:46:14 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_tab(char **tab)
 {
 	int	iter;
-	
+
 	iter = 0;
 	while (tab[iter])
 	{

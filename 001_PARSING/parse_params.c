@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:39:47 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 13:24:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 14:46:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int	parse_camera(char **tokens, t_scene *scene)
 		print_error("Camera already set");
 		return (PARSE_KO);
 	}
-	if (ft_strncmp(tokens[0], "C", 2) != 0 || !tokens[1] || !tokens[2] || !tokens[3])
+	if (ft_strncmp(tokens[0], "C", 2) != 0 || !tokens[1] || !tokens[2]
+		|| !tokens[3])
 	{
 		print_error("Invalid camera format");
 		return (PARSE_KO);

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 13:05:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 14:53:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,21 @@ int		parse_ambient(char **tokens, t_scene *scene);
 int		parse_camera(char **tokens, t_scene *scene);
 int		parse_light(char **tokens, t_scene *scene);
 
-//parse_obj.c
-int		parse_sphere(char **tokens, t_scene *scene);
+//parse_light.c
+int		fill_light_data(t_light *light, char **tokens);
+int		parse_light(char **tokens, t_scene *scene);
+
+//parse_plane.c
+int		create_and_fill_plane(t_obj **new_obj, char **tokens);
 int		parse_plane(char **tokens, t_scene *scene);
+
+//parse_sphere.c
+int		create_and_fill_sphere(t_obj **new_obj, char **tokens);
+int		parse_sphere(char **tokens, t_scene *scene);
+
+//parse_cylinder.c
+void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
+int		create_and_fill_cylinder(t_obj **new_obj, char **tokens);
 int		parse_cylinder(char **tokens, t_scene *scene);
 
 //free_utils.c
