@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 18:36:36 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 19:53:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ Objects can be:
 - a plane 'p'
 - a cylinder 'c'
 */
+typedef	char	(*t_hit_func)(const t_obj *, t_ray);
 
 typedef struct s_obj
 {
-	char	type; // 's' || 'p' || 'c'
-	t_color	color;
-	double	*params;
-	char	(*hit)(const t_obj *obj, t_ray ray);
-	t_obj	*next;
+	char		type; // 's' || 'p' || 'c'
+	t_color		color;
+	double		*params;
+	t_hit_func	hit;
+	t_obj		*next;
 }	t_obj;
 
 typedef struct s_light

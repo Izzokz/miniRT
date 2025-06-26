@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:36:33 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:00 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 19:47:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_obj	*ft_get_uninit_obj(void)
 }
 
 /*
-Initialize objects and sets them.
+Initialize objects and sets newallthem.
 Returns 0 on success, -1 on failure.
 */
 char	ft_init_obj(int i)
@@ -53,10 +53,10 @@ char	ft_init_obj(int i)
 	t_obj	*newall;
 
 	newall = malloc(sizeof(t_obj) * (i + 1));
-	if (!newall)
+	if (newall)
 		return (-1);
 	while (--i + 1 >= 0)
 		*(newall + i + 1) = (t_obj){.params = (void *)0};
 	ft_set_obj(newall);
-	return (0);
+	return (newall);
 }
