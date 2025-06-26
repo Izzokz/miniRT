@@ -6,23 +6,23 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 16:18:23 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 18:44:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-static void	print_vec(const char *name, t_vec vec)
+void	print_vec(const char *name, t_vec vec)
 {
 	printf("\t%s: (%.2f, %.2f, %.2f)\n", name, vec[0], vec[1], vec[2]);
 }
 
-static void	print_color(const char *name, t_color color)
+void	print_color(const char *name, t_color color)
 {
 	printf("\t%s: (%u, %u, %u)\n", name, color[0], color[1], color[2]);
 }
 
-static void print_all_data(t_scene *scene)
+void print_all_data(t_scene *scene)
 {
 	t_list	*light_node;
 	t_light	*light;
@@ -112,7 +112,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		print_all_data(&scene);
+		// print_all_data(&scene);
 	}
 	free_scene(&scene);
 	return (PARSE_OK);
