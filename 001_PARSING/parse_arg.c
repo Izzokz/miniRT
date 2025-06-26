@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 14:12:19 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 16:08:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	read_scene_file(int fd, t_scene *scene)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-		free(line);
+	free(line);
 	return (status);
 }
 
@@ -80,15 +79,4 @@ int	parse_scene(const char *filename, t_scene *scene)
 		return (PARSE_KO);
 	}
 	return (status);
-}
-
-int	test(int argc, char **argv)
-{
-	t_scene	scene;
-
-	if (check_arg(argc, argv) == PARSE_KO)
-		return (PARSE_KO);
-	if (parse_scene(argv[1], &scene) == PARSE_KO)
-		return (PARSE_KO);
-	return (PARSE_OK);
 }

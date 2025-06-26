@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 14:53:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:42:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		check_element(char **tokens, t_scene *scene);
 int		dispatch_line(char *line, t_scene *scene);
 int		read_scene_file(int fd, t_scene *scene);
 int		parse_scene(const char *filename, t_scene *scene);
-int		test(int argc, char **argv);
 
 //parse_params.c
 int		parse_vec3(char *token, t_vec vec);
