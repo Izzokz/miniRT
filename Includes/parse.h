@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 14:16:27 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 11:28:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int		parse_camera(char **tokens, t_scene *scene);
 int		parse_light(char **tokens, t_scene *scene);
 int		parse_sphere(char **tokens, t_scene *scene);
 int		parse_plane(char **tokens, t_scene *scene);
+int		parse_cylinder(char **tokens, t_scene *scene);
 
 #endif

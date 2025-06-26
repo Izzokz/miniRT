@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 20:47:47 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:05:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,19 @@ void	print_all_data(t_scene *scene)
             print_vec("Center", obj->params);
             printf("\tDiameter: %.2f\n", obj->params[3]);
         }
-        else if (obj->type == 'p')
+        if (obj->type == 'p')
         {
             printf("\tType: Plane\n");
             print_vec("Point", obj->params);
             print_vec("Normal", obj->params + 3);
         }
-        else if (obj->type == 'c')
+        if (obj->type == 'c')
         {
-            printf("\tType: Cylinder (affichage non implémenté)\n");
-            // Une fois le parsing du cylindre fait, vous pourrez l'afficher ici.
-            // ex: print_vec("Center", obj->params);
+            printf("\tType: Cylinder\n");
+            print_vec("Center", obj->params);
+            print_vec("Axis", obj->params + 3);
+            printf("\tDiameter: %.2f\n", obj->params[6]);
+            printf("\tHeight: %.2f\n", obj->params[7]);
         }
         print_color("Color", obj->color);
         obj = obj->next;

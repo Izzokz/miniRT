@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 16:55:02 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/19 16:58:21 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:04:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,4 @@ inline void	skip_space(char *str)
 	while (str[index] && ft_isspace(str[index]))
 		index++;
 }
+

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 20:48:55 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:04:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	parse_color(char *token, t_color color)
 	}
 	while (i < 3)
 	{
-		color[0] = ft_atod(components[i]);
-		if (color[0] < 0 || color[0] > 255)
+		color[i] = ft_atod(components[i]);
+		if (color[i] < 0 || color[i] > 255)
 		{
 			free_split(components);
 			return (PARSE_KO);
@@ -220,6 +220,41 @@ int	parse_plane(char **tokens, t_scene *scene)
 	return (PARSE_OK);
 }
 
-// int	parse_cylinder(char **tokens, t_scene *scene)
-// {
-// }
+int	parse_cylinder(char **tokens, t_scene *scene)
+{
+	t_obj	*new_obj;
+	t_obj	*last;
+
+	if (ft_strncmp(tokens[0], "cy", 3) != 0 || !tokens[1] || !tokens[2] || !tokens[3] || !tokens[4] || !tokens[5])
+	{
+		print_error("Invalid cylinder format: cy <pos x,y,y> <normal a,b,c> <diameter> <height> <color r,g,b>");
+		return(PARSE_KO);
+	}
+	new_obj = malloc(sizeof(t_obj));
+	if (!new_obj)
+		return (MALLOC_FAILED);
+	ft_memset(new_obj, 0, sizeof(t_obj));
+	new_obj->type = 'c';
+	new_obj->params = malloc(sizeof(double) * 8);
+	if (!new_obj->params)
+	{
+		free(new_obj);
+		return (MALLOC_FAILED);
+	}
+	parse_vec3(tokens[1], new_obj->params);
+	parse_vec3(tokens[2], new_obj->params + 3);
+	new_obj->params[6] = ft_atod(tokens[3]);
+	new_obj->params[7] = ft_atod(tokens[4]);
+	parse_color(tokens[5], new_obj->color);
+	new_obj->next = NULL;
+	if (!scene->objects)
+		scene->objects = new_obj;
+	else
+	{
+		last = scene->objects;
+		while (last->next)
+			last = last->next;
+		last->next = new_obj;
+	}
+	return (PARSE_OK);
+}
