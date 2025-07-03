@@ -31,13 +31,11 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 	double	dot;
 	double	t;
 
-	ft_cpy_vec(*(tmp + 1), (t_vec){(*(plane->params + 3)), *(plane->params + 4),
-		*(plane->params + 5)});
+	ft_cpy_vec(*(tmp + 1), plane->params + 3);
 	dot = ft_vec_dot(*(ray + 1), *(tmp + 1));
 	if (fabs(dot) < 0.0000001)
 		return (0);
-	ft_cpy_vec(*tmp, (t_vec){(*(plane->params)), *(plane->params + 1),
-		*(plane->params + 2)});
+	ft_cpy_vec(*tmp, plane->params);
 	ft_vec_sub(*tmp, *tmp, *ray);
 	t = ft_vec_dot(*tmp, *(tmp + 1)) / dot;
 	if (t < 0.0)

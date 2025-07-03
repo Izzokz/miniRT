@@ -29,8 +29,7 @@ char	ft_hit_s(const t_obj *sphere, t_ray ray)
 	double	abdt[4];
 	t_vec	tmp[2];
 
-	ft_cpy_vec(*(tmp + 1), (t_vec){(*sphere->params),
-		*(sphere->params + 1), *(sphere->params + 2)});
+	ft_cpy_vec(*(tmp + 1), sphere->params);
 	ft_vec_sub(*tmp, *ray, *(tmp + 1));
 	*abdt = ft_vec_dot(*(ray + 1), *(ray + 1));
 	*(abdt + 1) = 2.0 * ft_vec_dot(*tmp, *(ray + 1));
