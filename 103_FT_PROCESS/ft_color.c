@@ -33,3 +33,8 @@ inline void	ft_color_reflect(t_color edit,
 	*(edit + 1) = (unsigned char)(*(base + 1) * multiplicator);
 	*(edit + 2) = (unsigned char)(*(base + 2) * multiplicator);
 }
+
+inline unsigned int	ft_convert_color(const t_color color)
+{
+	return (*color << 16 | *(color + 1) << 8 | *(color + 2));
+}

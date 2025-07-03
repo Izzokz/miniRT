@@ -80,6 +80,7 @@ int	main(void)
 	sc.camera.orientation[0] = 0;
 	sc.camera.orientation[1] = 1;
 	sc.camera.orientation[2] = 0;
+	printf("%X\n", ft_convert_color((t_color){255, 128, 64}));
 	sc.camera.fov = 90;
 	m = ft_mlx_obj_init();
 	ft_mlx_loop(m, &sc);
