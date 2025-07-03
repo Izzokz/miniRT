@@ -88,16 +88,23 @@ static void	ft_blend_color(t_ray hit_ray, const t_scene *scene, t_obj *hit)
 	print_color(color); // will print to actual focused pixel :P
 }
 
-void	ft_process(t_ray ray, const t_scene *scene)
+void	ft_process(t_mlx_obj *mlx, const t_viewport vp,
+	const t_scene *scene, const t_rules rules)
 {
 	t_obj	*hit;
 
-	while (cross_pixel()) // not set too but will be :D
+	i = 0;
+	while (i < height)
 	{
-		hit = ft_hit_nearest_obj(ray, scene->objects);
-		if (!hit)
-			print_color(NULL); // will print ambient color d..b
-		else
-			ft_blend_color(ray, scene, hit);
+		j = 0;
+		while (j < width)
+		{
+			hit = ft_hit_nearest_obj(/* ray */, scene->objects);
+			if (!hit)
+				print ambient color;
+			else
+				ft_put_color(/* mlx infos */, rules.coloration(/* ray */, hit, scene, rules));
+			j += rules.pixel_cross;
+		}
 	}
 }

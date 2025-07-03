@@ -16,7 +16,7 @@
 # include "miniRT.h"
 
 /* OBJ METHODS */
-void	ft_reflect(t_ray ray, const t_vec posnorm[2]);
+void	ft_reflect(t_ray, const t_vec posnorm[2]);
 char	ft_hit_s(const t_obj *sphere, t_ray ray);
 char	ft_hit_c(const t_obj *cylinder, t_ray ray);
 char	ft_hit_p(const t_obj *plane, t_ray ray);

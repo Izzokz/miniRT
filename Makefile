@@ -17,7 +17,7 @@ PARSEDIR		= 001_PARSING/
 VECDIR			= 101_FT_VEC/
 TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
-MLXDIR			= 200_FT_MLX/
+MLXDIR			= 201_FT_MLX/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -38,6 +38,7 @@ SRCS			= main.c \
                   $(MLXDIR)ft_mlx_init.c \
                   $(MLXDIR)ft_mlx_key_hook.c \
                   $(MLXDIR)ft_mlx_loop.c \
+                  $(MLXDIR)ft_mlx_img.c \
 #                 $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))

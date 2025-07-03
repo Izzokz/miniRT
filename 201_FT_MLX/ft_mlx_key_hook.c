@@ -12,9 +12,10 @@
 
 #include "miniRT.h"
 
-void	ft_mlx_key_hook(const t_keys keys, t_scene *scene)
+void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 {
-	(void) scene;
+	static char	update = 1;
+
 	if (keys.ctrl)
 	{
 		if (keys.w)
@@ -28,13 +29,23 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene)
 	}
 	else
 	{
-		if (keys.w)
+		if (keys.w && keys.a && keys.s && keys.d)
+		{
+			ft_mlx_img_update(scene, mobj);
+			update = 1;
+		}
+		else if (keys.w)
 			write(1, "w\n", 2);
-		if (keys.a)
+		else if (keys.a)
 			write(1, "a\n", 2);
-		if (keys.s)
+		else if (keys.s)
 			write(1, "s\n", 2);
-		if (keys.d)
+		else if (keys.d)
 			write(1, "d\n", 2);
+		else if (update)
+		{
+			ft_mlx_img_print(scene, mobj);
+			update = 0;
+		}
 	}
 }

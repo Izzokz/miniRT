@@ -19,6 +19,7 @@ void	ft_color_scale(t_color edit, const float factor);
 void	ft_color_add(t_color edit, const t_color sum);
 void	ft_color_reflect(t_color edit, const t_color base,
 			const float multiplicator);
-void	ft_process(t_ray ray, const t_obj *all);
+void	ft_process(t_mlx_obj *mobj, const t_viewport, const t_scene *,
+			const t_rules rules);
 
 #endif

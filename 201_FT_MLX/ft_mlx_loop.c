@@ -53,7 +53,8 @@ static inline int	loop(uintptr_t objscenekeys[3])
 		exit(0);
 	}
 	ft_mlx_key_hook(*(t_keys *)(void *)*(objscenekeys + 2),
-		(t_scene *)(void *)*(objscenekeys + 1));
+		(t_scene *)(void *)*(objscenekeys + 1),
+		(t_mlx_obj *)(void *)*objscenekeys);
 	return (0);
 }
 
@@ -64,7 +65,7 @@ static inline int	quit(uintptr_t objscenekeys[3])
 	exit(0);
 }
 
-inline void	ft_mlx_loop(const t_mlx_obj *mobj, t_scene *scene)
+inline void	ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene)
 {
 	static t_keys	keys = (t_keys){0};
 	uintptr_t		objscenekeys[3];

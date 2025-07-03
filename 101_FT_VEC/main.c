@@ -73,8 +73,16 @@ int	main(void)
 		printf("\n");
 	}
 	t_mlx_obj	*m;
+	t_scene		sc;
+	sc.camera.pos[0] = 0;
+	sc.camera.pos[1] = 0;
+	sc.camera.pos[2] = 0;
+	sc.camera.orientation[0] = 0;
+	sc.camera.orientation[1] = 1;
+	sc.camera.orientation[2] = 0;
+	sc.camera.fov = 90;
 	m = ft_mlx_obj_init();
-	ft_mlx_loop(m, NULL);
+	ft_mlx_loop(m, &sc);
 	return (0);
 /*
 	t_vec	a;

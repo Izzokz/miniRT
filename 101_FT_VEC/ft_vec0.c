@@ -35,3 +35,9 @@ inline void	ft_vec_div(t_vec newv, const t_vec v, const double div)
 	ft_new_vec(newv, (*v / div), *(v + 1) / div,
 		*(v + 2) / div);
 }
+
+inline void	ft_vec_cross(t_vec newv, const t_vec v1, const t_vec v2)
+{
+	ft_new_vec(newv, *(v1 + 1) * *(v2 + 2) - *(v1 + 2) * *(v2 + 1),
+		*(v1 + 2) * *v2 - *v1 * *(v2 + 2), *v1 * *(v2 + 1) - *(v1 + 1) * *v2);
+}

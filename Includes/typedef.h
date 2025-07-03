@@ -15,8 +15,15 @@
 
 # include "miniRT.h"
 
+# ifdef PI
+#  undef PI
+# endif
+
+# define PI 3.14159265359
+
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
+typedef struct s_rules	t_rules;
 typedef unsigned char	t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
@@ -33,7 +40,7 @@ typedef struct s_obj
 	char	type; // 's' || 'p' || 'c'
 	t_color	color;
 	double	*params;
-	char	(*hit)(const t_obj *obj, t_ray ray);
+	char	(*hit)(const t_obj *self, t_ray);
 	t_obj	*next;
 }	t_obj;
 
@@ -86,5 +93,21 @@ typedef struct s_scene
 	t_light		*lights;
 	t_obj		*objects;
 }	t_scene;
+
+typedef struct s_viewport
+{
+	t_vec	hor;
+	t_vec	ver;
+	t_vec	pos;
+}	t_viewport;
+
+typedef struct s_rules
+{
+	char			ref;
+	char			pixel_cross;
+	double			ref_str;
+	unsigned int	(*coloration)(t_ray, t_obj *hit,
+			const t_scene *, const t_rules);
+}	t_rules;
 
 #endif
