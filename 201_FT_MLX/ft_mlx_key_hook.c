@@ -29,19 +29,26 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 	}
 	else
 	{
-		if (keys.w && keys.a && keys.s && keys.d)
+		if (keys.w)
 		{
 			ft_mlx_img_update(scene, mobj);
 			update = 1;
 		}
-		else if (keys.w)
-			write(1, "w\n", 2);
 		else if (keys.a)
-			write(1, "a\n", 2);
+		{
+			ft_mlx_img_update(scene, mobj);
+			update = 1;
+		}
 		else if (keys.s)
-			write(1, "s\n", 2);
+		{
+			ft_mlx_img_update(scene, mobj);
+			update = 1;
+		}
 		else if (keys.d)
-			write(1, "d\n", 2);
+		{
+			ft_mlx_img_update(scene, mobj);
+			update = 1;
+		}
 		else if (update)
 		{
 			ft_mlx_img_print(scene, mobj);

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 14:48:55 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/17 22:17:19 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 17:20:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ double	ft_atod(char *nptr)
 	int		sign;
 	double	res;
 
+	if (!nptr)
+		return (0.0);
 	i = 0;
 	sign = 1;
 	res = 0.0;
-	while (nptr[i] == 32)
+	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
 		i++;
 	if (nptr[i] == '-')
 		sign *= -1;

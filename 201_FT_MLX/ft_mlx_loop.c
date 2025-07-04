@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_loop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/23 20:09:24 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:46:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static inline int	loop(uintptr_t objscenekeys[3])
 {
 	if (((t_keys *)(void *)*(objscenekeys + 2))->esc)
 	{
-//		ft_free_scene((t_scene *)(void *)*(objscenekeys + 1));
+		free_scene((t_scene *)(void *)*(objscenekeys + 1));
 		ft_free_mlx_obj((t_mlx_obj *)(void *)*objscenekeys);
 		exit(0);
 	}
@@ -60,8 +60,8 @@ static inline int	loop(uintptr_t objscenekeys[3])
 
 static inline int	quit(uintptr_t objscenekeys[3])
 {
-//	ft_free_scene((t_scene *)(void *)*(objscenekeys + 1));
 	ft_free_mlx_obj((t_mlx_obj *)(void *)*objscenekeys);
+	free_scene((t_scene *)(void *)*(objscenekeys + 1));
 	exit(0);
 }
 

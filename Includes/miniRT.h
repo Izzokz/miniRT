@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/19 13:23:09 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:17:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 
 # include <math.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
 # include <stdint.h>
 # include <X11/keysym.h>
 # include "../Libft/libft.h"
 # include "../get_next_line/get_next_line.h"
-# include "mlx.h"
+# include "../mlx-linux/mlx.h"
 # include "typedef.h"
+# include "ft_mlx.h"
+# include "parse.h"
 # include "ft_vec.h"
 # include "ft_obj.h"
 # include "ft_process.h"
-# include "ft_mlx.h"
+# include "utils.h"
 
 #endif

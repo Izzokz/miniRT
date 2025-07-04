@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:23:41 by lumugot           #+#    #+#             */
-/*   Updated: 2024/11/06 17:46:44 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/26 15:37:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ char	*ft_read_and_fill(int fd, char *buffer, char *stash)
 	int	read_char;
 
 	read_char = 1;
-	while ((!ft_strchr(stash, '\n')) && read_char > 0)
+	while ((!ft_strchr_endl(stash, '\n')) && read_char > 0)
 	{
 		read_char = read(fd, buffer, BUFFER_SIZE);
 		if (read_char <= 0)
 			break ;
 		buffer[read_char] = '\0';
-		stash = ft_strjoin(stash, buffer);
+		stash = ft_strjoin_buf(stash, buffer);
 	}
-	if (read_char < 0 || (read_char == 0 && ft_strlen(stash) == 0))
+	if (read_char < 0 || (read_char == 0 && my_strlen(stash) == 0))
 	{
 		free(stash);
 		return (NULL);
@@ -65,7 +65,7 @@ char	*ft_copy_stay(char *str)
 		return (NULL);
 	index = 0;
 	len = ft_line_len(str);
-	save = malloc(sizeof(char) * ((ft_strlen(str) - len) + 1));
+	save = malloc(sizeof(char) * ((my_strlen(str) - len) + 1));
 	if (!save)
 	{
 		free(str);

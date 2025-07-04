@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:08:38 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/23 16:08:39 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:45:23 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MLX_H
 # define FT_MLX_H
+
+# include "miniRT.h"
 
 /* MLX INIT AND FREE */
 t_mlx_obj	*ft_mlx_obj_init(void);

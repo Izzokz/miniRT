@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/19 13:15:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:31:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define TYPEDEF_H
 
 # include "miniRT.h"
+
+# define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
+# define WIDTH 1100
+# define HEIGHT 800
 
 # ifdef PI
 #  undef PI
@@ -24,7 +28,7 @@
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
 typedef struct s_rules	t_rules;
-typedef unsigned char	t_color[3]; // R, G, B
+typedef					int	t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir

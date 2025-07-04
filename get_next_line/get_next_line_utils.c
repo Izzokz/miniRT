@@ -6,13 +6,13 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 13:24:23 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/19 13:25:20 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/06/25 11:26:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	my_strlen(const char *str)
 {
 	int	count;
 
@@ -63,7 +63,7 @@ char	*ft_strjoin_buf(char *s1, char *s2)
 	j = 0;
 	if (!s1 && !s2)
 		return (NULL);
-	full_size = ft_strlen(s1) + ft_strlen(s2);
+	full_size = my_strlen(s1) + my_strlen(s2);
 	tab = malloc(sizeof(char) * full_size + 1);
 	if (!tab)
 		return (NULL);

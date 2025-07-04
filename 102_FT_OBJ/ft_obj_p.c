@@ -32,8 +32,9 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 	double	t;
 
 	ft_cpy_vec(*(tmp + 1), plane->params + 3);
+	ft_vec_norm(*(tmp + 1), *(tmp + 1));
 	dot = ft_vec_dot(*(ray + 1), *(tmp + 1));
-	if (fabs(dot) < 0.0000001)
+	if (fabs(dot) < 1e-6)
 		return (0);
 	ft_cpy_vec(*tmp, plane->params);
 	ft_vec_sub(*tmp, *tmp, *ray);
