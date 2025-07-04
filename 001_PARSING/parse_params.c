@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:39:47 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 14:46:35 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 13:22:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parse_color(char *token, t_color color)
 	while (i < 3)
 	{
 		color[i] = ft_atod(components[i]);
-		if (color[i] < 0 || color[i] > 255)
+		if (!color[i] || color[i] > 255)
 		{
 			free_tab(components);
 			return (PARSE_KO);

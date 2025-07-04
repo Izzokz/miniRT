@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 19:53:22 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 13:22:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
-typedef unsigned char	t_color[3]; // R, G, B
+typedef unsigned int	t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
