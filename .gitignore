@@ -2,3 +2,5 @@ mlx-linux/
 miniRT
 666_OBJ
 *.o
+.vscode
+.gitignore

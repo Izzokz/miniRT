@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:41:01 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 18:41:06 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 20:14:12 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	parse_scene(const char *filename, t_scene *scene)
 	}
 	if (read(fd, &buffer, 0) == -1)
 	{
-		print_error(".rt is not file, it's a folder !");
+		print_error(".rt is not file !");
 		close(fd);
 		exit(PARSE_KO);
 	}

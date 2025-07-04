@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:39:47 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 15:21:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 20:11:19 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	parse_ambient(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	scene->ambient_light.ratio = ft_atod(tokens[1]);
+	scene->ambient_light.is_set = 1;
 	if (scene->ambient_light.ratio < 0 || scene->ambient_light.ratio > 1)
 	{
 		print_error("Ambient light ratio must be between 0 and 1");
@@ -78,7 +79,6 @@ int	parse_ambient(char **tokens, t_scene *scene)
 		print_error("Invalid ambient light color");
 		return (PARSE_KO);
 	}
-	scene->ambient_light.is_set = 1;
 	return (PARSE_OK);
 }
 
@@ -96,13 +96,11 @@ int	parse_camera(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	scene->camera.fov = ft_atod(tokens[3]);
+	scene->camera.is_set = 1;
 	parse_vec3(tokens[1], scene->camera.pos);
 	parse_vec3(tokens[2], scene->camera.orientation);
 	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
-	{
-		scene->camera.is_set = 1;
 		return (PARSE_OK);
-	}
 	print_error("Camera FOV must be between 0 and 180 degrees");
 	return (PARSE_KO);
 }

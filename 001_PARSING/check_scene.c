@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:59:42 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 13:15:56 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 20:16:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(char *message)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("\033[0;31mError\033[0m", 2);
 	ft_putendl_fd(message, 2);
 }
 
