@@ -16,7 +16,7 @@
 # include "miniRT.h"
 
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
-# define WIDTH 1100
+# define WIDTH 800
 # define HEIGHT 800
 
 # ifdef PI

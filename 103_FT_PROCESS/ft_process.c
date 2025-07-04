@@ -69,8 +69,8 @@ static inline void	ft_set_img_settings(t_mlx_obj *mobj)
 static inline void	ft_put_color(t_mlx_obj *mobj,
 	int iter[2], unsigned int color)
 {
-	*(unsigned int *)(mobj->img_data + (*(iter + 1)
-				* mobj->size_line + *iter * (mobj->bpp / 8))) = color;
+	*(unsigned int *)(mobj->img_data + (*iter * mobj->size_line
+				+ *(iter + 1) * (mobj->bpp / 8))) = color;
 }
 
 void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
@@ -84,21 +84,21 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 	*pixel = 1.0 / mobj->win_i;
 	*(pixel + 1) = 1.0 / mobj->win_j;
 	ft_set_img_settings(mobj);
-	*i = -1;
-	while (++*i < mobj->win_i)
+	*(i + 1) = -1;
+	while (++*(i + 1) < mobj->win_i)
 	{
-		ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *pixel);
-		*(i + 1) = 0;
-		while (*(i + 1) < mobj->win_j)
+		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
+		*i = 0;
+		while (*i < mobj->win_j)
 		{
-			ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *(pixel + 1));
+			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
 			ft_shoot_ray(s->ray, vp, s, scaled);
 			hit = ft_hit_nearest_obj(s->ray, s->objects);
 			if (!hit)
 				ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
 			else
 				ft_put_color(mobj, i, ft_convert_color(hit->color)/*rules.coloration(s->ray, hit, s, rules)*/);
-			*(i + 1) += rules.pixel_cross;
+			*i += rules.pixel_cross;
 		}
 	}
 }
