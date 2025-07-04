@@ -43,7 +43,7 @@ void	ft_mlx_img_print(t_scene *scene, t_mlx_obj *mlx)
 	rules = (t_rules){.ref = 4, .pixel_cross = 1,
 		.ref_str = .5, .coloration = /*ft_color_full*/NULL};
 	ft_get_viewport(vp, scene->camera, mlx->win_i, mlx->win_j);
-	//ft_process(mlx, vp, scene, rules);
+	ft_process(mlx, (t_viewport *)vp, scene, rules);
 	printf("IMAGE GENERATED.\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
@@ -57,7 +57,7 @@ inline void	ft_mlx_img_update(t_scene *scene, t_mlx_obj *mlx)
 	rules = (t_rules){.ref = 0, .pixel_cross = 16,
 		.coloration = /*ft_color_minimal*/NULL};
 	ft_get_viewport(vp, scene->camera, mlx->win_i, mlx->win_j);
-	//ft_process(mlx, vp, scene, rules);
+	ft_process(mlx, (t_viewport *)vp, scene, rules);
 	printf("MOVEMENT.\n");
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

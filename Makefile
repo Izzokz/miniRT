@@ -39,7 +39,7 @@ SRCS			= main.c \
                   $(MLXDIR)ft_mlx_key_hook.c \
                   $(MLXDIR)ft_mlx_loop.c \
                   $(MLXDIR)ft_mlx_img.c \
-#                 $(PROCESSDIR)ft_process.c
+                  $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))

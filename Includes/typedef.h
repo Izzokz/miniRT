@@ -69,6 +69,9 @@ typedef struct s_mlx_obj
 	int		win_j;
 	void	*win;
 	void	*img;
+	char	*img_data;
+	int		bpp;
+	int		size_line;
 }	t_mlx_obj;
 
 typedef struct s_ambient
@@ -92,6 +95,7 @@ typedef struct s_scene
 	t_camera	camera;
 	t_light		*lights;
 	t_obj		*objects;
+	t_ray		ray;
 }	t_scene;
 
 typedef struct s_viewport
