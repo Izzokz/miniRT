@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_img.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/03 13:33:08 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:18:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static inline void	ft_get_viewport(t_vec viewport[3], t_camera cam,
 void	ft_mlx_img_print(t_scene *scene, t_mlx_obj *mlx)
 {
 	t_vec	vp[3];
-	t_rules	rules;
+	// t_rules	rules;
 
-	rules = (t_rules){.ref = 4, .pixel_cross = 1,
-		.ref_str = .5, .coloration = /*ft_color_full*/NULL};
+	// rules = (t_rules){.ref = 4, .pixel_cross = 1,
+	// 	.ref_str = .5, .coloration = /*ft_color_full*/NULL};
 	ft_get_viewport(vp, scene->camera, mlx->win_i, mlx->win_j);
 	//ft_process(mlx, vp, scene, rules);
 	printf("IMAGE GENERATED.\n");
@@ -52,10 +52,10 @@ void	ft_mlx_img_print(t_scene *scene, t_mlx_obj *mlx)
 inline void	ft_mlx_img_update(t_scene *scene, t_mlx_obj *mlx)
 {
 	t_vec	vp[3];
-	t_rules	rules;
+	// t_rules	rules;
 
-	rules = (t_rules){.ref = 0, .pixel_cross = 16,
-		.coloration = /*ft_color_minimal*/NULL};
+	// rules = (t_rules){.ref = 0, .pixel_cross = 16,
+	// 	.coloration = /*ft_color_minimal*/NULL};
 	ft_get_viewport(vp, scene->camera, mlx->win_i, mlx->win_j);
 	//ft_process(mlx, vp, scene, rules);
 	printf("MOVEMENT.\n");

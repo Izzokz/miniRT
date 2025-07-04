@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:59:00 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/23 15:59:00 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:53:10 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static inline char	ft_mlx_win_img_init(t_mlx_obj *mobj)
 {
-	mlx_get_screen_size(mobj->mlx, &mobj->win_i, &mobj->win_j);
+	mobj->win_i = WIDTH;
+	mobj->win_j = HEIGHT;
 	mobj->win = mlx_new_window(mobj->mlx, mobj->win_i, mobj->win_j,
 			"miniRT (AI)");
 	if (!mobj->win)

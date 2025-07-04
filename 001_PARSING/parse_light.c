@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:34:19 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 15:07:13 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:45:26 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	parse_light(char **tokens, t_scene *scene)
     light = malloc(sizeof(t_light));
     if (!light)
         return (MALLOC_FAILED);
+    ft_memset(light, 0, sizeof(t_light));
     if (fill_light_data(light, tokens) != PARSE_OK)
     {
         free(light);

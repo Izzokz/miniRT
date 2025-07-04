@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 14:57:44 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:45:36 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void print_all_data(t_scene *scene)
 
 int	main(int argc, char **argv)
 {
-	t_scene	scene;
+	t_scene     scene;
+    t_mlx_obj	*m;
 
 	if (check_arg(argc, argv) == PARSE_KO)
 		return (PARSE_KO);
@@ -110,7 +111,9 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		// print_all_data(&scene);
+		print_all_data(&scene);
+        m = ft_mlx_obj_init();
+	    ft_mlx_loop(m, &scene);
 	}
 	free_scene(&scene);
 	return (PARSE_OK);

@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/04 15:08:18 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/04 15:13:58 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,10 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_s.c \
                 $(TOBJDIR)ft_light.c \
                 $(PROCESSDIR)ft_color.c \
-                # $(MLXDIR)ft_mlx_init.c \
-                # $(MLXDIR)ft_mlx_key_hook.c \
-                # $(MLXDIR)ft_mlx_loop.c \
-                # $(MLXDIR)ft_mlx_img.c \
+                $(MLXDIR)ft_mlx_init.c \
+                $(MLXDIR)ft_mlx_key_hook.c \
+                $(MLXDIR)ft_mlx_loop.c \
+                $(MLXDIR)ft_mlx_img.c \
                 # $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
