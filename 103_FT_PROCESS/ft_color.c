@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_color.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:15:46 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/05 14:15:47 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:41:56 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ inline void	ft_color_reflect(t_color edit,
 	*edit = (unsigned char)(*base * multiplicator);
 	*(edit + 1) = (unsigned char)(*(base + 1) * multiplicator);
 	*(edit + 2) = (unsigned char)(*(base + 2) * multiplicator);
+}
+
+inline unsigned int	ft_convert_color(const t_color color)
+{
+	return (*color << 16 | *(color + 1) << 8 | *(color + 2));
 }

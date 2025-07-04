@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 18:38:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:01:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		parse_cylinder(char **tokens, t_scene *scene);
 //free_utils.c
 void	free_tab(char **tab);
 void	free_objects(t_obj *obj);
-void	free_lights(t_list *lights);
+void	free_lights(t_light *lights);
 void	free_scene(t_scene *scene);
 
 #endif

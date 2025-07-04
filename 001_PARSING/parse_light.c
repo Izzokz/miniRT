@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:34:19 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 18:19:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 15:07:13 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,41 @@ int	fill_light_data(t_light *light, char **tokens)
 	return (PARSE_OK);
 }
 
+static void	light_add_back(t_light **lst, t_light *new_light)
+{
+    t_light	*current;
+
+    if (!lst || !new_light)
+        return;
+    if (!*lst)
+    {
+        *lst = new_light;
+        return;
+    }
+    current = *lst;
+    while (current->next)
+        current = current->next;
+    current->next = new_light;
+}
+
 int	parse_light(char **tokens, t_scene *scene)
 {
-	t_light	*light;
-	t_list	*new_node;
+    t_light	*light;
 
-	if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2]
-		|| !tokens[3])
-	{
-		print_error(L_ERROR);
-		return (PARSE_KO);
-	}
-	light = malloc(sizeof(t_light));
-	if (!light)
-		return (MALLOC_FAILED);
-	if (fill_light_data(light, tokens) != PARSE_OK)
-	{
-		free(light);
-		return (PARSE_KO);
-	}
-	new_node = ft_lstnew(light);
-	if (!new_node)
-	{
-		free(light);
-		return (MALLOC_FAILED);
-	}
-	ft_lstadd_back(&scene->lights, new_node);
-	return (PARSE_OK);
+    if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2]
+        || !tokens[3] || tokens[4])
+    {
+        print_error(L_ERROR);
+        return (PARSE_KO);
+    }
+    light = malloc(sizeof(t_light));
+    if (!light)
+        return (MALLOC_FAILED);
+    if (fill_light_data(light, tokens) != PARSE_OK)
+    {
+        free(light);
+        return (PARSE_KO);
+    }
+    light_add_back(&scene->lights, light);
+    return (PARSE_OK);
 }

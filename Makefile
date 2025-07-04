@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/04 13:25:47 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/04 15:08:18 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ VECDIR			= 101_FT_VEC/
 TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
 UTILDIR			= 200_UTILS/
+MLXDIR			= 201_FT_MLX/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -26,27 +27,31 @@ INCLUDEDIR		= Includes/
 LIBFT			= $(LIBFTDIR)libft.a
 
 SRCS			= main.c \
-					$(GNLDIR)get_next_line.c \
-					$(GNLDIR)get_next_line_utils.c \
-					$(PARSEDIR)free_utils.c \
-					$(PARSEDIR)check_scene.c \
-					$(PARSEDIR)parse_arg.c \
-					$(PARSEDIR)parse_params.c \
-					$(UTILDIR)split_utils.c \
-					$(PARSEDIR)parse_light.c \
-					$(PARSEDIR)parse_sphere.c \
-					$(PARSEDIR)parse_plane.c \
-					$(PARSEDIR)parse_cylinder.c \
-                	$(VECDIR)ft_vec0.c \
-                	$(VECDIR)ft_vec1.c \
-                	$(VECDIR)ft_vec2.c \
-                	$(VECDIR)ft_ray.c \
-                	$(TOBJDIR)ft_init_obj.c \
-                	$(TOBJDIR)ft_obj_c.c \
-                	$(TOBJDIR)ft_obj_f.c \
-                	$(TOBJDIR)ft_obj_spl.c \
-                	$(PROCESSDIR)ft_color.c \
-#                	$(PROCESSDIR)ft_process.c
+				$(GNLDIR)get_next_line.c \
+				$(GNLDIR)get_next_line_utils.c \
+				$(PARSEDIR)free_utils.c \
+				$(PARSEDIR)check_scene.c \
+				$(PARSEDIR)parse_arg.c \
+				$(PARSEDIR)parse_params.c \
+				$(UTILDIR)split_utils.c \
+				$(PARSEDIR)parse_light.c \
+				$(PARSEDIR)parse_sphere.c \
+				$(PARSEDIR)parse_plane.c \
+				$(PARSEDIR)parse_cylinder.c \
+                $(VECDIR)ft_vec0.c \
+                $(VECDIR)ft_vec1.c \
+                $(VECDIR)ft_vec2.c \
+                $(VECDIR)ft_ray.c \
+                $(TOBJDIR)ft_obj_c.c \
+                $(TOBJDIR)ft_obj_p.c \
+                $(TOBJDIR)ft_obj_s.c \
+                $(TOBJDIR)ft_light.c \
+                $(PROCESSDIR)ft_color.c \
+                # $(MLXDIR)ft_mlx_init.c \
+                # $(MLXDIR)ft_mlx_key_hook.c \
+                # $(MLXDIR)ft_mlx_loop.c \
+                # $(MLXDIR)ft_mlx_img.c \
+                # $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
@@ -111,7 +116,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR).
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR).
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)

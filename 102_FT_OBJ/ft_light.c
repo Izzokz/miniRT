@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_obj.c                                      :+:      :+:    :+:   */
+/*   ft_light.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 14:36:33 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/04 13:27:40 by lumugot          ###   ########.fr       */
+/*   Created: 2025/06/23 21:41:01 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/06/23 21:41:02 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
-void	ft_lol(void)
+void	ft_free_lights(t_light *head)
 {
-	return ;
+	t_light	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
 }
