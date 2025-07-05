@@ -74,7 +74,7 @@ static inline void	ft_put_color(t_mlx_obj *mobj,
 }
 
 void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
-	t_scene *s, const t_rules rules)
+	t_scene *s, const t_rules *rul)
 {
 	t_obj	*hit;
 	t_vec	scaled[2];
@@ -97,8 +97,8 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 			if (!hit)
 				ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
 			else
-				ft_put_color(mobj, i, ft_convert_color(hit->color)/*rules.coloration(s->ray, hit, s, rules)*/);
-			*i += rules.pixel_cross;
+				ft_put_color(mobj, i, ft_convert_color(hit->color)/*rul->coloration(s->ray, hit, s, rul)*/);
+			*i += rul->pixel_cross;
 		}
 	}
 }

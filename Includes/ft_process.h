@@ -22,6 +22,6 @@ void			ft_color_reflect(t_color edit, const t_color base,
 					const float multiplicator);
 unsigned int	ft_convert_color(const t_color color);
 void			ft_process(t_mlx_obj *mobj, const t_viewport *vp,
-					t_scene *scene, const t_rules rules);
+					t_scene *scene, const t_rules *rules);
 
 #endif

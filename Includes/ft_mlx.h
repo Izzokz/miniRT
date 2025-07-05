@@ -24,7 +24,6 @@ void		ft_mlx_key_hook(const t_keys, t_scene *scene, t_mlx_obj *mobj);
 void		ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene);
 
 /* MLX IMG */
-void		ft_mlx_img_update(t_scene *scene, t_mlx_obj *mobj);
-void		ft_mlx_img_print(t_scene *scene, t_mlx_obj *mobj);
+void		ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 
 #endif

@@ -22,10 +22,26 @@ static inline int	key_enable(int keycode, t_keys *keys)
 		keys->s = 1;
 	else if (keycode == XK_d)
 		keys->d = 1;
-	else if (keycode == XK_Control_L)
-		keys->ctrl = 1;
+	else if (keycode == XK_space)
+		keys->space = 1;
+	else if (keycode == XK_Shift_L)
+		keys->shift = 1;
+	else if (keycode == XK_Up)
+		keys->up = 1;
+	else if (keycode == XK_Down)
+		keys->down = 1;
+	else if (keycode == XK_Left)
+		keys->left = 1;
+	else if (keycode == XK_Right)
+		keys->right = 1;
+	else if (keycode == XK_Alt_R)
+		keys->alt_r = 1;
+	else if (keycode == XK_Control_R)
+		keys->ctrl_r = 1;
 	else if (keycode == XK_Escape)
 		keys->esc = 1;
+	else if (keycode == XK_r)
+		keys->r = 1;
 	return (0);
 }
 
@@ -39,8 +55,24 @@ static inline int	key_disable(int keycode, t_keys *keys)
 		keys->s = 0;
 	else if (keycode == XK_d)
 		keys->d = 0;
-	else if (keycode == XK_Control_L)
-		keys->ctrl = 0;
+	else if (keycode == XK_space)
+		keys->space = 0;
+	else if (keycode == XK_Shift_L)
+		keys->shift = 0;
+	else if (keycode == XK_Up)
+		keys->up = 0;
+	else if (keycode == XK_Down)
+		keys->down = 0;
+	else if (keycode == XK_Left)
+		keys->left = 0;
+	else if (keycode == XK_Right)
+		keys->right = 0;
+	else if (keycode == XK_Alt_R)
+		keys->alt_r = 0;
+	else if (keycode == XK_Control_R)
+		keys->ctrl_r = 0;
+	else if (keycode == XK_r)
+		keys->r = 1;
 	return (0);
 }
 

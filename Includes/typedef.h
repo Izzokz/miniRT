@@ -16,7 +16,7 @@
 # include "miniRT.h"
 
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
-# define WIDTH 800
+# define WIDTH 900
 # define HEIGHT 800
 
 # ifdef PI
@@ -28,7 +28,7 @@
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
 typedef struct s_rules	t_rules;
-typedef					int	t_color[3]; // R, G, B
+typedef int				t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
@@ -58,12 +58,20 @@ typedef struct s_light
 
 typedef struct s_keys
 {
-	unsigned char	w : 1;
 	unsigned char	a : 1;
-	unsigned char	s : 1;
 	unsigned char	d : 1;
-	unsigned char	ctrl : 1;
+	unsigned char	shift : 1;
+	unsigned char	space : 1;
+	unsigned char	s : 1;
+	unsigned char	w : 1;
+	unsigned char	left : 1;
+	unsigned char	right : 1;
+	unsigned char	down : 1;
+	unsigned char	up : 1;
+	unsigned char	alt_r : 1;
+	unsigned char	ctrl_r : 1;
 	unsigned char	esc : 1;
+	unsigned char	r : 1;
 }	t_keys;
 
 typedef struct s_mlx_obj
