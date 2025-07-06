@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/06 22:54:58 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/06 23:37:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-	float	yaw;
-	float	pitch;
-	t_vec	right;
-	t_vec	up;
+    float	yaw;
+    float	pitch;
+    t_vec	right;
+    t_vec	up;
 
-	yaw = ((keys.left > 0) - (keys.right > 0)) * ROT_SPEED;
-	pitch = ((keys.up > 0) - (keys.down > 0)) * ROT_SPEED;
-	if (yaw == 0 && pitch == 0)
-		return (0);
-	ft_new_vec(up, 0, 1, 0);
+    yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
+    pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
+    if (yaw == 0 && pitch == 0)
+        return (0);
+    ft_new_vec(up, 0, 1, 0);
 	if (yaw != 0)
 		ft_rotate_vec(scene->camera.orientation, up, yaw);
 	if (pitch != 0)
