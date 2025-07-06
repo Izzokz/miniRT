@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 20:20:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/06 23:27:41 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		print_all_data(&scene);
+		// print_all_data(&scene);
 		m = ft_mlx_obj_init();
 		ft_mlx_loop(m, &scene);
 	}
