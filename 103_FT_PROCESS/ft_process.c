@@ -21,20 +21,20 @@ Else returns NULL.
 *tmp = outray.
 *(tmp + 1) = tmpray.
 */
-static int	ft_hit_nearest_obj(t_ray ray, const t_obj *head)
+t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 {
 	t_ray	tmp[2];
 	t_obj	*o[2];
 
-	*o = head;
+	*o = (t_obj *)head;
 	*(o + 1) = NULL;
-	ft_new_vec(**tmp, inf, inf, inf);
+	ft_new_vec(**tmp, INFINITY, INFINITY, INFINITY);
 	while (*o)
 	{
 		ft_cpy_ray(*(tmp + 1), ray);
-		if ((*o).hit(*o, *(tmp + 1)))
+		if ((*o)->hit(*o, *(tmp + 1)))
 		{
-			if (ft_vec_dist(**(tmp + 1), ray) < ft_vec_dist(**tmp, ray))
+			if (ft_vec_dist(**(tmp + 1), *ray) < ft_vec_dist(**tmp, *ray))
 			{
 				*(o + 1) = *o;
 				ft_cpy_ray(*tmp, *(tmp + 1));
@@ -42,69 +42,63 @@ static int	ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 		}
 		*o = (*o)->next;
 	}
-	if (***tmp != inf)
+	if (***tmp != INFINITY)
 		ft_cpy_ray(ray, *tmp);
 	return (*(o + 1));
 }
 
-static void	ft_shadow(t_color color, t_vec pos, const t_scene *scene)
+static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
+	const t_scene *scene, const t_vec scaled[2])
 {
-	t_ray	ray;
-	t_light	*light;
+	t_vec	dir;
 
-	light = scene->lights;
-	while (light)
-	{
-		ft_new_ray(ray, pos, light->pos));
-		if (ft_hit_nearest_obj(ray, scene->objects))
-			ft_color_scale(color, .66f);
-		light = light->next;
-	}
+	ft_vec_add(dir, vp->pos, *scaled);
+	ft_vec_add(dir, dir, *(scaled + 1));
+	ft_vec_sub(dir, dir, scene->camera.pos);
+	ft_new_ray(ray, scene->camera.pos, dir);
 }
 
-static void	ft_blend_color(t_ray hit_ray, const t_scene *scene, t_obj *hit)
+static inline void	ft_set_img_settings(t_mlx_obj *mobj)
 {
-	t_color	color;
-	t_color	reflect;
-	char	depth;
-	float	mult;
+	int	a;
 
-	// calculate (ambient + diffuse + specular)
-	ft_memcpy(color, hit->color, 3);
-	ft_shadow(color, *hit_ray, scene);
-	mult = .33f;
-	depth = -1;
-	while (++depth < 4)
-	{
-		hit = ft_hit_nearest_obj(hit_ray, scene->objects);
-		if (!hit)
-			break ;
-		// calculate (ambient + diffuse + specular)
-		ft_color_reflect(reflect, hit->color, mult);
-		ft_shadow(reflect, *hit_ray, scene);
-		ft_color_add(color, reflect);
-		mult *= .75f;
-	}
-	print_color(color); // will print to actual focused pixel :P
+	mobj->img_data = mlx_get_data_addr(mobj->img,
+			&mobj->bpp, &mobj->size_line, &a);
 }
 
-void	ft_process(t_mlx_obj *mlx, const t_viewport vp,
-	const t_scene *scene, const t_rules rules)
+static inline void	ft_put_color(t_mlx_obj *mobj,
+	int iter[2], unsigned int color)
+{
+	*(unsigned int *)(mobj->img_data + (*iter * mobj->size_line
+				+ *(iter + 1) * (mobj->bpp / 8))) = color;
+}
+
+void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
+	t_scene *s, const t_rules *rul)
 {
 	t_obj	*hit;
+	t_vec	scaled[2];
+	double	pixel[2];
+	int		i[2];
 
-	i = 0;
-	while (i < height)
+	*pixel = 1.0 / mobj->win_i;
+	*(pixel + 1) = 1.0 / mobj->win_j;
+	ft_set_img_settings(mobj);
+	*(i + 1) = -1;
+	while (++*(i + 1) < mobj->win_i)
 	{
-		j = 0;
-		while (j < width)
+		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
+		*i = 0;
+		while (*i < mobj->win_j)
 		{
-			hit = ft_hit_nearest_obj(/* ray */, scene->objects);
+			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
+			ft_shoot_ray(s->ray, vp, s, scaled);
+			hit = ft_hit_nearest_obj(s->ray, s->objects);
 			if (!hit)
-				print ambient color;
+				ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
 			else
-				ft_put_color(/* mlx infos */, rules.coloration(/* ray */, hit, scene, rules));
-			j += rules.pixel_cross;
+				ft_put_color(mobj, i, ft_convert_color(hit->color)/*rul->coloration(s->ray, hit, s, rul)*/);
+			*i += rul->pixel_cross;
 		}
 	}
 }

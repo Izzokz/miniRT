@@ -28,6 +28,7 @@ int	create_and_fill_sphere(t_obj **new_obj, char **tokens)
 	parse_vec3(tokens[1], (*new_obj)->params);
 	(*new_obj)->params[3] = ft_atod(tokens[2]);
 	parse_color(tokens[3], (*new_obj)->color);
+	(*new_obj)->hit = ft_hit_s;
 	(*new_obj)->next = NULL;
 	return (PARSE_OK);
 }

@@ -51,13 +51,13 @@ SRCS			= main.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
-                # $(PROCESSDIR)ft_process.c
+                $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Werror -Wextra -g3 
+CFLAGS	= -Wall -Werror -Wextra -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux
@@ -129,7 +129,7 @@ clean:
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFTDIR)
-	@rm -f $(NAME)	
+	@rm -f $(NAME)
 	@rm -rf $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37mFull Clean Complete !\033[0m\n"
 

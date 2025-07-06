@@ -15,12 +15,13 @@
 
 # include "miniRT.h"
 
+t_obj			*ft_hit_nearest_obj(t_ray, const t_obj *head);
 void			ft_color_scale(t_color edit, const float factor);
 void			ft_color_add(t_color edit, const t_color sum);
 void			ft_color_reflect(t_color edit, const t_color base,
 					const float multiplicator);
 unsigned int	ft_convert_color(const t_color color);
-void			ft_process(t_mlx_obj *mobj, const t_viewport, const t_scene *,
-					const t_rules rules);
+void			ft_process(t_mlx_obj *mobj, const t_viewport *vp,
+					t_scene *scene, const t_rules *rules);
 
 #endif

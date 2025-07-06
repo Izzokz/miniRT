@@ -28,6 +28,7 @@ int	create_and_fill_plane(t_obj **new_obj, char **tokens)
 	parse_vec3(tokens[1], (*new_obj)->params);
 	parse_vec3(tokens[2], (*new_obj)->params + 3);
 	parse_color(tokens[3], (*new_obj)->color);
+	(*new_obj)->hit = ft_hit_p;
 	(*new_obj)->next = NULL;
 	return (PARSE_OK);
 }

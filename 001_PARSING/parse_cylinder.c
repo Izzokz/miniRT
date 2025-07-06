@@ -40,6 +40,7 @@ int	create_and_fill_cylinder(t_obj **new_obj, char **tokens)
 	(*new_obj)->params[6] = ft_atod(tokens[3]);
 	(*new_obj)->params[7] = ft_atod(tokens[4]);
 	parse_color(tokens[5], (*new_obj)->color);
+	(*new_obj)->hit = ft_hit_c;
 	(*new_obj)->next = NULL;
 	return (PARSE_OK);
 }

@@ -29,23 +29,22 @@ char	ft_hit_s(const t_obj *sphere, t_ray ray)
 	double	abdt[4];
 	t_vec	tmp[2];
 
-	ft_cpy_vec(*(tmp + 1), sphere->params);
-	ft_vec_sub(*tmp, *ray, *(tmp + 1));
+	ft_vec_sub(*tmp, *ray, sphere->params);
 	*abdt = ft_vec_dot(*(ray + 1), *(ray + 1));
 	*(abdt + 1) = 2.0 * ft_vec_dot(*tmp, *(ray + 1));
 	*(abdt + 2) = (*(abdt + 1) * *(abdt + 1))
-		- 4.0 * *abdt * (ft_vec_dot(*tmp, *tmp)
-			- ((*(sphere->params + 3) / 2) * (*(sphere->params + 3) / 2)));
-	if (*(abdt + 2) < 0)
+		- (4.0 * *abdt * (ft_vec_dot(*tmp, *tmp)
+				- ((*(sphere->params + 3) / 2) * (*(sphere->params + 3) / 2))));
+	if (*(abdt + 2) < 1e-6)
 		return (0);
 	*(abdt + 3) = (-*(abdt + 1) - sqrt(*(abdt + 2))) / (2.0 * *abdt);
-	if (*(abdt + 3) < 0)
+	if (*(abdt + 3) < 1e-6)
 		*(abdt + 3) = (-*(abdt + 1) + sqrt(*(abdt + 2))) / (2.0 * *abdt);
-	if (*(abdt + 3) < 0)
+	if (*(abdt + 3) < 1e-6)
 		return (0);
 	ft_vec_scale(*tmp, *(ray + 1), *(abdt + 3));
 	ft_vec_add(*tmp, *ray, *tmp);
-	ft_vec_sub(*(tmp + 1), *tmp, *(tmp + 1));
+	ft_vec_sub(*(tmp + 1), *tmp, sphere->params);
 	ft_vec_norm(*(tmp + 1), *(tmp + 1));
 	ft_reflect(ray, tmp);
 	return (1);

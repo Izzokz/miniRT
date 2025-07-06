@@ -91,15 +91,15 @@ void print_all_data(t_scene *scene)
             printf("\tHeight: %.2f\n", obj->params[7]);
         }
         print_color("Color", obj->color);
-        obj = obj->next;
-    }
-    printf("\n--- END SCENE DATA ---\n");
+		obj = obj->next;
+	}
+	printf("\n--- END SCENE DATA ---\n");
 }
 
 int	main(int argc, char **argv)
 {
 	t_scene     scene;
-    t_mlx_obj	*m;
+	t_mlx_obj	*m;
 
 	if (check_arg(argc, argv) == PARSE_KO)
 		return (PARSE_KO);
@@ -112,8 +112,8 @@ int	main(int argc, char **argv)
 	{
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
 		print_all_data(&scene);
-        m = ft_mlx_obj_init();
-	    ft_mlx_loop(m, &scene);
+		m = ft_mlx_obj_init();
+		ft_mlx_loop(m, &scene);
 	}
 	free_scene(&scene);
 	return (PARSE_OK);
