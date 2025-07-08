@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 /*
 Tries to hit every single object and get the nearest one.
@@ -97,7 +97,7 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 			if (!hit)
 				ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
 			else
-				ft_put_color(mobj, i, ft_convert_color(hit->color)/*rul->coloration(s->ray, hit, s, rul)*/);
+				ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
 			*i += rul->pixel_cross;
 		}
 	}

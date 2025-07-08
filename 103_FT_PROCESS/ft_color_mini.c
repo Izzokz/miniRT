@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_color_mini.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 12:30:03 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 13:24:58 by lumugot          ###   ########.fr       */
+/*   Created: 2025/07/07 14:13:41 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/07/07 14:13:44 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "miniRT.h"
 
-//ft_pos_val.c
-double	ft_pos_val(const double val);
-
-//split_utils.c
-char	**ft_split_space(const char *s);
-
-#endif
+inline unsigned int	ft_color_mini(t_ray ray, t_obj *hit,
+	const t_scene *scene, const t_rules *rules)
+{
+	(void) ray;
+	(void) scene;
+	(void) rules;
+	return (ft_convert_color(hit->color));
+}

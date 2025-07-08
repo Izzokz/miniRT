@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 12:30:03 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/04 13:24:58 by lumugot          ###   ########.fr       */
+/*   Created: 2025/07/07 11:10:35 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/07/07 11:10:36 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "typedef.h"
 
-//ft_pos_val.c
-double	ft_pos_val(const double val);
-
-//split_utils.c
-char	**ft_split_space(const char *s);
-
-#endif
+const t_vec	g_right = {1, 0, 0};
+const t_vec	g_up = {0, 1, 0};
+const t_vec	g_forward = {0, 0, -1};

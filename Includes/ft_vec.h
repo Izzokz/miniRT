@@ -13,7 +13,7 @@
 #ifndef FT_VEC_H
 # define FT_VEC_H
 
-# include "miniRT.h"
+# include "typedef.h"
 
 /* VEC SETTER */
 void	ft_new_vec(t_vec newv, const double x, const double y, const double z);

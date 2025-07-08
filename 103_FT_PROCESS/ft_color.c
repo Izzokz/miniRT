@@ -12,26 +12,90 @@
 
 #include "miniRT.h"
 
+inline void	ft_color_mult(t_color edit, const t_color m1,
+	const t_color m2)
+{
+	unsigned int	greater_color[3];
+
+	*greater_color = *m1 * *m2;
+	*(greater_color + 1) = *(m1 + 1) * *(m2 + 1);
+	*(greater_color + 2) = *(m1 + 2) * *(m2 + 2);
+	if (*greater_color > 255)
+		*edit = 255;
+	else
+		*edit = *greater_color;
+	if (*(greater_color + 1) > 255)
+		*(edit + 1) = 255;
+	else
+		*(edit + 1) = *(greater_color + 1);
+	if (*(greater_color + 2) > 255)
+		*(edit + 2) = 255;
+	else
+		*(edit + 2) = *(greater_color + 2);
+}
+
 inline void	ft_color_scale(t_color edit, const float scale)
 {
-	*edit *= scale;
-	*(edit + 1) *= scale;
-	*(edit + 2) *= scale;
+	unsigned int	greater_color[3];
+
+	*greater_color = *edit * scale;
+	*(greater_color + 1) = *(edit + 1) * scale;
+	*(greater_color + 2) = *(edit + 2) * scale;
+	if (*greater_color > 255)
+		*edit = 255;
+	else
+		*edit = *greater_color;
+	if (*(greater_color + 1) > 255)
+		*(edit + 1) = 255;
+	else
+		*(edit + 1) = *(greater_color + 1);
+	if (*(greater_color + 2) > 255)
+		*(edit + 2) = 255;
+	else
+		*(edit + 2) = *(greater_color + 2);
 }
 
 inline void	ft_color_add(t_color edit, const t_color sum)
 {
-	*edit += *sum;
-	*(edit + 1) += *(sum + 1);
-	*(edit + 2) += *(sum + 2);
+	unsigned int	greater_color[3];
+
+	*greater_color = *edit + *sum;
+	*(greater_color + 1) = *(edit + 1) + *(sum + 1);
+	*(greater_color + 2) = *(edit + 2) + *(sum + 2);
+	if (*greater_color > 255)
+		*edit = 255;
+	else
+		*edit = *greater_color;
+	if (*(greater_color + 1) > 255)
+		*(edit + 1) = 255;
+	else
+		*(edit + 1) = *(greater_color + 1);
+	if (*(greater_color + 2) > 255)
+		*(edit + 2) = 255;
+	else
+		*(edit + 2) = *(greater_color + 2);
 }
 
 inline void	ft_color_reflect(t_color edit,
 	const t_color base, const float multiplicator)
 {
-	*edit = (unsigned char)(*base * multiplicator);
-	*(edit + 1) = (unsigned char)(*(base + 1) * multiplicator);
-	*(edit + 2) = (unsigned char)(*(base + 2) * multiplicator);
+	unsigned int	greater_color[3];
+
+	*greater_color = *base * multiplicator;
+	*(greater_color + 1) = *(base + 1) * multiplicator;
+	*(greater_color + 2) = *(base + 2) * multiplicator;
+	if (*greater_color > 255)
+		*edit = 255;
+	else
+		*edit = *greater_color;
+	if (*(greater_color + 1) > 255)
+		*(edit + 1) = 255;
+	else
+		*(edit + 1) = *(greater_color + 1);
+	if (*(greater_color + 2) > 255)
+		*(edit + 2) = 255;
+	else
+		*(edit + 2) = *(greater_color + 2);
 }
 
 inline unsigned int	ft_convert_color(const t_color color)

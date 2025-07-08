@@ -13,28 +13,34 @@
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# include "miniRT.h"
-
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
 # define WIDTH 900
 # define HEIGHT 800
 # define MOVE_SPEED 0.18
 # define ROT_SPEED 0.05
 
-
 # ifdef PI
 #  undef PI
 # endif
 
-# define PI 3.14159265359
+# define PI 3.141592653589793
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
 typedef struct s_rules	t_rules;
-typedef int				t_color[3]; // R, G, B
+typedef unsigned char	t_color[3]; // R, G, B
 
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
+
+/* Gimbal Lock Information (Unlock) */
+typedef struct __attribute__((__packed__)) s_gl_info
+{
+	char	occured;
+	char	axis;
+	void	(*unlock)(t_vec dir, char gli[2]);
+	void	(*realign)(t_vec dir, char gli[2]);
+}	t_gl_info;
 
 /*
 Objects can be:
@@ -59,7 +65,7 @@ typedef struct s_light
 	t_light	*next;
 }	t_light;
 
-typedef struct s_keys
+typedef struct __attribute__((__packed__)) s_keys
 {
 	unsigned char	a : 1;
 	unsigned char	d : 1;
@@ -98,10 +104,11 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-	t_vec	pos;
-	t_vec	orientation;
-	double	fov;
-	int		is_set;
+	t_vec		pos;
+	t_vec		orientation;
+	double		fov;
+	int			is_set;
+	t_gl_info	gli;
 }	t_camera;
 
 typedef struct s_scene
@@ -113,7 +120,7 @@ typedef struct s_scene
 	t_ray		ray;
 }	t_scene;
 
-typedef struct s_viewport
+typedef struct __attribute__((__packed__)) s_viewport
 {
 	t_vec	hor;
 	t_vec	ver;
@@ -126,7 +133,14 @@ typedef struct s_rules
 	char			pixel_cross;
 	double			ref_str;
 	unsigned int	(*coloration)(t_ray, t_obj *hit,
-			const t_scene *, const t_rules);
+			const t_scene *, const t_rules *);
 }	t_rules;
+
+typedef struct s_color_ads
+{
+	t_color	ambient;
+	t_color	diffuse[2];
+	t_color	specular[2];
+}	t_color_ads;
 
 #endif

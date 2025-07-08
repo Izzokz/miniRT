@@ -14,10 +14,10 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = 4;
+	rules->ref = -1;
 	rules->ref_str = .75;
 	rules->pixel_cross = 1;
-	rules->coloration = NULL;
+	rules->coloration = ft_blend_color;
 }
 
 static inline void	ft_move2(const char x, const char y,
@@ -76,51 +76,53 @@ static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-    float	yaw;
-    float	pitch;
-    t_vec	right;
-    t_vec	up;
+	float	yaw;
+	float	pitch;
+	t_vec	right;
 
-    yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
-    pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
-    if (yaw == 0 && pitch == 0)
-        return (0);
-    ft_new_vec(up, 0, 1, 0);
+	yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
+	pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
+	if (yaw == 0 && pitch == 0)
+		return (0);
+	printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
+	scene->camera.gli.unlock(scene->camera.orientation,
+		(char *)&scene->camera.gli);
 	if (yaw != 0)
-		ft_rotate_vec(scene->camera.orientation, up, yaw);
+		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
 	if (pitch != 0)
 	{
-		ft_vec_cross(right, up, scene->camera.orientation);
+		ft_vec_cross(right, g_up, scene->camera.orientation);
 		ft_vec_norm(right, right);
 		ft_rotate_vec(scene->camera.orientation, right, pitch);
 	}
 	ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
+	scene->camera.gli.realign(scene->camera.orientation,
+		(char *)&scene->camera.gli);
+	printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
 	return (1);
 }
 
 void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 {
-    static t_rules	rules;
-    static char		init = 0;
-    char			has_changed;
+	static t_rules	rules;
+	static char		init = 0;
 
-    if (!init)
-    {
-        ++init;
-        ft_set_rules_max(&rules);
-        ft_mlx_img_update(mobj, scene, &rules);
-        return ;
-    }
-    has_changed = ft_move(*(unsigned char *)&keys, scene);
-    if (ft_rotate(keys, scene))
-        has_changed = 1;
-    if (has_changed)
-    {
-        ft_mlx_img_update(mobj, scene, &rules);
-    }
-    else if (keys.r)
-    {
-        ft_set_rules_max(&rules);
-        ft_mlx_img_update(mobj, scene, &rules);
-    }
+	if (!init)
+	{
+		++init;
+		ft_set_rules_max(&rules);
+		ft_mlx_img_update(mobj, scene, &rules);
+		return ;
+	}
+	if (ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
+	{
+		rules.pixel_cross = 8;
+		rules.coloration = ft_color_mini;
+		ft_mlx_img_update(mobj, scene, &rules);
+	}
+	else if (keys.r)
+	{
+		ft_set_rules_max(&rules);
+		ft_mlx_img_update(mobj, scene, &rules);
+	}
 }

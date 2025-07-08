@@ -100,7 +100,11 @@ int	parse_camera(char **tokens, t_scene *scene)
 	parse_vec3(tokens[1], scene->camera.pos);
 	parse_vec3(tokens[2], scene->camera.orientation);
 	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
+	{
+		ft_gli_init(scene->camera.orientation, &scene->camera.gli);
+		printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
 		return (PARSE_OK);
+	}
 	print_error("Camera FOV must be between 0 and 180 degrees");
 	return (PARSE_KO);
 }
