@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/06 23:37:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/08 16:24:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 {
     static t_rules	rules;
-    static char		init = 0;
+    static char		init;
     char			has_changed;
 
+    init = 0;
     if (!init)
     {
         ++init;
@@ -115,9 +116,7 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
     if (ft_rotate(keys, scene))
         has_changed = 1;
     if (has_changed)
-    {
         ft_mlx_img_update(mobj, scene, &rules);
-    }
     else if (keys.r)
     {
         ft_set_rules_max(&rules);
