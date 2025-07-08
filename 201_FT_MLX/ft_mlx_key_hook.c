@@ -14,7 +14,7 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = -1;
+	rules->ref = 0;
 	rules->ref_str = .75;
 	rules->pixel_cross = 1;
 	rules->coloration = ft_blend_color;

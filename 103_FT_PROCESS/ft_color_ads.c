@@ -43,7 +43,7 @@ static inline void	ft_color_merge(t_color edit, t_color ambient,
 
 static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
 {
-	ft_memcpy(cat[0], r1, sizeof(t_ray));	
+	ft_memcpy(cat[0], r1, sizeof(t_ray));
 	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
 
@@ -111,7 +111,7 @@ unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 		if (!hit)
 			break ;
 		ft_color_ads(color, scene, hit);
-		ft_color_reflect(reflect, hit->color, mult);
+		ft_color_reflect(reflect, color, mult);
 		ft_shadow(reflect, *hit_ray, scene);
 		ft_color_add(color, reflect);
 		mult *= .75f;
