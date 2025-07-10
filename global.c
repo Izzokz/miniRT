@@ -14,4 +14,4 @@
 
 const t_vec	g_right = {1, 0, 0};
 const t_vec	g_up = {0, 1, 0};
-const t_vec	g_forward = {0, 0, -1};
+const t_vec	g_forward = {0, 0, 1};

@@ -24,22 +24,18 @@ static inline void	ft_move2(const char x, const char y,
 	const char z, t_scene *scene)
 {
 	t_vec	move;
-	t_vec	tmp[3];
-	t_vec	up;
+	t_vec	tmp;
+	t_vec	delta;
 
-	ft_new_vec(up, 0, 1, 0);
 	ft_new_vec(move, x, y, z);
-	ft_vec_norm(*(tmp + 2), scene->camera.orientation);
-	ft_vec_cross(*tmp, up, *(tmp + 2));
-	ft_vec_norm(*tmp, *tmp);
-	ft_vec_scale(*tmp, *tmp, *move);
-	ft_vec_scale(up, up, *(move + 1));
-	ft_vec_scale(*(tmp + 2), *(tmp + 2), *(move + 2));
-	ft_vec_add(*(tmp + 1), *tmp, up);
-	ft_vec_add(*(tmp + 1), *(tmp + 1), *(tmp + 2));
-	ft_vec_norm(*(tmp + 1), *(tmp + 1));
-	ft_vec_scale(*(tmp + 1), *(tmp + 1), MOVE_SPEED);
-	ft_vec_add(scene->camera.pos, scene->camera.pos, *(tmp + 1));
+	ft_vec_scale(delta, g_right, x);
+	ft_vec_scale(tmp, g_up, y);
+	ft_vec_add(delta, delta, tmp);
+	ft_vec_scale(tmp, g_forward, z);
+	ft_vec_add(delta, delta, tmp);
+	ft_vec_norm(delta, delta);
+	ft_vec_scale(delta, delta, MOVE_SPEED);
+	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
 }
 
 static inline char	ft_move(unsigned char keys, t_scene *scene)
@@ -48,12 +44,13 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	char	y;
 	char	z;
 
-	x = ((keys >> 0) & 1) - ((keys >> 1) & 1);
-	y = ((keys >> 2) & 1) - ((keys >> 3) & 1);
-	z = ((keys >> 4) & 1) - ((keys >> 5) & 1);
-	if (!(!!x + !!y + !!z))
+	x = ((keys >> 1) & 1) - ((keys >> 0) & 1);
+	y = ((keys >> 3) & 1) - ((keys >> 2) & 1);
+	z = ((keys >> 5) & 1) - ((keys >> 4) & 1);
+	if (!x && !y && !z)
 		return (0);
 	ft_move2(x, y, z, scene);
+	printf("cam:pos{%f, %f, %f}\n", scene->camera.pos[0], scene->camera.pos[1], scene->camera.pos[2]);
 	return (1);
 }
 
@@ -84,21 +81,24 @@ static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 	pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
 	if (yaw == 0 && pitch == 0)
 		return (0);
-	printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
 	scene->camera.gli.unlock(scene->camera.orientation,
 		(char *)&scene->camera.gli);
 	if (yaw != 0)
-		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
+		ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
 	if (pitch != 0)
 	{
-		ft_vec_cross(right, g_up, scene->camera.orientation);
+		ft_vec_cross(right, scene->_up, scene->camera.orientation);
 		ft_vec_norm(right, right);
 		ft_rotate_vec(scene->camera.orientation, right, pitch);
 	}
 	ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
 	scene->camera.gli.realign(scene->camera.orientation,
 		(char *)&scene->camera.gli);
-	printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
+	ft_cpy_vec(scene->_forward, scene->camera.orientation);
+	ft_vec_cross(scene->_right, g_up, scene->_forward);
+	ft_vec_norm(scene->_right, scene->_right);
+	ft_vec_cross(scene->_up, scene->_forward, scene->_right);
+	ft_vec_norm(scene->_up, scene->_up);
 	return (1);
 }
 

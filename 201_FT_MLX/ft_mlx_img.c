@@ -15,23 +15,25 @@
 static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene,
 	int i, int j)
 {
-	double		tmp_width;
-	double		tmp_height;
-	t_vec		tmp;
-	const t_vec	up = {'\0', 1, '\0'};
+	double	tmp_width;
+	double	tmp_height;
+	t_vec	ruf[3];
+	t_vec	tmp;
 
+	ft_cpy_vec(*(ruf + 2), scene->camera.orientation);
+	ft_vec_cross(*ruf, scene->_up, *(ruf + 2));
+	ft_vec_norm(*ruf, *ruf);
+	ft_vec_cross(*(ruf + 1), *(ruf + 2), *ruf);
+	ft_vec_norm(*(ruf + 1), *(ruf + 1));
 	tmp_width = 2 * tan(scene->camera.fov * (PI / 360.0));
-	tmp_height = tmp_width * ((double)i / j);
-	ft_vec_cross(tmp, up, scene->camera.orientation);
-	ft_vec_norm(tmp, tmp);
-	ft_vec_scale(*viewport, tmp, tmp_width);
-	ft_vec_cross(tmp, scene->camera.orientation, tmp);
-	ft_vec_scale(*(viewport + 1), tmp, -tmp_height);
-	ft_vec_add(tmp, scene->camera.pos, scene->camera.orientation);
-	ft_vec_div(*(viewport + 2), *viewport, 2);
-	ft_vec_sub(*(viewport + 2), tmp, *(viewport + 2));
+	tmp_height = tmp_width * ((double)j / i);
+	ft_vec_scale(*viewport, *ruf, tmp_width);
+	ft_vec_scale(*(viewport + 1), *(ruf + 1), -tmp_height);
+	ft_vec_add(*ruf, scene->camera.pos, *(ruf + 2));
+	ft_vec_div(tmp, *viewport, 2);
+	ft_vec_sub(*ruf, *ruf, tmp);
 	ft_vec_div(tmp, *(viewport + 1), 2);
-	ft_vec_sub(*(viewport + 2), *(viewport + 2), tmp);
+	ft_vec_sub(*(viewport + 2), *ruf, tmp);
 }
 
 inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)

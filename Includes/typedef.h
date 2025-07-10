@@ -14,7 +14,7 @@
 # define TYPEDEF_H
 
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
-# define WIDTH 900
+# define WIDTH 800
 # define HEIGHT 800
 # define MOVE_SPEED 0.18
 # define ROT_SPEED 0.05
@@ -118,6 +118,9 @@ typedef struct s_scene
 	t_light		*lights;
 	t_obj		*objects;
 	t_ray		ray;
+	t_vec		_right;
+	t_vec		_up;
+	t_vec		_forward;
 }	t_scene;
 
 typedef struct __attribute__((__packed__)) s_viewport
