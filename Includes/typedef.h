@@ -14,10 +14,10 @@
 # define TYPEDEF_H
 
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
-# define WIDTH 800
+# define WIDTH 1000
 # define HEIGHT 800
-# define MOVE_SPEED 0.18
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.1
+# define ROT_SPEED .05
 
 # ifdef PI
 #  undef PI
