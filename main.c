@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 void	print_vec(const char *name, t_vec vec)
 {
@@ -110,8 +110,11 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+        ft_new_vec(scene._right, 1, 0, 0);
+        ft_new_vec(scene._up, 0, 1, 0);
+        ft_new_vec(scene._forward, 0, 0, 1);
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		// print_all_data(&scene);
+		//print_all_data(&scene);
 		m = ft_mlx_obj_init();
 		ft_mlx_loop(m, &scene);
 	}

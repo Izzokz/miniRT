@@ -17,7 +17,17 @@
 # define PARSE_KO 1
 # define MALLOC_FAILED -1
 
-# include "miniRT.h"
+# include "typedef.h"
+# include "libft.h"
+# include <stdio.h>
+# include "../get_next_line/get_next_line.h"
+# include "utils.h"
+# include <fcntl.h>
+
+//ft_gli_init.c
+void	ft_gli_init(t_vec dir, t_gl_info *gli);
+void	ft_gli_unlock(t_vec dir, char gli[2]);
+void	ft_gli_realign(t_vec dir, char gli[2]);
 
 //check_scene.c
 void	print_error(char *message);

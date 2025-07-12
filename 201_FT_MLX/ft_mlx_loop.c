@@ -72,7 +72,7 @@ static inline int	key_disable(int keycode, t_keys *keys)
 	else if (keycode == XK_Control_R)
 		keys->ctrl_r = 0;
 	else if (keycode == XK_r)
-		keys->r = 1;
+		keys->r = 0;
 	return (0);
 }
 

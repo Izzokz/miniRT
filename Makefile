@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/08 15:37:29 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/12 16:52:31 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,16 @@ INCLUDEDIR		= Includes/
 LIBFT			= $(LIBFTDIR)libft.a
 
 SRCS			= main.c \
+				global.c \
 				$(GNLDIR)get_next_line.c \
 				$(GNLDIR)get_next_line_utils.c \
 				$(PARSEDIR)free_utils.c \
 				$(PARSEDIR)check_scene.c \
+				$(PARSEDIR)ft_gli_init.c \
 				$(PARSEDIR)parse_arg.c \
 				$(PARSEDIR)parse_params.c \
 				$(UTILDIR)split_utils.c \
+				$(UTILDIR)ft_pos_val.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
@@ -46,12 +49,14 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
                 $(TOBJDIR)ft_light.c \
-                $(PROCESSDIR)ft_color.c \
+				$(PROCESSDIR)ft_color.c \
+				$(PROCESSDIR)ft_color_ads.c \
+				$(PROCESSDIR)ft_color_mini.c \
+				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
-                $(PROCESSDIR)ft_process.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))

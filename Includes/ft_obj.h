@@ -13,7 +13,7 @@
 #ifndef FT_OBJ_H
 # define FT_OBJ_H
 
-# include "miniRT.h"
+# include "typedef.h"
 
 /* OBJ METHODS */
 void	ft_reflect(t_ray, const t_vec posnorm[2]);

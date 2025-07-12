@@ -13,7 +13,7 @@
 #ifndef FT_MLX_H
 # define FT_MLX_H
 
-# include "miniRT.h"
+# include "typedef.h"
 
 /* MLX INIT AND FREE */
 t_mlx_obj	*ft_mlx_obj_init(void);
