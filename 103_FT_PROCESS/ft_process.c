@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/13 09:49:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/13 09:56:38 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 				ft_put_color(mobj, i, 0);
 			else
 				ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
-			*i += rul->pixel_cross;
+			(*i)++;
 		}
-		*(i + 1) += rul->pixel_cross;
+		(*(i + 1))++;
 	}
 }
