@@ -14,6 +14,8 @@
 
 static inline char	ft_mlx_win_img_init(t_mlx_obj *mobj)
 {
+	int	a;
+
 	mobj->win_i = WIDTH;
 	mobj->win_j = HEIGHT;
 	mobj->win = mlx_new_window(mobj->mlx, mobj->win_i, mobj->win_j,
@@ -29,6 +31,8 @@ static inline char	ft_mlx_win_img_init(t_mlx_obj *mobj)
 		ft_putendl_fd("MLXOBJ: mlx_new_image fail", 2);
 		return (1);
 	}
+	mobj->img_data = mlx_get_data_addr(mobj->img,
+			&mobj->bpp, &mobj->size_line, &a);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/12 17:24:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/13 09:49:50 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
 	ft_new_ray(ray, scene->camera.pos, dir);
 }
 
-static inline void	ft_set_img_settings(t_mlx_obj *mobj)
-{
-	int	a;
-
-	mobj->img_data = mlx_get_data_addr(mobj->img,
-			&mobj->bpp, &mobj->size_line, &a);
-}
-
 static inline void	ft_put_color(t_mlx_obj *mobj,
 	int iter[2], unsigned int color)
 {
@@ -83,22 +75,22 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 
 	*pixel = 1.0 / mobj->win_i;
 	*(pixel + 1) = 1.0 / mobj->win_j;
-	ft_set_img_settings(mobj);
-    *(i + 1) = -1;
-    while (++*(i + 1) < mobj->win_i)
-    {
-        ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
-        *i = 0;
-        while (*i < mobj->win_j)
-        {
-            ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
-            ft_shoot_ray(s->ray, vp, s, scaled);
-            hit = ft_hit_nearest_obj(s->ray, s->objects);
-            if (!hit)
-                ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
-            else
-                ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
-            (*i)++;
-        }
-    }
+	*(i + 1) = 0;
+	while (*(i + 1) < mobj->win_i)
+	{
+		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
+		*i = 0;
+		while (*i < mobj->win_j)
+		{
+			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
+			ft_shoot_ray(s->ray, vp, s, scaled);
+			hit = ft_hit_nearest_obj(s->ray, s->objects);
+			if (!hit)
+				ft_put_color(mobj, i, 0);
+			else
+				ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
+			*i += rul->pixel_cross;
+		}
+		*(i + 1) += rul->pixel_cross;
+	}
 }
