@@ -16,14 +16,32 @@
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
 # define WIDTH 1000
 # define HEIGHT 800
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED .1
 # define ROT_SPEED .05
 
 # ifdef PI
 #  undef PI
 # endif
 
+/* *** CRITICAL MACRO *** */
+// =======================
+// Why wanting to edit PI?
+// =======================
+/* *** CRITICAL MACRO *** */
 # define PI 3.141592653589793
+
+# ifdef MRT_CROSS_PIXEL_PERF
+#  undef MRT_CROSS_PIXEL_PERF
+# endif
+
+/* *** CRITICAL MACRO *** */
+// =======================================
+// This macro is not protected.
+// If you really need to edit it, ensure :
+// !(MRT_CROSS_PIXEL_PERF <= 0)
+// =======================================
+/* *** CRITICAL MACRO *** */
+# define MRT_CROSS_PIXEL_PERF 4
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
@@ -132,7 +150,7 @@ typedef struct __attribute__((__packed__)) s_viewport
 
 typedef struct s_rules
 {
-	char			ref;
+	unsigned char	ref;
 	char			pixel_cross;
 	double			ref_str;
 	unsigned int	(*coloration)(t_ray, t_obj *hit,

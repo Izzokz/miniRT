@@ -14,7 +14,7 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = 1;
+	rules->ref = 4;
 	rules->ref_str = .75;
 	rules->pixel_cross = 1;
 	rules->coloration = ft_blend_color;
@@ -116,7 +116,7 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 	}
 	if (ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
 	{
-		rules.pixel_cross = 4;
+		rules.pixel_cross = MRT_CROSS_PIXEL_PERF;
 		rules.coloration = ft_color_mini;
 		ft_mlx_img_update(mobj, scene, &rules);
 	}
