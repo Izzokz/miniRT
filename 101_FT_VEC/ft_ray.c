@@ -14,10 +14,8 @@
 
 void	ft_ray_dir(t_ray ray, const t_vec target)
 {
-	t_vec	tmp;
-
-	ft_vec_sub(tmp, target, *ray);
-	ft_vec_norm(*(ray + 1), tmp);
+	ft_vec_sub(*(ray + 1), target, *ray);
+	ft_vec_norm(*(ray + 1), *(ray + 1));
 }
 
 void	ft_new_ray(t_ray newr, const t_vec pos, const t_vec target)

@@ -14,7 +14,7 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = 0;
+	rules->ref = 1;
 	rules->ref_str = .75;
 	rules->pixel_cross = 1;
 	rules->coloration = ft_blend_color;
@@ -28,10 +28,10 @@ static inline void	ft_move2(const char x, const char y,
 	t_vec	delta;
 
 	ft_new_vec(move, x, y, z);
-	ft_vec_scale(delta, g_right, x);
+	ft_vec_scale(delta, (t_vec){*scene->camera.orientation, 0, 0}, x);
 	ft_vec_scale(tmp, g_up, y);
 	ft_vec_add(delta, delta, tmp);
-	ft_vec_scale(tmp, g_forward, z);
+	ft_vec_scale(tmp, (t_vec){0, 0, *(scene->camera.orientation + 2)}, z);
 	ft_vec_add(delta, delta, tmp);
 	ft_vec_norm(delta, delta);
 	ft_vec_scale(delta, delta, MOVE_SPEED);
@@ -116,7 +116,7 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 	}
 	if (ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
 	{
-		rules.pixel_cross = 8;
+		rules.pixel_cross = 4;
 		rules.coloration = ft_color_mini;
 		ft_mlx_img_update(mobj, scene, &rules);
 	}

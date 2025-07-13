@@ -82,12 +82,14 @@ static inline void	ft_shadow(t_color color, t_vec pos, const t_scene *scene)
 {
 	t_ray	ray;
 	t_light	*light;
+	t_obj	*hit;
 
 	light = scene->lights;
 	while (light)
 	{
 		ft_new_ray(ray, pos, light->pos);
-		if (ft_hit_nearest_obj(ray, scene->objects))
+		hit = ft_hit_nearest_obj(ray, scene->objects);
+		if (hit && ft_vec_dist(pos, hit->params) < ft_vec_dist(pos, light->pos))
 			ft_color_scale(color, .666f);
 		light = light->next;
 	}
