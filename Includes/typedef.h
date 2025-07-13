@@ -71,7 +71,7 @@ typedef struct s_obj
 	char	type; // 's' || 'p' || 'c'
 	t_color	color;
 	double	*params;
-	char	(*hit)(const t_obj *self, t_ray);
+	char	(*hit)(const t_obj *self, t_ray); // maybe delete it !!!
 	t_obj	*next;
 }	t_obj;
 
