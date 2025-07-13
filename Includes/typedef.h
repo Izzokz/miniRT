@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/12 16:51:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/12 17:33:10 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TYPEDEF_H
 
 # define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
-# define WIDTH 800
+# define WIDTH 1000
 # define HEIGHT 800
 # define MOVE_SPEED 0.1
 # define ROT_SPEED .05

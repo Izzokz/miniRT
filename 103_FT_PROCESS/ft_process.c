@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/06 23:19:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/12 17:24:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,21 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 	*pixel = 1.0 / mobj->win_i;
 	*(pixel + 1) = 1.0 / mobj->win_j;
 	ft_set_img_settings(mobj);
-	*(i + 1) = -1;
-	while (++*(i + 1) < mobj->win_i)
-	{
-		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
-		*i = 0;
-		while (*i < mobj->win_j)
-		{
-			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
-			ft_shoot_ray(s->ray, vp, s, scaled);
-			hit = ft_hit_nearest_obj(s->ray, s->objects);
-			if (!hit)
-				ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
-			else
-				ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
-			*i += rul->pixel_cross;
-		}
-	}
+    *(i + 1) = -1;
+    while (++*(i + 1) < mobj->win_i)
+    {
+        ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
+        *i = 0;
+        while (*i < mobj->win_j)
+        {
+            ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
+            ft_shoot_ray(s->ray, vp, s, scaled);
+            hit = ft_hit_nearest_obj(s->ray, s->objects);
+            if (!hit)
+                ft_put_color(mobj, i, ft_convert_color(s->ambient_light.color));
+            else
+                ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
+            (*i)++;
+        }
+    }
 }

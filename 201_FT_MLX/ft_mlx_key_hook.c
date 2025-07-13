@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/12 16:49:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/12 17:47:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,50 +56,47 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 
 static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
 {
-	t_vec	tmp;
-	t_vec	tmp2;
-	float	cos_a;
-	float	sin_a;
+    t_vec	tmp;
+    t_vec	tmp2;
+    t_vec	v_orig;
+    float	cos_a;
+    float	sin_a;
 
-	cos_a = cos(angle);
-	sin_a = sin(angle);
-	ft_vec_scale(tmp, v, cos_a);
-	ft_vec_cross(tmp2, axis, v);
-	ft_vec_scale(tmp2, tmp2, sin_a);
-	ft_vec_add(v, tmp, tmp2);
-	ft_vec_scale(tmp, axis, ft_vec_dot(axis, v) * (1 - cos_a));
-	ft_vec_add(v, v, tmp);
+    cos_a = cos(angle);
+    sin_a = sin(angle);
+    ft_cpy_vec(v_orig, v);
+    ft_vec_scale(tmp, v_orig, cos_a);
+    ft_vec_cross(tmp2, axis, v_orig);
+    ft_vec_scale(tmp2, tmp2, sin_a);
+    ft_vec_add(v, tmp, tmp2);
+    ft_vec_scale(tmp, axis, ft_vec_dot(axis, v_orig) * (1 - cos_a));
+    ft_vec_add(v, v, tmp);
 }
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-	float	yaw;
-	float	pitch;
-	t_vec	right;
+    float	yaw;
+    float	pitch;
 
-	yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
-	pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
-	if (yaw == 0 && pitch == 0)
-		return (0);
-	scene->camera.gli.unlock(scene->camera.orientation,
-		(char *)&scene->camera.gli);
-	if (yaw != 0)
-		ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
-	if (pitch != 0)
-	{
-		ft_vec_cross(right, scene->_up, scene->camera.orientation);
-		ft_vec_norm(right, right);
-		ft_rotate_vec(scene->camera.orientation, right, pitch);
-	}
-	ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
-	scene->camera.gli.realign(scene->camera.orientation,
-		(char *)&scene->camera.gli);
-	ft_cpy_vec(scene->_forward, scene->camera.orientation);
-	ft_vec_cross(scene->_right, g_up, scene->_forward);
-	ft_vec_norm(scene->_right, scene->_right);
-	ft_vec_cross(scene->_up, scene->_forward, scene->_right);
-	ft_vec_norm(scene->_up, scene->_up);
-	return (1);
+    yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
+    pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
+    if (yaw == 0 && pitch == 0)
+        return (0);
+    scene->camera.gli.unlock(scene->camera.orientation,
+        (char *)&scene->camera.gli);
+    if (yaw != 0)
+        ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
+    if (pitch != 0)
+        ft_rotate_vec(scene->camera.orientation, scene->_right, pitch);
+    ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
+    scene->camera.gli.realign(scene->camera.orientation,
+        (char *)&scene->camera.gli);
+    ft_cpy_vec(scene->_forward, scene->camera.orientation);
+    ft_vec_cross(scene->_right, g_up, scene->_forward);
+    ft_vec_norm(scene->_right, scene->_right);
+    ft_vec_cross(scene->_up, scene->_forward, scene->_right);
+    ft_vec_norm(scene->_up, scene->_up);
+    return (1);
 }
 
 void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
