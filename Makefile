@@ -32,7 +32,6 @@ SRCS			= main.c \
 				$(GNLDIR)get_next_line_utils.c \
 				$(PARSEDIR)free_utils.c \
 				$(PARSEDIR)check_scene.c \
-				$(PARSEDIR)ft_gli_init.c \
 				$(PARSEDIR)parse_arg.c \
 				$(PARSEDIR)parse_params.c \
 				$(UTILDIR)split_utils.c \

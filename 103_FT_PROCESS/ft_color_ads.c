@@ -72,7 +72,7 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 			ft_pos_val(ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
 		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
 		ft_store(cat, tmp, scene->ray);
-		//ft_blinn_phong(*(ads.specular), scene, cat, light);
+		//ft_blinn_phong(*(ads.specular), scene, cat, light); // change with normal phong
 		//ft_color_add(*(ads.specular + 1), *(ads.specular));
 		light = light->next;
 	}

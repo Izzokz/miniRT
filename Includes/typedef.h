@@ -50,15 +50,6 @@ typedef unsigned char	t_color[3]; // R, G, B
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
 
-/* Gimbal Lock Information (Unlock) */
-typedef struct __attribute__((__packed__)) s_gl_info
-{
-	char	occured;
-	char	axis;
-	void	(*unlock)(t_vec dir, char gli[2]);
-	void	(*realign)(t_vec dir, char gli[2]);
-}	t_gl_info;
-
 /*
 Objects can be:
 - a sphere 's'
@@ -125,7 +116,6 @@ typedef struct s_camera
 	t_vec		orientation;
 	double		fov;
 	int			is_set;
-	t_gl_info	gli;
 }	t_camera;
 
 typedef struct s_scene
