@@ -13,7 +13,6 @@
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# define L_ERROR "Invalid light format: L <pos x,y,z> <ratio> <color r,g,b>"
 # define WIDTH 1000
 # define HEIGHT 800
 # define MOVE_SPEED .1
@@ -68,10 +67,10 @@ Objects can be:
 */
 typedef struct s_obj
 {
-	char	type; // 's' || 'p' || 'c'
+	char	type; // 's' || 'p' || 'c' // DELETE LATER (unused)
 	t_color	color;
 	double	*params;
-	char	(*hit)(const t_obj *self, t_ray); // maybe delete it !!!
+	char	(*hit)(const t_obj *self, t_ray);
 	t_obj	*next;
 }	t_obj;
 

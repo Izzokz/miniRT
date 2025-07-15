@@ -37,10 +37,12 @@ SRCS			= main.c \
 				$(PARSEDIR)parse_params.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_pos_val.c \
+				$(UTILDIR)ft_swap.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
+				$(PARSEDIR)parse_cube.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
@@ -48,6 +50,8 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_c.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
+				$(TOBJDIR)ft_obj_c3.c \
+				$(TOBJDIR)ft_obj_c3_reflect.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \

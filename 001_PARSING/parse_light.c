@@ -57,8 +57,9 @@ int	parse_light(char **tokens, t_scene *scene)
     if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2]
         || !tokens[3] || tokens[4])
     {
-        print_error(L_ERROR);
-        return (PARSE_KO);
+		print_error("Invalid light format: "
+			"L <pos x,y,z> <ratio> <color r,g,b>");
+		return (PARSE_KO);
     }
     light = malloc(sizeof(t_light));
     if (!light)

@@ -12,11 +12,13 @@
 
 #include "miniRT.h"
 
-void	ft_reflect(t_ray ray, const t_vec posnorm[2])
+void	ft_reflect(t_ray ray, t_vec posnorm[2])
 {
 	double	dot;
 	t_vec	tmp;
 
+	if (ft_vec_dot(*(posnorm + 1), *(ray + 1)) > 0)
+		ft_vec_scale(*(posnorm + 1), *(posnorm + 1), -1);
 	dot = 2.0 * ft_vec_dot(*(ray + 1), *(posnorm + 1));
 	ft_vec_scale(tmp, *(posnorm + 1), dot);
 	ft_cpy_vec(*ray, *posnorm);

@@ -64,6 +64,9 @@ void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
 int		create_and_fill_cylinder(t_obj **new_obj, char **tokens);
 int		parse_cylinder(char **tokens, t_scene *scene);
 
+//parse_cube.c
+char	parse_cube(char **tokens, t_scene *scene);
+
 //free_utils.c
 void	free_tab(char **tab);
 void	free_objects(t_obj *obj);
