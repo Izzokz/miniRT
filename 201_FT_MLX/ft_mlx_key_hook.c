@@ -57,48 +57,44 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
 {
 	t_vec	tmp;
-	t_vec	tmp2;
-	float	cos_a;
-	float	sin_a;
+	float	c;
+	float	s;
+	float	dot;
 
-	cos_a = cos(angle);
-	sin_a = sin(angle);
-	ft_vec_scale(tmp, v, cos_a);
-	ft_vec_cross(tmp2, axis, v);
-	ft_vec_scale(tmp2, tmp2, sin_a);
-	ft_vec_add(v, tmp, tmp2);
-	ft_vec_scale(tmp, axis, ft_vec_dot(axis, v) * (1 - cos_a));
-	ft_vec_add(v, v, tmp);
+	ft_cpy_vec(tmp, v);
+	dot = ft_vec_dot(v, axis);
+	c = cos(angle);
+	s = sin(angle);
+	*v = *tmp * c + (1 - c) * dot * *axis
+		+ s * (*(axis + 1) * *(tmp + 2) - *(axis + 2) * *(tmp + 1));
+	*(v + 1) = *(tmp + 1) * c + (1 - c) * dot * *(axis + 1)
+		+ s * (*(axis + 2) * *tmp - *axis * *(tmp + 2));
+	*(v + 2) = *(tmp + 2) * c + (1 - c) * dot * *(axis + 2)
+		+ s * (*axis * *(tmp + 1) - *(axis + 1) * *tmp);
+	ft_vec_norm(v, v);
 }
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
 	float	yaw;
 	float	pitch;
-	t_vec	right;
 
-	yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
-	pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
+	yaw = (keys.right - keys.left) * ROT_SPEED;
+	pitch = (keys.down - keys.up) * ROT_SPEED;
 	if (yaw == 0 && pitch == 0)
 		return (0);
-	scene->camera.gli.unlock(scene->camera.orientation,
-		(char *)&scene->camera.gli);
 	if (yaw != 0)
+	{
 		ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
+		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
+		ft_vec_norm(scene->_right, scene->_right);
+	}
 	if (pitch != 0)
 	{
-		ft_vec_cross(right, scene->_up, scene->camera.orientation);
-		ft_vec_norm(right, right);
-		ft_rotate_vec(scene->camera.orientation, right, pitch);
+		ft_rotate_vec(scene->camera.orientation, scene->_right, -pitch);
+		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
+		ft_vec_norm(scene->_up, scene->_up);
 	}
-	ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
-	scene->camera.gli.realign(scene->camera.orientation,
-		(char *)&scene->camera.gli);
-	ft_cpy_vec(scene->_forward, scene->camera.orientation);
-	ft_vec_cross(scene->_right, g_up, scene->_forward);
-	ft_vec_norm(scene->_right, scene->_right);
-	ft_vec_cross(scene->_up, scene->_forward, scene->_right);
-	ft_vec_norm(scene->_up, scene->_up);
 	return (1);
 }
 

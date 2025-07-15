@@ -16,6 +16,7 @@
 *hit = hit_to_light
 *(hit + 1) = hit (just after hit (no modification))
 */
+/*
 static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	const t_ray hit[2], const t_light *light)
 {
@@ -23,10 +24,10 @@ static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	t_vec	halfway;
 	double	spec;
 
-	ft_new_ray(cam_to_hit, scene->camera.pos, **(t_ray *)(void *)hit);
-	ft_vec_add(halfway, *(*(t_ray *)(void *)hit + 1), *(cam_to_hit + 1));
+	ft_new_ray(cam_to_hit, scene->camera.pos, **hit);
+	ft_vec_add(halfway, *(*hit + 1), *(cam_to_hit + 1));
 	ft_vec_norm(halfway, halfway);
-	spec = ft_vec_dot(*(*((t_ray *)(void *)hit + 1) + 1), halfway);
+	spec = ft_vec_dot(*(*(hit + 1) + 1), *(*hit + 1));
 	if (spec < 0)
 		spec = 0;
 	else
@@ -35,7 +36,7 @@ static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	*(specular + 1) = *(light->color + 1) * spec;
 	*(specular + 2) = *(light->color + 2) * spec;
 }
-
+*/
 static inline void	ft_color_merge(t_color edit, t_color ambient,
 	t_color diffuse, t_color specular)
 {
@@ -71,8 +72,8 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 			ft_pos_val(ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
 		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
 		ft_store(cat, tmp, scene->ray);
-		ft_blinn_phong(*(ads.specular), scene, cat, light);
-		ft_color_add(*(ads.specular + 1), *(ads.specular));
+		//ft_blinn_phong(*(ads.specular), scene, cat, light);
+		//ft_color_add(*(ads.specular + 1), *(ads.specular));
 		light = light->next;
 	}
 	ft_color_merge(edit, ads.ambient, *(ads.diffuse), *(ads.specular + 1));
