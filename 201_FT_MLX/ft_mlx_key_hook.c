@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/12 17:47:42 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/16 11:41:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,30 @@ static inline void	ft_set_rules_max(t_rules *rules)
 }
 
 static inline void	ft_move2(const char x, const char y,
-	const char z, t_scene *scene)
+    const char z, t_scene *scene)
 {
-	t_vec	move;
-	t_vec	tmp;
-	t_vec	delta;
+    t_vec	delta;
+    t_vec	tmp;
 
-	ft_new_vec(move, x, y, z);
-	ft_vec_scale(delta, (t_vec){*scene->camera.orientation, 0, 0}, x);
-	ft_vec_scale(tmp, g_up, y);
-	ft_vec_add(delta, delta, tmp);
-	ft_vec_scale(tmp, (t_vec){0, 0, *(scene->camera.orientation + 2)}, z);
-	ft_vec_add(delta, delta, tmp);
-	ft_vec_norm(delta, delta);
-	ft_vec_scale(delta, delta, MOVE_SPEED);
-	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
+    ft_new_vec(delta, 0, 0, 0);
+    if (x != 0)
+    {
+        ft_vec_scale(tmp, scene->_right, x);
+        ft_vec_add(delta, delta, tmp);
+    }
+    if (y != 0)
+    {
+        ft_vec_scale(tmp, scene->_up, y);
+        ft_vec_add(delta, delta, tmp);
+    }
+    if (z != 0)
+    {
+        ft_vec_scale(tmp, scene->_forward, z);
+        ft_vec_add(delta, delta, tmp);
+    }
+    ft_vec_norm(delta, delta);
+    ft_vec_scale(delta, delta, MOVE_SPEED);
+    ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
 }
 
 static inline char	ft_move(unsigned char keys, t_scene *scene)
@@ -50,7 +59,6 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	if (!x && !y && !z)
 		return (0);
 	ft_move2(x, y, z, scene);
-	printf("cam:pos{%f, %f, %f}\n", scene->camera.pos[0], scene->camera.pos[1], scene->camera.pos[2]);
 	return (1);
 }
 
