@@ -28,7 +28,7 @@ static inline void	ft_move2(const char x, const char y,
 	t_vec	delta;
 
 	ft_new_vec(move, x, y, z);
-	ft_vec_scale(delta, (t_vec){*scene->camera.orientation, 0, 0}, x);
+	ft_vec_scale(delta, (t_vec){(*scene->camera.orientation), 0, 0}, x);
 	ft_vec_scale(tmp, g_up, y);
 	ft_vec_add(delta, delta, tmp);
 	ft_vec_scale(tmp, (t_vec){0, 0, *(scene->camera.orientation + 2)}, z);
@@ -50,16 +50,15 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	if (!x && !y && !z)
 		return (0);
 	ft_move2(x, y, z, scene);
-	printf("cam:pos{%f, %f, %f}\n", scene->camera.pos[0], scene->camera.pos[1], scene->camera.pos[2]);
 	return (1);
 }
 
-static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
+static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const double angle)
 {
 	t_vec	tmp;
-	float	c;
-	float	s;
-	float	dot;
+	double	c;
+	double	s;
+	double	dot;
 
 	ft_cpy_vec(tmp, v);
 	dot = ft_vec_dot(v, axis);
@@ -74,26 +73,50 @@ static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
 	ft_vec_norm(v, v);
 }
 
+static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
+{
+	double	tmp;
+
+	tmp = *actual + *add;
+	if (tmp > 1.5533430342749532)
+	{
+		*add = 1.5533430342749532 - *actual;
+		*actual = 1.5533430342749532;
+	}
+	else if (tmp < -1.5533430342749532)
+	{
+		*add = -1.5533430342749532 - *actual;
+		*actual = -1.5533430342749532;
+	}
+	else
+		*actual += *add;
+}
+
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-	float	yaw;
-	float	pitch;
+	double	yaw;
+	double	pitch;
 
 	yaw = (keys.right - keys.left) * ROT_SPEED;
 	pitch = (keys.down - keys.up) * ROT_SPEED;
 	if (yaw == 0 && pitch == 0)
 		return (0);
-	if (yaw != 0)
+	if (yaw)
 	{
-		ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
-		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
+		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
+		ft_vec_cross(scene->_right, scene->camera.orientation, g_up);
 		ft_vec_norm(scene->_right, scene->_right);
+		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
+		ft_vec_norm(scene->_up, scene->_up);
 	}
-	if (pitch != 0)
+	ft_clamp_rotation_pitch(&scene->_pitch, &pitch);
+	if (pitch)
 	{
 		ft_rotate_vec(scene->camera.orientation, scene->_right, -pitch);
 		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
 		ft_vec_norm(scene->_up, scene->_up);
+		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
+		ft_vec_norm(scene->_right, scene->_right);
 	}
 	return (1);
 }

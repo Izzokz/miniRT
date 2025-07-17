@@ -17,6 +17,7 @@
 # define HEIGHT 800
 # define MOVE_SPEED .1
 # define ROT_SPEED .05
+# define PHONG_SHININESS 3.666
 
 # ifdef PI
 #  undef PI
@@ -73,7 +74,7 @@ typedef struct s_light
 	t_light	*next;
 }	t_light;
 
-typedef struct __attribute__((__packed__)) s_keys
+typedef struct s_keys
 {
 	unsigned char	a : 1;
 	unsigned char	d : 1;
@@ -128,9 +129,10 @@ typedef struct s_scene
 	t_vec		_right;
 	t_vec		_up;
 	t_vec		_forward;
+	double		_pitch;
 }	t_scene;
 
-typedef struct __attribute__((__packed__)) s_viewport
+typedef struct s_viewport
 {
 	t_vec	hor;
 	t_vec	ver;

@@ -32,6 +32,7 @@ int	parse_vec3(char *token, t_vec vec)
 int	parse_color(char *token, t_color color)
 {
 	char	**components;
+	double	tmp;
 	int		i;
 
 	i = 0;
@@ -43,12 +44,13 @@ int	parse_color(char *token, t_color color)
 	}
 	while (i < 3)
 	{
-		color[i] = ft_atod(components[i]);
-		if (color[i] < 0 || color[i] > 255)
+		tmp = ft_atod(components[i]);
+		if (tmp < 0 || tmp > 255)
 		{
 			free_tab(components);
 			return (PARSE_KO);
 		}
+		*(color + i) = tmp;
 		i++;
 	}
 	free_tab(components);
