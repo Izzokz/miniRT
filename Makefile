@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/13 09:47:35 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/17 14:13:30 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,16 @@ SRCS			= main.c \
 				$(GNLDIR)get_next_line_utils.c \
 				$(PARSEDIR)free_utils.c \
 				$(PARSEDIR)check_scene.c \
-				$(PARSEDIR)ft_gli_init.c \
 				$(PARSEDIR)parse_arg.c \
 				$(PARSEDIR)parse_params.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_pos_val.c \
+				$(UTILDIR)ft_swap.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
+				$(PARSEDIR)parse_cube.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
@@ -48,6 +49,8 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_c.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
+				$(TOBJDIR)ft_obj_c3.c \
+				$(TOBJDIR)ft_obj_c3_reflect.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
@@ -62,7 +65,7 @@ OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -g3
+CFLAGS	= -Wall -Wextra -Werror -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux

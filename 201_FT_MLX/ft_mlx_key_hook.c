@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/16 11:41:22 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:12:36 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = 1;
-	rules->ref_str = .75;
+	rules->ref = 4;
+	rules->ref_str = .33;
 	rules->pixel_cross = 1;
 	rules->coloration = ft_blend_color;
 }
@@ -26,25 +26,15 @@ static inline void	ft_move2(const char x, const char y,
     t_vec	delta;
     t_vec	tmp;
 
-    ft_new_vec(delta, 0, 0, 0);
-    if (x != 0)
-    {
-        ft_vec_scale(tmp, scene->_right, x);
-        ft_vec_add(delta, delta, tmp);
-    }
-    if (y != 0)
-    {
-        ft_vec_scale(tmp, scene->_up, y);
-        ft_vec_add(delta, delta, tmp);
-    }
-    if (z != 0)
-    {
-        ft_vec_scale(tmp, scene->_forward, z);
-        ft_vec_add(delta, delta, tmp);
-    }
-    ft_vec_norm(delta, delta);
-    ft_vec_scale(delta, delta, MOVE_SPEED);
-    ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
+	ft_new_vec(delta, x, y, z);
+	ft_vec_scale(delta, (t_vec){(*scene->camera.orientation), 0, 0}, x);
+	ft_vec_scale(tmp, g_up, y);
+	ft_vec_add(delta, delta, tmp);
+	ft_vec_scale(tmp, (t_vec){0, 0, *(scene->camera.orientation + 2)}, z);
+	ft_vec_add(delta, delta, tmp);
+	ft_vec_norm(delta, delta);
+	ft_vec_scale(delta, delta, MOVE_SPEED);
+	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
 }
 
 static inline char	ft_move(unsigned char keys, t_scene *scene)
@@ -62,49 +52,72 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	return (1);
 }
 
-static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const float angle)
+static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const double angle)
 {
-    t_vec	tmp;
-    t_vec	tmp2;
-    t_vec	v_orig;
-    float	cos_a;
-    float	sin_a;
+	t_vec	tmp;
+	double	c;
+	double	s;
+	double	dot;
 
-    cos_a = cos(angle);
-    sin_a = sin(angle);
-    ft_cpy_vec(v_orig, v);
-    ft_vec_scale(tmp, v_orig, cos_a);
-    ft_vec_cross(tmp2, axis, v_orig);
-    ft_vec_scale(tmp2, tmp2, sin_a);
-    ft_vec_add(v, tmp, tmp2);
-    ft_vec_scale(tmp, axis, ft_vec_dot(axis, v_orig) * (1 - cos_a));
-    ft_vec_add(v, v, tmp);
+	ft_cpy_vec(tmp, v);
+	dot = ft_vec_dot(v, axis);
+	c = cos(angle);
+	s = sin(angle);
+	*v = *tmp * c + (1 - c) * dot * *axis
+		+ s * (*(axis + 1) * *(tmp + 2) - *(axis + 2) * *(tmp + 1));
+	*(v + 1) = *(tmp + 1) * c + (1 - c) * dot * *(axis + 1)
+		+ s * (*(axis + 2) * *tmp - *axis * *(tmp + 2));
+	*(v + 2) = *(tmp + 2) * c + (1 - c) * dot * *(axis + 2)
+		+ s * (*axis * *(tmp + 1) - *(axis + 1) * *tmp);
+	ft_vec_norm(v, v);
+}
+
+static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
+{
+	double	tmp;
+
+	tmp = *actual + *add;
+	if (tmp > 1.5533430342749532)
+	{
+		*add = 1.5533430342749532 - *actual;
+		*actual = 1.5533430342749532;
+	}
+	else if (tmp < -1.5533430342749532)
+	{
+		*add = -1.5533430342749532 - *actual;
+		*actual = -1.5533430342749532;
+	}
+	else
+		*actual += *add;
 }
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-    float	yaw;
-    float	pitch;
+	double	yaw;
+	double	pitch;
 
-    yaw = ((keys.right > 0) - (keys.left > 0)) * ROT_SPEED;
-    pitch = ((keys.down > 0) - (keys.up > 0)) * ROT_SPEED;
-    if (yaw == 0 && pitch == 0)
-        return (0);
-    scene->camera.gli.unlock(scene->camera.orientation,
-        (char *)&scene->camera.gli);
-    if (yaw != 0)
-        ft_rotate_vec(scene->camera.orientation, scene->_up, yaw);
-    if (pitch != 0)
-        ft_rotate_vec(scene->camera.orientation, scene->_right, pitch);
-    ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
-    scene->camera.gli.realign(scene->camera.orientation,
-        (char *)&scene->camera.gli);
-    ft_cpy_vec(scene->_forward, scene->camera.orientation);
-    ft_vec_cross(scene->_right, g_up, scene->_forward);
-    ft_vec_norm(scene->_right, scene->_right);
-    ft_vec_cross(scene->_up, scene->_forward, scene->_right);
-    ft_vec_norm(scene->_up, scene->_up);
-    return (1);
+	yaw = (keys.right - keys.left) * ROT_SPEED;
+	pitch = (keys.down - keys.up) * ROT_SPEED;
+	if (yaw == 0 && pitch == 0)
+		return (0);
+	if (yaw)
+	{
+		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
+		ft_vec_cross(scene->_right, scene->camera.orientation, g_up);
+		ft_vec_norm(scene->_right, scene->_right);
+		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
+		ft_vec_norm(scene->_up, scene->_up);
+	}
+	ft_clamp_rotation_pitch(&scene->_pitch, &pitch);
+	if (pitch)
+	{
+		ft_rotate_vec(scene->camera.orientation, scene->_right, -pitch);
+		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
+		ft_vec_norm(scene->_up, scene->_up);
+		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
+		ft_vec_norm(scene->_right, scene->_right);
+	}
+	return (1);
 }
 
 void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
@@ -121,7 +134,7 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 	}
 	if (ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
 	{
-		rules.pixel_cross = 4;
+		rules.pixel_cross = MRT_CROSS_PIXEL_PERF;
 		rules.coloration = ft_color_mini;
 		ft_mlx_img_update(mobj, scene, &rules);
 	}

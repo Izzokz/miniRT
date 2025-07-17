@@ -15,14 +15,33 @@
 
 # define WIDTH 1000
 # define HEIGHT 800
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED .1
 # define ROT_SPEED .05
+# define PHONG_SHININESS 3.666
 
 # ifdef PI
 #  undef PI
 # endif
 
+/* *** CRITICAL MACRO *** */
+// =======================
+// Why wanting to edit PI?
+// =======================
+/* *** CRITICAL MACRO *** */
 # define PI 3.141592653589793
+
+# ifdef MRT_CROSS_PIXEL_PERF
+#  undef MRT_CROSS_PIXEL_PERF
+# endif
+
+/* *** CRITICAL MACRO *** */
+// =======================================
+// This macro is not protected.
+// If you really need to edit it, ensure :
+// !(MRT_CROSS_PIXEL_PERF <= 0)
+// =======================================
+/* *** CRITICAL MACRO *** */
+# define MRT_CROSS_PIXEL_PERF 4
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
@@ -32,15 +51,6 @@ typedef unsigned char	t_color[3]; // R, G, B
 typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
 
-/* Gimbal Lock Information (Unlock) */
-typedef struct __attribute__((__packed__)) s_gl_info
-{
-	char	occured;
-	char	axis;
-	void	(*unlock)(t_vec dir, char gli[2]);
-	void	(*realign)(t_vec dir, char gli[2]);
-}	t_gl_info;
-
 /*
 Objects can be:
 - a sphere 's'
@@ -49,7 +59,7 @@ Objects can be:
 */
 typedef struct s_obj
 {
-	char	type; // 's' || 'p' || 'c'
+	char	type; // 's' || 'p' || 'c' // DELETE LATER (unused)
 	t_color	color;
 	double	*params;
 	char	(*hit)(const t_obj *self, t_ray);
@@ -64,7 +74,7 @@ typedef struct s_light
 	t_light	*next;
 }	t_light;
 
-typedef struct __attribute__((__packed__)) s_keys
+typedef struct s_keys
 {
 	unsigned char	a : 1;
 	unsigned char	d : 1;
@@ -107,7 +117,6 @@ typedef struct s_camera
 	t_vec		orientation;
 	double		fov;
 	int			is_set;
-	t_gl_info	gli;
 }	t_camera;
 
 typedef struct s_scene
@@ -120,9 +129,10 @@ typedef struct s_scene
 	t_vec		_right;
 	t_vec		_up;
 	t_vec		_forward;
+	double		_pitch;
 }	t_scene;
 
-typedef struct __attribute__((__packed__)) s_viewport
+typedef struct s_viewport
 {
 	t_vec	hor;
 	t_vec	ver;
@@ -131,7 +141,7 @@ typedef struct __attribute__((__packed__)) s_viewport
 
 typedef struct s_rules
 {
-	char			ref;
+	unsigned char	ref;
 	char			pixel_cross;
 	double			ref_str;
 	unsigned int	(*coloration)(t_ray, t_obj *hit,

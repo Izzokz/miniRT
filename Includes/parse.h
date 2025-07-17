@@ -24,11 +24,6 @@
 # include "utils.h"
 # include <fcntl.h>
 
-//ft_gli_init.c
-void	ft_gli_init(t_vec dir, t_gl_info *gli);
-void	ft_gli_unlock(t_vec dir, char gli[2]);
-void	ft_gli_realign(t_vec dir, char gli[2]);
-
 //check_scene.c
 void	print_error(char *message);
 int		check_extension(const char *filename);
@@ -63,6 +58,9 @@ int		parse_sphere(char **tokens, t_scene *scene);
 void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
 int		create_and_fill_cylinder(t_obj **new_obj, char **tokens);
 int		parse_cylinder(char **tokens, t_scene *scene);
+
+//parse_cube.c
+char	parse_cube(char **tokens, t_scene *scene);
 
 //free_utils.c
 void	free_tab(char **tab);

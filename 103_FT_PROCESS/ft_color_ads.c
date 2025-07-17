@@ -12,6 +12,35 @@
 
 #include "miniRT.h"
 
+static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
+	const t_vec v2, const double epsilon)
+{
+	ft_new_vec(newv, *v1 + *v2 * epsilon, *(v1 + 1)
+		+ *(v2 + 1) * epsilon, *(v1 + 2) + *(v2 + 2) * epsilon);
+}
+
+static inline void	ft_color_light_dist(t_color edit,
+	const t_light *light, const t_ray oray, const t_scene *scene)
+{
+	const float	factors[3] = {.5, .1, .016};
+	double		dist;
+	double		attenuation;
+	t_ray		shadow_tester;
+	t_obj		*hit;
+
+	ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-4);
+	ft_ray_dir(shadow_tester, light->pos);
+	hit = ft_hit_nearest_obj(shadow_tester, scene->objects);
+	if (hit && ft_vec_dist(*shadow_tester, hit->params)
+		< ft_vec_dist(*shadow_tester, light->pos))
+		return ((void)ft_memset(edit, 0, 3));
+	ft_memcpy(edit, light->color, 3);
+	dist = ft_vec_dist(light->pos, *oray);
+	attenuation = 1.0 / (*factors + *(factors + 1) * dist
+		+ *(factors + 2) * pow(dist, 2));
+	ft_color_scale(edit, light->brightness * attenuation);
+}
+
 /*
 *hit = hit_to_light
 *(hit + 1) = hit (just after hit (no modification))
@@ -23,21 +52,20 @@ static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	t_vec	halfway;
 	double	spec;
 
-	ft_new_ray(cam_to_hit, scene->camera.pos, **(t_ray *)(void *)hit);
-	ft_vec_add(halfway, *(*(t_ray *)(void *)hit + 1), *(cam_to_hit + 1));
+	ft_new_ray(cam_to_hit, scene->camera.pos, **hit);
+	ft_vec_add(halfway, *(*hit + 1), *(cam_to_hit + 1));
 	ft_vec_norm(halfway, halfway);
-	spec = ft_vec_dot(*(*((t_ray *)(void *)hit + 1) + 1), halfway);
+	spec = ft_vec_dot(*(*(hit + 1) + 1), halfway);
 	if (spec < 0)
 		spec = 0;
 	else
-		spec = pow(spec, light->brightness);
-	*specular = *light->color * spec;
-	*(specular + 1) = *(light->color + 1) * spec;
-	*(specular + 2) = *(light->color + 2) * spec;
+		spec = pow(spec, PHONG_SHININESS);
+	ft_color_light_dist(specular, light, *(hit + 1), scene);
+	ft_color_scale(specular, spec);
 }
 
-static inline void	ft_color_merge(t_color edit, t_color ambient,
-	t_color diffuse, t_color specular)
+static inline void	ft_color_merge(t_color edit, const t_color ambient,
+	const t_color diffuse, const t_color specular)
 {
 	ft_color_add(edit, ambient);
 	ft_color_add(edit, diffuse);
@@ -66,9 +94,10 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 	while (light)
 	{
 		ft_new_ray(tmp, *scene->ray, light->pos);
-		ft_color_mult(*(ads.diffuse + 1), light->color, hit->color);
+		ft_color_light_dist(*(ads.diffuse + 1), light, tmp, scene);
+		ft_color_mult(*(ads.diffuse + 1), *(ads.diffuse + 1), hit->color);
 		ft_color_scale(*(ads.diffuse + 1),
-			ft_pos_val(ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
+			fmax(0, ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
 		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
 		ft_store(cat, tmp, scene->ray);
 		ft_blinn_phong(*(ads.specular), scene, cat, light);
@@ -76,23 +105,6 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 		light = light->next;
 	}
 	ft_color_merge(edit, ads.ambient, *(ads.diffuse), *(ads.specular + 1));
-}
-
-static inline void	ft_shadow(t_color color, t_vec pos, const t_scene *scene)
-{
-	t_ray	ray;
-	t_light	*light;
-	t_obj	*hit;
-
-	light = scene->lights;
-	while (light)
-	{
-		ft_new_ray(ray, pos, light->pos);
-		hit = ft_hit_nearest_obj(ray, scene->objects);
-		if (hit && ft_vec_dist(pos, hit->params) < ft_vec_dist(pos, light->pos))
-			ft_color_scale(color, .666f);
-		light = light->next;
-	}
 }
 
 static inline void	ft_color_fix(t_color edit)
@@ -124,22 +136,20 @@ unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 	t_color	color;
 	t_color	reflect;
 	t_color	bounce;
-	char	depth;
+	char	iter;
 	float	mult;
 
 	ft_memset(color, 0, 3);
 	ft_color_ads(color, scene, hit);
-	ft_shadow(color, *hit_ray, scene);
 	mult = rules->ref_str;
-	depth = -1;
-	while (++depth < rules->ref)
+	iter = -1;
+	while (++iter < rules->ref)
 	{
 		hit = ft_hit_nearest_obj(hit_ray, scene->objects);
 		if (!hit)
 			break ;
-		ft_memcpy(bounce, hit->color, 3);
+		ft_memset(bounce, 0, 3);
 		ft_color_ads(bounce, scene, hit);
-		ft_shadow(bounce, *hit_ray, scene);
 		ft_color_reflect(reflect, bounce, mult);
 		ft_color_add(color, reflect);
 		mult *= .75f;

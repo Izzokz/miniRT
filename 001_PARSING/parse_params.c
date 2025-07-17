@@ -32,6 +32,7 @@ int	parse_vec3(char *token, t_vec vec)
 int	parse_color(char *token, t_color color)
 {
 	char	**components;
+	double	tmp;
 	int		i;
 
 	i = 0;
@@ -43,12 +44,13 @@ int	parse_color(char *token, t_color color)
 	}
 	while (i < 3)
 	{
-		color[i] = ft_atod(components[i]);
-		if (color[i] < 0 || color[i] > 255)
+		tmp = ft_atod(components[i]);
+		if (tmp < 0 || tmp > 255)
 		{
 			free_tab(components);
 			return (PARSE_KO);
 		}
+		*(color + i) = tmp;
 		i++;
 	}
 	free_tab(components);
@@ -100,11 +102,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 	parse_vec3(tokens[1], scene->camera.pos);
 	parse_vec3(tokens[2], scene->camera.orientation);
 	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
-	{
-		ft_gli_init(scene->camera.orientation, &scene->camera.gli);
-		printf("cam:dir{%f, %f, %f}\n", scene->camera.orientation[0], scene->camera.orientation[1], scene->camera.orientation[2]);
 		return (PARSE_OK);
-	}
 	print_error("Camera FOV must be between 0 and 180 degrees");
 	return (PARSE_KO);
 }
