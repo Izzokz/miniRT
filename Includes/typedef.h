@@ -13,11 +13,29 @@
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# define WIDTH 1000
-# define HEIGHT 800
-# define MOVE_SPEED .1
-# define ROT_SPEED .05
-# define PHONG_SHININESS 3.666
+# define WIDTH 1000 // INIT : 1000
+# define HEIGHT 800 // INIT : 800
+# define MOVE_SPEED .1 // INIT : .1
+# define ROT_SPEED .05 // INIT : .05
+# define PHONG_SHININESS 6.9 // INIT : 6.9
+# define MRT_MAX_REF 4 // INIT : 4
+# define MRT_MAX_REF_STR .30035 // INIT : .30035
+
+# ifdef MRT_BEST_COLORATION
+#  undef MRT_BEST_COLORATION
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ====================================================================
+// Change with an existing function taking the right parameters
+// 	|unsigned int	f(t_ray, t_obj *, const t_scene *, const t_rules *)
+// - the ray comes from a hit object
+// - the object is the one hit
+// - the scene is the scene like the rules are unique
+// Please do not use ft_color_mini ;_;
+// ====================================================================
+/* *** CRITICAL MACRO *** */
+# define MRT_BEST_COLORATION ft_blend_color // INIT : ft_blend_color
 
 # ifdef PI
 #  undef PI
@@ -41,7 +59,7 @@
 // !(MRT_CROSS_PIXEL_PERF <= 0)
 // =======================================
 /* *** CRITICAL MACRO *** */
-# define MRT_CROSS_PIXEL_PERF 4
+# define MRT_CROSS_PIXEL_PERF 8 // INIT : 8
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;

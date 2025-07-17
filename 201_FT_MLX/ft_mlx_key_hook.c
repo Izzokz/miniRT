@@ -14,10 +14,10 @@
 
 static inline void	ft_set_rules_max(t_rules *rules)
 {
-	rules->ref = 4;
-	rules->ref_str = .33;
+	rules->ref = MRT_MAX_REF;
+	rules->ref_str = MRT_MAX_REF_STR;
 	rules->pixel_cross = 1;
-	rules->coloration = ft_blend_color;
+	rules->coloration = MRT_BEST_COLORATION;
 }
 
 static inline void	ft_move2(const char x, const char y,
