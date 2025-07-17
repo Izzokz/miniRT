@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/17 14:13:30 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/17 15:26:13 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS			= main.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
 				$(PARSEDIR)parse_cube.c \
+				$(PARSEDIR)parse_cone.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
@@ -51,6 +52,7 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_s.c \
 				$(TOBJDIR)ft_obj_c3.c \
 				$(TOBJDIR)ft_obj_c3_reflect.c \
+				$(TOBJDIR)ft_obj_cone.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
