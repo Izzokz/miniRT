@@ -98,11 +98,13 @@ int	parse_camera(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	scene->camera.fov = ft_atod(tokens[3]);
+	if (scene->camera.fov < 0 || scene->camera.fov > 180)
+	{
+		print_error("Camera FOV must be between 0 and 180 degrees");
+		return (PARSE_KO);
+	}
 	scene->camera.is_set = 1;
 	parse_vec3(tokens[1], scene->camera.pos);
 	parse_vec3(tokens[2], scene->camera.orientation);
-	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
-		return (PARSE_OK);
-	print_error("Camera FOV must be between 0 and 180 degrees");
-	return (PARSE_KO);
+	return (PARSE_OK);
 }

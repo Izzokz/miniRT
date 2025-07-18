@@ -20,6 +20,16 @@ static inline void	ft_set_rules_max(t_rules *rules)
 	rules->coloration = MRT_BEST_COLORATION;
 }
 
+static inline void	ft_set_rules_min(t_mlx_obj *mobj, t_rules *rules)
+{
+	if (rules->coloration != ft_color_mini)
+	{
+		ft_memset(mobj->img_data, 0, mobj->size_line * HEIGHT);
+		rules->pixel_cross = MRT_PIXEL_CROSS_PERF;
+		rules->coloration = ft_color_mini;
+	}
+}
+
 static inline void	ft_move2(const char x, const char y,
 	const char z, t_scene *scene)
 {
@@ -121,6 +131,20 @@ static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 	return (1);
 }
 
+static inline void	ft_reset_cam(t_scene *scene)
+{
+	const t_camera	*save;
+
+	save = ft_get_const_cam();
+	ft_memcpy(scene->camera.pos, save->pos, 3 * sizeof(double));
+	ft_memcpy(scene->camera.orientation, save->orientation, 3 * sizeof(double));
+	scene->camera.fov = save->fov;
+	ft_new_vec(scene->_up, 0, 1, 0);
+	ft_cpy_vec(scene->_forward, scene->camera.orientation);
+	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+	scene->_pitch = asin(*(scene->camera.orientation + 1));
+}
+
 void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 {
 	static t_rules	rules;
@@ -133,15 +157,20 @@ void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
 		ft_mlx_img_update(mobj, scene, &rules);
 		return ;
 	}
-	if (ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
+	if (!keys.ctrl
+		&& ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
 	{
-		rules.pixel_cross = MRT_CROSS_PIXEL_PERF;
-		rules.coloration = ft_color_mini;
+		ft_set_rules_min(mobj, &rules);
 		ft_mlx_img_update(mobj, scene, &rules);
 	}
 	else if (keys.r)
 	{
-		ft_set_rules_max(&rules);
+		if (keys.ctrl)
+			ft_reset_cam(scene);
+		if (!keys.ctrl || keys.shift)
+			ft_set_rules_max(&rules);
+		else
+			ft_set_rules_min(mobj, &rules);
 		ft_mlx_img_update(mobj, scene, &rules);
 	}
 }

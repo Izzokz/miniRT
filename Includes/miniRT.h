@@ -25,8 +25,11 @@
 # include "ft_obj.h"
 # include "ft_process.h"
 
+/* CONSTANTS */
 extern const t_vec	g_right;
 extern const t_vec	g_up;
 extern const t_vec	g_forward;
+void				ft_set_const_cam(const t_camera *cam);
+const t_camera		*ft_get_const_cam(void);
 
 #endif

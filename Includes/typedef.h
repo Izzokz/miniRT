@@ -48,18 +48,18 @@
 /* *** CRITICAL MACRO *** */
 # define PI 3.141592653589793
 
-# ifdef MRT_CROSS_PIXEL_PERF
-#  undef MRT_CROSS_PIXEL_PERF
+# ifdef MRT_PIXEL_CROSS_PERF
+#  undef MRT_PIXEL_CROSS_PERF
 # endif
 
 /* *** CRITICAL MACRO *** */
 // =======================================
 // This macro is not protected.
 // If you really need to edit it, ensure :
-// !(MRT_CROSS_PIXEL_PERF <= 0)
+// !(MRT_PIXEL_CROSS_PERF <= 0)
 // =======================================
 /* *** CRITICAL MACRO *** */
-# define MRT_CROSS_PIXEL_PERF 8 // INIT : 8
+# define MRT_PIXEL_CROSS_PERF 8 // INIT : 8
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
@@ -104,8 +104,7 @@ typedef struct s_keys
 	unsigned char	right : 1;
 	unsigned char	down : 1;
 	unsigned char	up : 1;
-	unsigned char	alt_r : 1;
-	unsigned char	ctrl_r : 1;
+	unsigned char	ctrl : 1;
 	unsigned char	esc : 1;
 	unsigned char	r : 1;
 }	t_keys;
@@ -131,23 +130,23 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-	t_vec		pos;
-	t_vec		orientation;
-	double		fov;
-	int			is_set;
+	t_vec			pos;
+	t_vec			orientation;
+	double			fov;
+	int				is_set;
 }	t_camera;
 
 typedef struct s_scene
 {
-	t_ambient	ambient_light;
-	t_camera	camera;
-	t_light		*lights;
-	t_obj		*objects;
-	t_ray		ray;
-	t_vec		_right;
-	t_vec		_up;
-	t_vec		_forward;
-	double		_pitch;
+	t_ambient		ambient_light;
+	t_camera		camera;
+	t_light			*lights;
+	t_obj			*objects;
+	t_ray			ray;
+	t_vec			_right;
+	t_vec			_up;
+	t_vec			_forward;
+	double			_pitch;
 }	t_scene;
 
 typedef struct s_viewport

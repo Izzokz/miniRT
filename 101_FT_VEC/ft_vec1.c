@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 inline double	ft_vec_dot(const t_vec v1, const t_vec v2)
 {
