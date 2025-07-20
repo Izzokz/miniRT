@@ -13,10 +13,10 @@
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# define WIDTH 1000 // INIT : 1000
-# define HEIGHT 800 // INIT : 800
-# define MOVE_SPEED .1 // INIT : .1
-# define ROT_SPEED .05 // INIT : .05
+# define WIDTH 1069 // INIT : 1069
+# define HEIGHT 690 // INIT : 690
+# define MOVE_SPEED .069 // INIT : .069
+# define ROT_SPEED .069 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
@@ -60,6 +60,32 @@
 // =======================================
 /* *** CRITICAL MACRO *** */
 # define MRT_PIXEL_CROSS_PERF 8 // INIT : 8
+
+# ifdef MRT_SHADOW_SAMPLES
+#  undef MRT_SHADOW_SAMPLES
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ======================================================
+// This macro is not protected.
+// If you want to edit it, ensure :
+// !(MRT_SHADOW_SAMPLES <= 0 || MRT_SHADOW_SAMPLES >= 255)
+// ======================================================
+/* *** CRITICAL MACRO *** */
+# define MRT_SHADOW_SAMPLES 3 // INIT : 3
+
+# ifdef MRT_LIGHT_RADIUS
+#  undef MRT_LIGHT_RADIUS
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ================================
+// This macro is not protected.
+// If you want to edit it, ensure :
+// MRT_LIGHT_RADIUS != 0
+// ================================
+/* *** CRITICAL MACRO *** */
+# define MRT_LIGHT_RADIUS .69 // INIT : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;

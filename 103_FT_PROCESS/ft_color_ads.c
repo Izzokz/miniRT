@@ -19,26 +19,52 @@ static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 		+ *(v2 + 1) * epsilon, *(v1 + 2) + *(v2 + 2) * epsilon);
 }
 
+static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
+{
+	double	u;
+	double	v;
+	double	phi;
+
+	u = (double)rand() / (double)(RAND_MAX + 1);
+	v = (double)rand() / (double)(RAND_MAX + 1);
+	phi = acos(2.0 * v - 1);
+	ft_new_vec(random, 2.0 * PI * u, phi, sin(phi));
+	ft_vec_scale(random, random, MRT_LIGHT_RADIUS);
+	ft_vec_add(random, random, lpos);
+}
+
+/*
+*tmp = visibility;
+*(tmp + 1) = attenuation;
+tmp + 2 = random vector;
+*/
 static inline void	ft_color_light_dist(t_color edit,
 	const t_light *light, const t_ray oray, const t_scene *scene)
 {
-	const float	factors[3] = {.5, .1, .016};
-	double		dist;
-	double		attenuation;
-	t_ray		shadow_tester;
-	t_obj		*hit;
+	const float		factors[3] = {.5, .1, .016};
+	double			tmp[5];
+	t_ray			shadow_tester;
+	t_obj			*hit;
+	unsigned char	i;
 
-	ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-4);
-	ft_ray_dir(shadow_tester, light->pos);
-	hit = ft_hit_nearest_obj(shadow_tester, scene->objects);
-	if (hit && ft_vec_dist(*shadow_tester, hit->params)
-		< ft_vec_dist(*shadow_tester, light->pos))
-		return ((void)ft_memset(edit, 0, 3));
+	*tmp = 0;
+	i = -1;
+	while (++i < MRT_SHADOW_SAMPLES)
+	{
+		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-4);
+		ft_vec_random_sphere(tmp + 2, light->pos);
+		ft_ray_dir(shadow_tester, tmp + 2);
+		hit = ft_hit_nearest_obj(shadow_tester, scene->objects);
+		if (!hit || ft_vec_dist(*shadow_tester, hit->params)
+			>= ft_vec_dist(*shadow_tester, light->pos))
+			*tmp += 1;
+	}
+	*tmp /= MRT_SHADOW_SAMPLES;
 	ft_memcpy(edit, light->color, 3);
-	dist = ft_vec_dist(light->pos, *oray);
-	attenuation = 1.0 / (*factors + *(factors + 1) * dist
-		+ *(factors + 2) * pow(dist, 2));
-	ft_color_scale(edit, light->brightness * attenuation);
+	*(tmp + 1) = ft_vec_dist(light->pos, *oray);
+	*(tmp + 1) = 1.0 / (*factors + *(factors + 1) * *(tmp + 1)
+			+ *(factors + 2) * pow(*(tmp + 1), 2));
+	ft_color_scale(edit, light->brightness * *tmp * *(tmp + 1));
 }
 
 /*
@@ -114,8 +140,8 @@ static inline void	ft_color_fix(t_color edit)
 	float	c;
 	char	i;
 
-	exposure = 3.f;
-	gamma = 1.1f;
+	exposure = 1.5f;
+	gamma = 2.2f;
 	i = -1;
 	while (++i < 3)
 	{
