@@ -54,6 +54,7 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
+				$(PROCESSDIR)ft_color_glass.c \
 				$(PROCESSDIR)ft_color_mini.c \
 				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \
