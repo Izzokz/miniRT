@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 void	ft_ray_dir(t_ray ray, const t_vec target)
 {

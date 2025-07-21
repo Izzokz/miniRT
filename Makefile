@@ -57,6 +57,7 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
+				$(PROCESSDIR)ft_color_glass.c \
 				$(PROCESSDIR)ft_color_mini.c \
 				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \
@@ -127,7 +128,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR).
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR) .
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)

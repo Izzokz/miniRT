@@ -17,9 +17,9 @@ inline void	ft_color_mult(t_color edit, const t_color m1,
 {
 	unsigned int	greater_color[3];
 
-	*greater_color = *m1 * *m2;
-	*(greater_color + 1) = *(m1 + 1) * *(m2 + 1);
-	*(greater_color + 2) = *(m1 + 2) * *(m2 + 2);
+	*greater_color = *m1 * ((float)*m2 / 255);
+	*(greater_color + 1) = *(m1 + 1) * ((float)*(m2 + 1) / 255);
+	*(greater_color + 2) = *(m1 + 2) * ((float)*(m2 + 2) / 255);
 	if (*greater_color > 255)
 		*edit = 255;
 	else

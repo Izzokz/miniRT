@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:39:47 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:39:37 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:11:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int	parse_camera(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	scene->camera.fov = ft_atod(tokens[3]);
+	if (scene->camera.fov < 0 || scene->camera.fov > 180)
+	{
+		print_error("Camera FOV must be between 0 and 180 degrees");
+		return (PARSE_KO);
+	}
 	scene->camera.is_set = 1;
 	if (parse_vec3(tokens[1], scene->camera.pos) == PARSE_KO)
 	{

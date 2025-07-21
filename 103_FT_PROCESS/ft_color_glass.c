@@ -85,7 +85,7 @@ static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	if (spec < 0)
 		spec = 0;
 	else
-		spec = pow(spec, PHONG_SHININESS);
+		spec = pow(spec, light->brightness);
 	ft_color_light_dist(specular, light, *(hit + 1), scene);
 	ft_color_scale(specular, spec);
 }
@@ -140,8 +140,8 @@ static inline void	ft_color_fix(t_color edit)
 	float	c;
 	char	i;
 
-	exposure = 1.5f;
-	gamma = 2.2f;
+	exposure = 3.f;
+	gamma = 1.1f;
 	i = -1;
 	while (++i < 3)
 	{
@@ -156,7 +156,7 @@ static inline void	ft_color_fix(t_color edit)
 	}
 }
 
-unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_glass(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;

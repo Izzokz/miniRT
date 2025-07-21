@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/miniRT.h"
+#include "miniRT.h"
 
 inline void	ft_new_vec(t_vec newv, const double x,
 	const double y, const double z)

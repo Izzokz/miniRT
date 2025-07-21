@@ -104,10 +104,26 @@ void print_all_data(t_scene *scene)
 	printf("\n--- END SCENE DATA ---\n");
 }
 
+static inline void	save_cam(t_camera *save, t_scene *scene)
+{
+	*save = (t_camera){
+	{
+		*scene->camera.pos,
+		*(scene->camera.pos + 1),
+		*(scene->camera.pos + 2)
+	},
+	{
+		*scene->camera.orientation,
+		*(scene->camera.orientation + 1),
+		*(scene->camera.orientation + 2)
+	},
+		scene->camera.fov, 1};
+}
+
 int	main(int argc, char **argv)
 {
-	t_scene     scene;
-	t_mlx_obj	*m;
+	t_scene		scene;
+	t_camera	save;
 
 	if (check_arg(argc, argv) == PARSE_KO)
 		return (PARSE_KO);
@@ -118,16 +134,23 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-        ft_new_vec(scene._up, 0, 1, 0);
-        ft_cpy_vec(scene._forward, scene.camera.orientation);
-        ft_vec_cross(scene._right, scene._forward, scene._up);
+		save_cam(&save, &scene);
+		ft_set_const_cam(&save);
+		ft_new_vec(scene._up, 0, 1, 0);
+		ft_cpy_vec(scene._forward, scene.camera.orientation);
+		ft_vec_cross(scene._right, scene._forward, scene._up);
 		scene._pitch = asin(*(scene.camera.orientation + 1));
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
+<<<<<<< HEAD
 		print_all_data(&scene);
 	    free_scene(&scene);
         return (1);
 		m = ft_mlx_obj_init();
 		ft_mlx_loop(m, &scene);
+=======
+		//print_all_data(&scene);
+		ft_mlx_loop(ft_mlx_obj_init(), &scene);
+>>>>>>> the-great-lord-of-the-unicorn-riders
 	}
 	free_scene(&scene);
 	return (PARSE_OK);
