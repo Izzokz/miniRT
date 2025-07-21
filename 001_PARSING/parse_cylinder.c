@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/06 23:30:45 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 12:52:31 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,49 @@ void	add_obj_to_scene(t_obj **objects, t_obj *new_obj)
 	add_obj_to_scene(&(*objects)->next, new_obj);
 }
 
+static int	fill_cylinder_data(t_obj *obj, char **tokens)
+{
+    obj->params = malloc(sizeof(double) * 8);
+    if (!obj->params)
+        return (MALLOC_FAILED);
+    if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+    {
+        free(obj->params);
+        return (PARSE_KO);
+    }
+    if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
+    {
+        free(obj->params);
+        return (PARSE_KO);
+    }
+    obj->params[6] = ft_atod(tokens[3]);
+    obj->params[7] = ft_atod(tokens[4]);
+    if (parse_color(tokens[5], obj->color) == PARSE_KO)
+    {
+        free(obj->params);
+        return (PARSE_KO);
+    }
+    return (PARSE_OK);
+}
+
 int	create_and_fill_cylinder(t_obj **new_obj, char **tokens)
 {
-	*new_obj = malloc(sizeof(t_obj));
-	if (!*new_obj)
-		return (MALLOC_FAILED);
-	ft_memset(*new_obj, 0, sizeof(t_obj));
-	(*new_obj)->type = 'c';
-	(*new_obj)->params = malloc(sizeof(double) * 8);
-	if (!(*new_obj)->params)
-	{
-		free(*new_obj);
-		return (MALLOC_FAILED);
-	}
-	parse_vec3(tokens[1], (*new_obj)->params);
-	parse_vec3(tokens[2], (*new_obj)->params + 3);
-	(*new_obj)->params[6] = ft_atod(tokens[3]);
-	(*new_obj)->params[7] = ft_atod(tokens[4]);
-	parse_color(tokens[5], (*new_obj)->color);
-	(*new_obj)->hit = ft_hit_c;
-	(*new_obj)->next = NULL;
-	return (PARSE_OK);
+    int	status;
+
+    *new_obj = malloc(sizeof(t_obj));
+    if (!*new_obj)
+        return (MALLOC_FAILED);
+    ft_memset(*new_obj, 0, sizeof(t_obj));
+    status = fill_cylinder_data(*new_obj, tokens);
+    if (status != PARSE_OK)
+    {
+        free(*new_obj);
+        return (status);
+    }
+    (*new_obj)->type = 'c';
+    (*new_obj)->hit = ft_hit_c;
+    (*new_obj)->next = NULL;
+    return (PARSE_OK);
 }
 
 int	parse_cylinder(char **tokens, t_scene *scene)
@@ -57,7 +79,10 @@ int	parse_cylinder(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	if (create_and_fill_cylinder(&new_obj, tokens) != PARSE_OK)
-		return (MALLOC_FAILED);
+	{
+		print_error("Invalid params for cylinder !");
+		return (PARSE_KO);
+	}
 	add_obj_to_scene(&scene->objects, new_obj);
 	return (PARSE_OK);
 }

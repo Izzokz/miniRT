@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/17 15:26:13 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/21 12:19:08 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS			= main.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_pos_val.c \
 				$(UTILDIR)ft_swap.c \
+				$(UTILDIR)check_params.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \

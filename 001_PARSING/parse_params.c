@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:39:47 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/17 17:14:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 12:39:37 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,23 @@
 int	parse_vec3(char *token, t_vec vec)
 {
 	char	**components;
+	int		index;
 
 	components = ft_split(token, ',');
 	if (!components || !components[0] || !components[1] || !components[2])
 	{
 		free_tab(components);
 		return (PARSE_KO);
+	}
+	index = 0;
+	while (index < 3)
+	{
+		if (is_valid_params(components[index]) == PARSE_KO)
+		{
+			free_tab(components);
+			return (PARSE_KO);
+		}
+		index++;
 	}
 	vec[0] = ft_atod(components[0]);
 	vec[1] = ft_atod(components[1]);
@@ -44,6 +55,11 @@ int	parse_color(char *token, t_color color)
 	}
 	while (i < 3)
 	{
+		if (is_valid_params(components[i]) == PARSE_KO)
+		{
+			free_tab(components);
+			return (PARSE_KO);
+		}
 		tmp = ft_atod(components[i]);
 		if (tmp < 0 || tmp > 255)
 		{
@@ -99,8 +115,16 @@ int	parse_camera(char **tokens, t_scene *scene)
 	}
 	scene->camera.fov = ft_atod(tokens[3]);
 	scene->camera.is_set = 1;
-	parse_vec3(tokens[1], scene->camera.pos);
-	parse_vec3(tokens[2], scene->camera.orientation);
+	if (parse_vec3(tokens[1], scene->camera.pos) == PARSE_KO)
+	{
+		print_error("Invalid camera position vector");
+		return (PARSE_KO);
+	}
+	if (parse_vec3(tokens[2], scene->camera.orientation) == PARSE_KO)
+	{
+		print_error("Invalid camera orientation vector");
+		return (PARSE_KO);
+	}
 	if (scene->camera.fov >= 0 && scene->camera.fov <= 180)
 		return (PARSE_OK);
 	print_error("Camera FOV must be between 0 and 180 degrees");
