@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:52:31 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:07:25 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ static int	fill_cylinder_data(t_obj *obj, char **tokens)
         return (MALLOC_FAILED);
     if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
     {
+        print_error("Invalid vector for cylinder !");
         free(obj->params);
         return (PARSE_KO);
     }
     if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
     {
+        print_error("Invalid vector for cylinder !");
         free(obj->params);
         return (PARSE_KO);
     }
@@ -41,6 +43,7 @@ static int	fill_cylinder_data(t_obj *obj, char **tokens)
     obj->params[7] = ft_atod(tokens[4]);
     if (parse_color(tokens[5], obj->color) == PARSE_KO)
     {
+        print_error("Invalid color for cylinder !");
         free(obj->params);
         return (PARSE_KO);
     }
@@ -79,10 +82,7 @@ int	parse_cylinder(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	if (create_and_fill_cylinder(&new_obj, tokens) != PARSE_OK)
-	{
-		print_error("Invalid params for cylinder !");
 		return (PARSE_KO);
-	}
 	add_obj_to_scene(&scene->objects, new_obj);
 	return (PARSE_OK);
 }

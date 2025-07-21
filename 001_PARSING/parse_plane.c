@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:36:28 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:57:56 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:07:56 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ static int	fill_plane_data(t_obj *obj, char **tokens)
         return (MALLOC_FAILED);
     if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
     {
+        print_error("Invalid vector for plane !");
         free(obj->params);
         return (PARSE_KO);
     }
     if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
     {
+        print_error("Invalid vector for plane !");
         free(obj->params);
         return (PARSE_KO);
     }
     if (parse_color(tokens[3], obj->color) == PARSE_KO)
     {
+        print_error("Invalid color for plane !");
         free(obj->params);
         return (PARSE_KO);
     }
@@ -67,10 +70,7 @@ int	parse_plane(char **tokens, t_scene *scene)
         return (PARSE_KO);
     }
     if (create_and_fill_plane(&new_obj, tokens) != PARSE_OK)
-    {
-        print_error("Invalid params for plane !");
         return (PARSE_KO);
-    }
     add_obj_to_scene(&scene->objects, new_obj);
     return (PARSE_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:35:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:49:39 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:08:18 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ static int	fill_sphere_data(t_obj *obj, char **tokens)
 		return (MALLOC_FAILED);
 	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
 	{
+        print_error("Invalid vector for sphere !");
 		free(obj->params);
 		return (PARSE_KO);
 	}
 	obj->params[3] = ft_atod(tokens[2]);
 	if (parse_color(tokens[3], obj->color) == PARSE_KO)
 	{
+        print_error("Invalid color for sphere !");
 		free(obj->params);
 		return (PARSE_KO);
 	}
@@ -63,10 +65,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	if (create_and_fill_sphere(&new_obj, tokens) != PARSE_OK)
-	{
-		print_error("Invalid params for sphere !");
 		return (PARSE_KO);
-	}
 	add_obj_to_scene(&scene->objects, new_obj);
 	return (PARSE_OK);
 }

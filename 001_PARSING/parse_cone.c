@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:08:24 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:56:19 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:06:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ static int	fill_cone_data(t_obj *obj, char **tokens)
         return (MALLOC_FAILED);
     if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
     {
+        print_error("Invalid vector for cone !");
         free(obj->params);
         return (PARSE_KO);
     }
     if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
     {
+        print_error("Invalid vector for cone !");
         free(obj->params);
         return (PARSE_KO);
     }
@@ -31,6 +33,7 @@ static int	fill_cone_data(t_obj *obj, char **tokens)
     obj->params[7] = ft_atod(tokens[4]);
     if (parse_color(tokens[5], obj->color) == PARSE_KO)
     {
+        print_error("Invalid color for cone !");
         free(obj->params);
         return (PARSE_KO);
     }
@@ -69,10 +72,7 @@ int	parse_cone(char **tokens, t_scene *scene)
         return (PARSE_KO);
     }
     if (create_and_fill_cone(&new_obj, tokens) != PARSE_OK)
-    {
-        print_error("Invalid params for cone !");
         return (PARSE_KO);
-    }
     add_obj_to_scene(&scene->objects, new_obj);
     return (PARSE_OK);
 }

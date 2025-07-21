@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 13:01:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:08:33 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ int	main(int argc, char **argv)
         ft_vec_cross(scene._right, scene._forward, scene._up);
 		scene._pitch = asin(*(scene.camera.orientation + 1));
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		// print_all_data(&scene);
-	    // free_scene(&scene);
-        // return (1);
+		print_all_data(&scene);
+	    free_scene(&scene);
+        return (1);
 		m = ft_mlx_obj_init();
 		ft_mlx_loop(m, &scene);
 	}
