@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:07:25 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:14:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,50 +24,50 @@ void	add_obj_to_scene(t_obj **objects, t_obj *new_obj)
 
 static int	fill_cylinder_data(t_obj *obj, char **tokens)
 {
-    obj->params = malloc(sizeof(double) * 8);
-    if (!obj->params)
-        return (MALLOC_FAILED);
-    if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
-    {
-        print_error("Invalid vector for cylinder !");
-        free(obj->params);
-        return (PARSE_KO);
-    }
-    if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
-    {
-        print_error("Invalid vector for cylinder !");
-        free(obj->params);
-        return (PARSE_KO);
-    }
-    obj->params[6] = ft_atod(tokens[3]);
-    obj->params[7] = ft_atod(tokens[4]);
-    if (parse_color(tokens[5], obj->color) == PARSE_KO)
-    {
-        print_error("Invalid color for cylinder !");
-        free(obj->params);
-        return (PARSE_KO);
-    }
-    return (PARSE_OK);
+	obj->params = malloc(sizeof(double) * 8);
+	if (!obj->params)
+		return (MALLOC_FAILED);
+	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+	{
+		print_error("Invalid vector for cylinder !");
+		free(obj->params);
+		return (PARSE_KO);
+	}
+	if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
+	{
+		print_error("Invalid vector for cylinder !");
+		free(obj->params);
+		return (PARSE_KO);
+	}
+	obj->params[6] = ft_atod(tokens[3]);
+	obj->params[7] = ft_atod(tokens[4]);
+	if (parse_color(tokens[5], obj->color) == PARSE_KO)
+	{
+		print_error("Invalid color for cylinder !");
+		free(obj->params);
+		return (PARSE_KO);
+	}
+	return (PARSE_OK);
 }
 
 int	create_and_fill_cylinder(t_obj **new_obj, char **tokens)
 {
-    int	status;
+	int	status;
 
-    *new_obj = malloc(sizeof(t_obj));
-    if (!*new_obj)
-        return (MALLOC_FAILED);
-    ft_memset(*new_obj, 0, sizeof(t_obj));
-    status = fill_cylinder_data(*new_obj, tokens);
-    if (status != PARSE_OK)
-    {
-        free(*new_obj);
-        return (status);
-    }
-    (*new_obj)->type = 'c';
-    (*new_obj)->hit = ft_hit_c;
-    (*new_obj)->next = NULL;
-    return (PARSE_OK);
+	*new_obj = malloc(sizeof(t_obj));
+	if (!*new_obj)
+		return (MALLOC_FAILED);
+	ft_memset(*new_obj, 0, sizeof(t_obj));
+	status = fill_cylinder_data(*new_obj, tokens);
+	if (status != PARSE_OK)
+	{
+		free(*new_obj);
+		return (status);
+	}
+	(*new_obj)->type = 'c';
+	(*new_obj)->hit = ft_hit_c;
+	(*new_obj)->next = NULL;
+	return (PARSE_OK);
 }
 
 int	parse_cylinder(char **tokens, t_scene *scene)

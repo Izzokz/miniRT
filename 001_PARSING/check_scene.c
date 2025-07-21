@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:59:42 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:03:29 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:20:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ int	check_element(char **tokens, t_scene *scene)
 	else if (!ft_strncmp(*tokens, "co", 3))
 		status = parse_cone(tokens, scene);
 	else
-	{
 		print_error("Unknown identifier");
-		return (PARSE_KO);
-	}
 	return (status);
 }

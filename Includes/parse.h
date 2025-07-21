@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/17 15:27:35 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:29:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ int		read_scene_file(int fd, t_scene *scene);
 int		parse_scene(const char *filename, t_scene *scene);
 
 //parse_params.c
+int		check_and_parse_vec3(char **components, t_vec vec);
 int		parse_vec3(char *token, t_vec vec);
+int		check_and_parse_color(char **components, t_color color);
 int		parse_color(char *token, t_color color);
+
+//parse_ambient.c
+int		validate_ambient_light(char **tokens, t_scene *scene);
 int		parse_ambient(char **tokens, t_scene *scene);
+
+//parse_camera.c
+int		validate_camera(char **tokens, t_scene *scene);
 int		parse_camera(char **tokens, t_scene *scene);
-int		parse_light(char **tokens, t_scene *scene);
 
 //parse_light.c
 int		fill_light_data(t_light *light, char **tokens);
