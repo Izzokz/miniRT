@@ -110,6 +110,15 @@ static inline void	save_cam(t_camera *save, t_scene *scene)
 		*(scene->camera.orientation + 2)
 	},
 		scene->camera.fov, 1};
+	ft_set_const_cam(save);
+}
+
+static inline void	init_world(t_scene *scene)
+{
+	ft_new_vec(scene->_up, 0, 1, 0);
+	ft_cpy_vec(scene->_forward, scene->camera.orientation);
+	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+	scene->_pitch = asin(*(scene->camera.orientation + 1));
 }
 
 int	main(int argc, char **argv)
@@ -127,13 +136,8 @@ int	main(int argc, char **argv)
 	else
 	{
 		save_cam(&save, &scene);
-		ft_set_const_cam(&save);
-		ft_new_vec(scene._up, 0, 1, 0);
-		ft_cpy_vec(scene._forward, scene.camera.orientation);
-		ft_vec_cross(scene._right, scene._forward, scene._up);
-		scene._pitch = asin(*(scene.camera.orientation + 1));
+		init_world(&scene);
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		//print_all_data(&scene);
 		ft_mlx_loop(ft_mlx_obj_init(), &scene);
 	}
 	free_scene(&scene);

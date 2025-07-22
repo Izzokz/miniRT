@@ -145,32 +145,37 @@ static inline void	ft_reset_cam(t_scene *scene)
 	scene->_pitch = asin(*(scene->camera.orientation + 1));
 }
 
-void	ft_mlx_key_hook(const t_keys keys, t_scene *scene, t_mlx_obj *mobj)
+static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
+	const t_keys keys, t_rules *rules)
 {
-	static t_rules	rules;
+	if (keys.ctrl)
+		ft_reset_cam(scene);
+	if (!keys.ctrl || keys.shift)
+		ft_set_rules_max(rules);
+	else
+		ft_set_rules_min(mobj, rules);
+	ft_mlx_img_update(mobj, scene, rules);
+}
+
+inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
+{
+	static t_rules	rules = (t_rules){0};
 	static char		init = 0;
 
 	if (!init)
 	{
-		++init;
-		ft_set_rules_max(&rules);
+		ft_set_rules_max(&rules + ++init * 0);
 		ft_mlx_img_update(mobj, scene, &rules);
 		return ;
 	}
-	if (!keys.ctrl
-		&& ft_move(*(unsigned char *)&keys, scene) + ft_rotate(keys, scene))
+	if (keys->z && !keys->z_triggd)
+		ft_mlx_img_update(mobj + ++rules.zoom * ++keys->z, scene, &rules);
+	if (!keys->ctrl
+		&& ft_move(*(unsigned char *)keys, scene) + ft_rotate(*keys, scene))
 	{
 		ft_set_rules_min(mobj, &rules);
 		ft_mlx_img_update(mobj, scene, &rules);
 	}
-	else if (keys.r)
-	{
-		if (keys.ctrl)
-			ft_reset_cam(scene);
-		if (!keys.ctrl || keys.shift)
-			ft_set_rules_max(&rules);
-		else
-			ft_set_rules_min(mobj, &rules);
-		ft_mlx_img_update(mobj, scene, &rules);
-	}
+	else if (keys->r)
+		ft_mlx_key_hook_r(mobj, scene, *keys, &rules);
 }

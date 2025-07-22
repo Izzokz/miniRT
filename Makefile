@@ -35,7 +35,6 @@ SRCS			= main.c \
 				$(PARSEDIR)parse_arg.c \
 				$(PARSEDIR)parse_params.c \
 				$(UTILDIR)split_utils.c \
-				$(UTILDIR)ft_pos_val.c \
 				$(UTILDIR)ft_swap.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \

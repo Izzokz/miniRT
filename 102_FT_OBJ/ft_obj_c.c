@@ -106,30 +106,30 @@ static void	get_normal(t_vec normal, const t_obj *cy, t_vec hit, double t_body)
 
 char	ft_hit_c(const t_obj *cylinder, t_ray ray)
 {
-    double	t_val[3];
-    t_vec	hit_point;
-    t_vec	normal;
-    t_vec	axis;
-    t_vec	posnorm[2];
+	double	t_val[3];
+	t_vec	hit_point;
+	t_vec	normal;
+	t_vec	axis;
+	t_vec	posnorm[2];
 
-    ft_cpy_vec(axis, cylinder->params + 3);
-    ft_vec_norm(axis, axis);
-    t_val[0] = intersect_body(cylinder, ray, axis);
-    t_val[1] = intersect_caps(cylinder, ray, axis);
-    if (t_val[0] < 0 && t_val[1] < 0)
-        return (0);
-    if (t_val[0] > 0 && (t_val[1] < 0 || t_val[0] < t_val[1]))
-        t_val[2] = t_val[0];
-    else
-        t_val[2] = t_val[1];
-    ft_vec_scale(hit_point, *(ray + 1), t_val[2]);
-    ft_vec_add(hit_point, *ray, hit_point);
-    if (t_val[2] == t_val[0])
-        get_normal(normal, cylinder, hit_point, t_val[0]);
-    else
-        get_normal(normal, cylinder, hit_point, -1.0);
-    ft_cpy_vec(posnorm[0], hit_point);
-    ft_cpy_vec(posnorm[1], normal);
-    ft_reflect(ray, posnorm);
-    return (1);
+	ft_cpy_vec(axis, cylinder->params + 3);
+	ft_vec_norm(axis, axis);
+	t_val[0] = intersect_body(cylinder, ray, axis);
+	t_val[1] = intersect_caps(cylinder, ray, axis);
+	if (t_val[0] < 0 && t_val[1] < 0)
+		return (0);
+	if (t_val[0] > 0 && (t_val[1] < 0 || t_val[0] < t_val[1]))
+		t_val[2] = t_val[0];
+	else
+		t_val[2] = t_val[1];
+	ft_vec_scale(hit_point, *(ray + 1), t_val[2]);
+	ft_vec_add(hit_point, *ray, hit_point);
+	if (t_val[2] == t_val[0])
+		get_normal(normal, cylinder, hit_point, t_val[0]);
+	else
+		get_normal(normal, cylinder, hit_point, -1.0);
+	ft_cpy_vec(posnorm[0], hit_point);
+	ft_cpy_vec(posnorm[1], normal);
+	ft_reflect(ray, posnorm);
+	return (1);
 }

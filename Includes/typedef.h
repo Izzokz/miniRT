@@ -118,14 +118,19 @@ typedef struct s_light
 	t_light	*next;
 }	t_light;
 
-typedef struct s_keys
+/* *** CRITICAL STRUCT *** */
+// ==============================================
+// DO NOT CHANGE THE ORDER OF COMMENTED VARIABLES
+// ==============================================
+/* *** CRITICAL STRUCT *** */
+typedef struct __attribute__((__packed__)) s_keys
 {
-	unsigned char	a : 1;
-	unsigned char	d : 1;
-	unsigned char	shift : 1;
-	unsigned char	space : 1;
-	unsigned char	s : 1;
-	unsigned char	w : 1;
+	unsigned char	a : 1; //
+	unsigned char	d : 1; //
+	unsigned char	shift : 1; //
+	unsigned char	space : 1; //
+	unsigned char	s : 1; //
+	unsigned char	w : 1; //
 	unsigned char	left : 1;
 	unsigned char	right : 1;
 	unsigned char	down : 1;
@@ -133,13 +138,20 @@ typedef struct s_keys
 	unsigned char	ctrl : 1;
 	unsigned char	esc : 1;
 	unsigned char	r : 1;
+	unsigned char	z : 1;
+	unsigned char	z_triggd : 1;
 }	t_keys;
 
+/* *** CRITICAL STRUCT *** */
+// ==============================================
+// DO NOT CHANGE THE ORDER OF COMMENTED VARIABLES
+// ==============================================
+/* *** CRITICAL STRUCT *** */
 typedef struct s_mlx_obj
 {
+	int		win_i; //
+	int		win_j; //
 	void	*mlx;
-	int		win_i;
-	int		win_j;
 	void	*win;
 	void	*img;
 	char	*img_data;
@@ -154,6 +166,11 @@ typedef struct s_ambient
 	int		is_set;
 }	t_ambient;
 
+/* *** CRITICAL STRUCT *** */
+// ========================================
+// DO NOT CHANGE THE ORDER OF THE VARIABLES
+// ========================================
+/* *** CRITICAL STRUCT *** */
 typedef struct s_camera
 {
 	t_vec			pos;
@@ -175,6 +192,11 @@ typedef struct s_scene
 	double			_pitch;
 }	t_scene;
 
+/* *** CRITICAL STRUCT *** */
+// ========================================
+// DO NOT CHANGE THE ORDER OF THE VARIABLES
+// ========================================
+/* *** CRITICAL STRUCT *** */
 typedef struct s_viewport
 {
 	t_vec	hor;
@@ -189,6 +211,7 @@ typedef struct s_rules
 	double			ref_str;
 	unsigned int	(*coloration)(t_ray, t_obj *hit,
 			const t_scene *, const t_rules *);
+	unsigned char	zoom : 1;
 }	t_rules;
 
 typedef struct s_color_ads

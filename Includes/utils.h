@@ -13,9 +13,6 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-//ft_pos_val.c
-double	ft_pos_val(const double val);
-
 //split_utils.c
 char	**ft_split_space(const char *s);
 
