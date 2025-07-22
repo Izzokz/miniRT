@@ -66,7 +66,7 @@ static inline void	ft_put_color(t_mlx_obj *mobj,
 }
 
 void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
-	t_scene *s, const t_rules *rul)
+	t_scene *s, const t_rules *r)
 {
 	t_obj	*hit;
 	t_vec	scaled[2];
@@ -86,11 +86,11 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 			ft_shoot_ray(s->ray, vp, s, scaled);
 			hit = ft_hit_nearest_obj(s->ray, s->objects);
 			if (!hit)
-				ft_put_color(mobj, i, 0);
+				ft_put_color(mobj, i, 0xc5eff0 * (r->coloration == ft_unicorn));
 			else
-				ft_put_color(mobj, i, rul->coloration(s->ray, hit, s, rul));
-			(*i) += rul->pixel_cross;
+				ft_put_color(mobj, i, r->coloration(s->ray, hit, s, r));
+			(*i) += r->pixel_cross;
 		}
-		(*(i + 1)) += rul->pixel_cross;
+		(*(i + 1)) += r->pixel_cross;
 	}
 }

@@ -28,6 +28,10 @@ unsigned int	ft_color_mini(t_ray, t_obj *hit,
 					const t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_glass(t_ray, t_obj *hit,
 					const t_scene *scene, const t_rules *rules);
+unsigned int	ft_unicorn(t_ray, t_obj *hit,
+					const t_scene *scene, const t_rules *rules);
+unsigned int    ft_color_virus(t_ray, t_obj *hit,
+					const t_scene *scene, const t_rules *rules);
 void			ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 					t_scene *scene, const t_rules *rules);
 

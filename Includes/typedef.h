@@ -35,7 +35,7 @@
 // Please do not use ft_color_mini ;_;
 // ====================================================================
 /* *** CRITICAL MACRO *** */
-# define MRT_BEST_COLORATION ft_color_glass // INIT : ft_blend_color
+# define MRT_BEST_COLORATION ft_blend_color // INIT : ft_blend_color
 
 # ifdef PI
 #  undef PI
