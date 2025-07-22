@@ -70,19 +70,19 @@ void print_all_data(t_scene *scene)
     while (obj)
     {
         printf("  Object %d:\n", i++);
-        if (obj->type == 's')
+        if (obj->hit == ft_hit_s)
         {
             printf("\tType: Sphere\n");
             print_vec("Center", obj->params);
             printf("\tDiameter: %.2f\n", obj->params[3]);
         }
-        if (obj->type == 'p')
+        else if (obj->hit == ft_hit_p)
         {
             printf("\tType: Plane\n");
             print_vec("Point", obj->params);
             print_vec("Normal", obj->params + 3);
         }
-        if (obj->type == 'c')
+        else if (obj->hit == ft_hit_c)
         {
             printf("\tType: Cylinder\n");
             print_vec("Center", obj->params);

@@ -28,7 +28,6 @@ int	create_and_fill_cylinder(t_obj **new_obj, char **tokens)
 	if (!*new_obj)
 		return (MALLOC_FAILED);
 	ft_memset(*new_obj, 0, sizeof(t_obj));
-	(*new_obj)->type = 'c';
 	(*new_obj)->params = malloc(sizeof(double) * 8);
 	if (!(*new_obj)->params)
 	{

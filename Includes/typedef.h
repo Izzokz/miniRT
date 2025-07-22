@@ -103,7 +103,6 @@ Objects can be:
 */
 typedef struct s_obj
 {
-	char	type; // 's' || 'p' || 'c' // DELETE LATER (unused)
 	t_color	color;
 	double	*params;
 	char	(*hit)(const t_obj *self, t_ray);

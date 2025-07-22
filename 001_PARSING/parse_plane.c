@@ -18,7 +18,6 @@ int	create_and_fill_plane(t_obj **new_obj, char **tokens)
 	if (!*new_obj)
 		return (MALLOC_FAILED);
 	ft_memset(*new_obj, 0, sizeof(t_obj));
-	(*new_obj)->type = 'p';
 	(*new_obj)->params = malloc(sizeof(double) * 6);
 	if (!(*new_obj)->params)
 	{
