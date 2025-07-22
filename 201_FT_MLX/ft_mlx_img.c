@@ -41,8 +41,8 @@ inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 	t_vec	vp[3];
 
 	ft_get_viewport(vp, scene, (int *)mobj, rules->zoom);
-	ft_putstr_fd("\e[94;7mR\e[0m", 1);
+	ft_putstr_fd("\r\e[94;7mR\e[0m  ", 1);
 	ft_process(mobj, (t_viewport *)vp, scene, rules);
 	mlx_put_image_to_window(mobj->mlx, mobj->win, mobj->img, 0, 0);
-	ft_putstr_fd("\e[32;1mOK\e[0m", 1);
+	ft_putstr_fd("\r\e[94;7mR\e[32;1mOK\e[0m", 1);
 }
