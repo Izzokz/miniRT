@@ -35,7 +35,7 @@
 // Please do not use ft_color_mini ;_;
 // ====================================================================
 /* *** CRITICAL MACRO *** */
-# define MRT_BEST_COLORATION ft_blend_color // INIT : ft_blend_color
+# define MRT_BEST_COLORATION ft_color_glass // INIT : ft_blend_color
 
 # ifdef PI
 #  undef PI
@@ -139,6 +139,8 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	r : 1;
 	unsigned char	z : 1;
 	unsigned char	z_triggd : 1;
+	unsigned char	c : 1;
+	unsigned char	reset : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */

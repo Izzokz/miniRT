@@ -12,7 +12,15 @@
 
 #include "miniRT.h"
 
-static inline void	ft_set_rules_max(t_rules *rules)
+static inline void	ft_set_rules_max(t_rules *rules, t_rules *max)
+{
+	rules->ref = max->ref;
+	rules->ref_str = max->ref_str;
+	rules->pixel_cross = 1;
+	rules->coloration = max->coloration;
+}
+
+static inline void	ft_init_rules(t_rules *rules)
 {
 	rules->ref = MRT_MAX_REF;
 	rules->ref_str = MRT_MAX_REF_STR;
@@ -31,10 +39,10 @@ static inline void	ft_set_rules_min(t_mlx_obj *mobj, t_rules *rules)
 }
 
 static inline void	ft_move2(const char x, const char y,
-    const char z, t_scene *scene)
+	const char z, t_scene *scene)
 {
-    t_vec	delta;
-    t_vec	tmp;
+	t_vec	delta;
+	t_vec	tmp;
 
 	ft_new_vec(delta, x, y, z);
 	ft_vec_scale(delta, (t_vec){(*scene->camera.orientation), 0, 0}, x);
@@ -145,36 +153,83 @@ static inline void	ft_reset_cam(t_scene *scene)
 }
 
 static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
-	const t_keys keys, t_rules *rules)
+	const t_keys keys, t_rules rules[3])
 {
+	if (keys.reset)
+	{
+		ft_set_rules_max(rules + 1, rules + 2);
+		ft_set_rules_max(rules, rules + 1);
+		ft_reset_cam(scene);
+		ft_mlx_img_update(mobj, scene, rules);
+		return ;
+	}
 	if (keys.ctrl)
 		ft_reset_cam(scene);
 	if (!keys.ctrl || keys.shift)
-		ft_set_rules_max(rules);
+		ft_set_rules_max(rules, rules + 1);
 	else
 		ft_set_rules_min(mobj, rules);
 	ft_mlx_img_update(mobj, scene, rules);
 }
 
+static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
+	char ctrl, t_rules rules[2])
+{
+	char	*str;
+
+	if (ctrl)
+	{
+		(rules + 1)->coloration = MRT_BEST_COLORATION;
+		ft_set_rules_max(rules, rules + 1);
+		ft_mlx_img_update(mobj, scene, rules);
+		return ;
+	}
+	ft_putstr_fd("\nChange Coloration:\n", 1);
+	str = get_next_line(0);
+	if (!str && write(1, "^D\n", 3))
+		return ;
+	if (ft_sequals(str, "reset\n"))
+		(rules + 1)->coloration = MRT_BEST_COLORATION;
+	else if (ft_sequals(str, "glass\n"))
+		(rules + 1)->coloration = ft_color_glass;
+	else if (ft_sequals(str, "blend\n"))
+		(rules + 1)->coloration = ft_blend_color;
+//	else if (ft_sequals(str, "unicorn"))
+//		(rules + 1)->coloration = ft_unicorn;
+	free(str);
+	ft_set_rules_max(rules, rules + 1);
+	ft_mlx_img_update(mobj, scene, rules);
+}
+
+/*
+*rules = actual
+*(rules + 1) = custom maxed
+*(rules + 2) = origin maxed
+*/
 inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
-	static t_rules	rules = (t_rules){0};
+	static t_rules	rules[3] = (t_rules [3]){(t_rules){0}, (t_rules){0},
+		(t_rules){0}};
 	static char		init = 0;
 
 	if (!init)
 	{
-		ft_set_rules_max(&rules + ++init * 0);
-		ft_mlx_img_update(mobj, scene, &rules);
+		ft_init_rules(rules + ++init + 1);
+		ft_set_rules_max(rules + 1, rules + 2);
+		ft_set_rules_max(rules, rules + 1);
+		ft_mlx_img_update(mobj, scene, rules);
 		return ;
 	}
 	if (keys->z && !keys->z_triggd)
-		ft_mlx_img_update(mobj + ++rules.zoom * ++keys->z, scene, &rules);
+		ft_mlx_img_update(mobj + ++rules->zoom * ++keys->z, scene, rules);
 	if (!keys->ctrl
 		&& ft_move(*(unsigned char *)keys, scene) + ft_rotate(*keys, scene))
 	{
-		ft_set_rules_min(mobj, &rules);
-		ft_mlx_img_update(mobj, scene, &rules);
+		ft_set_rules_min(mobj, rules);
+		ft_mlx_img_update(mobj, scene, rules);
 	}
 	else if (keys->r)
-		ft_mlx_key_hook_r(mobj, scene, *keys, &rules);
+		ft_mlx_key_hook_r(mobj, scene, *keys, rules);
+	else if (keys->c)
+		ft_mlx_key_hook_c(mobj, scene, keys->ctrl, rules);
 }

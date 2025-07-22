@@ -45,6 +45,10 @@ static inline int	key_enable(int keycode, t_keys *keys)
 		keys->esc = 1;
 	else if (keycode == XK_r)
 		keys->r = 1;
+	else if (keycode == XK_c)
+		keys->c = 1;
+	else if (keycode == XK_0)
+		keys->reset = 1;
 	return (0);
 }
 
@@ -76,6 +80,10 @@ static inline int	key_disable(int keycode, t_keys *keys)
 		keys->ctrl = 0;
 	else if (keycode == XK_r)
 		keys->r = 0;
+	else if (keycode == XK_c)
+		keys->c = 0;
+	else if (keycode == XK_0)
+		keys->reset = 0;
 	return (0);
 }
 

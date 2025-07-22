@@ -45,6 +45,7 @@ SRCS			= main.c \
 				$(UTILDIR)check_params.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_swap.c \
+				$(UTILDIR)ft_sequals.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
