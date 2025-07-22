@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_obj_f.c                                         :+:      :+:    :+:   */
+/*   check_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 16:54:09 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/04 14:35:26 by lumugot          ###   ########.fr       */
+/*   Created: 2025/07/21 12:12:50 by lumugot           #+#    #+#             */
+/*   Updated: 2025/07/21 12:18:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
 
-char	ft_hit_f(const t_obj flat, t_ray ray)
+int	is_valid_params(const char *str)
 {
-	(void) flat;
-	(void) ray;
-	return (0);
+	int	index;
+	int	count_dot;
+
+	index = 0;
+	count_dot = 0;
+	if (!str || !str[0])
+		return (PARSE_KO);
+	if (str[index] == '+' || str[index] == '-')
+		index++;
+	if (!str[index])
+		return (PARSE_KO);
+	while (str[index])
+	{
+		if(str[index] == '.')
+			count_dot++;
+		else if (!ft_isdigit(str[index]))
+			return (PARSE_KO);
+		index++;
+	}
+	if (count_dot > 1)
+		return (PARSE_KO);
+	return (PARSE_OK);
 }

@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/06 23:29:45 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/21 14:30:02 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,17 @@ SRCS			= main.c \
 				$(PARSEDIR)check_scene.c \
 				$(PARSEDIR)parse_arg.c \
 				$(PARSEDIR)parse_params.c \
-				$(UTILDIR)split_utils.c \
-				$(UTILDIR)ft_swap.c \
+				$(PARSEDIR)parse_ambient.c \
+				$(PARSEDIR)parse_camera.c \
 				$(PARSEDIR)parse_light.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
 				$(PARSEDIR)parse_cube.c \
+				$(PARSEDIR)parse_cone.c \
+				$(UTILDIR)check_params.c \
+				$(UTILDIR)split_utils.c \
+				$(UTILDIR)ft_swap.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
@@ -50,6 +54,7 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_s.c \
 				$(TOBJDIR)ft_obj_c3.c \
 				$(TOBJDIR)ft_obj_c3_reflect.c \
+				$(TOBJDIR)ft_obj_cone.c \
                 $(TOBJDIR)ft_light.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
@@ -65,7 +70,7 @@ OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Werror -Wextra -g3
+CFLAGS	= -Wall -Wextra -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux

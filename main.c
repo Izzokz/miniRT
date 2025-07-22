@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/06 23:27:41 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:16:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,14 @@ void print_all_data(t_scene *scene)
         else if (obj->hit == ft_hit_c)
         {
             printf("\tType: Cylinder\n");
+            print_vec("Center", obj->params);
+            print_vec("Axis", obj->params + 3);
+            printf("\tDiameter: %.2f\n", obj->params[6]);
+            printf("\tHeight: %.2f\n", obj->params[7]);
+        }
+        if (obj->hit == ft_hit_cone)
+        {
+            printf("\tType: Cone\n");
             print_vec("Center", obj->params);
             print_vec("Axis", obj->params + 3);
             printf("\tDiameter: %.2f\n", obj->params[6]);

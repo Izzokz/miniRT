@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/06 23:32:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:09:15 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,23 +84,29 @@ static double	intersect_body(const t_obj *cy, t_ray ray, t_vec axis)
 	return (-1.0);
 }
 
-static void	get_normal(t_vec normal, const t_obj *cy, t_vec hit, double t_body)
+static void	get_normal(t_vec normal, const t_obj *cy, t_ray ray, t_vec hit)
 {
 	t_vec	axis;
 	t_vec	tmp;
 	double	m;
 
 	ft_cpy_vec(axis, cy->params + 3);
-	if (t_body > 0)
+	ft_vec_sub(tmp, hit, cy->params);
+	m = ft_vec_dot(tmp, axis);
+	if (fabs(m) < 1e-6 || fabs(m - cy->params[7]) < 1e-6)
 	{
-		ft_vec_sub(tmp, hit, cy->params);
-		m = ft_vec_dot(tmp, axis);
+		ft_cpy_vec(normal, axis);
+		if (m < cy->params[7] / 2.0)
+			ft_vec_scale(normal, normal, -1.0);
+	}
+	else
+	{
 		ft_vec_scale(normal, axis, m);
 		ft_vec_add(normal, cy->params, normal);
 		ft_vec_sub(normal, hit, normal);
 	}
-	else
-		ft_cpy_vec(normal, axis);
+	if (ft_vec_dot(*(ray + 1), normal) > 0)
+		ft_vec_scale(normal, normal, -1.0);
 	ft_vec_norm(normal, normal);
 }
 
@@ -124,10 +130,7 @@ char	ft_hit_c(const t_obj *cylinder, t_ray ray)
 		t_val[2] = t_val[1];
 	ft_vec_scale(hit_point, *(ray + 1), t_val[2]);
 	ft_vec_add(hit_point, *ray, hit_point);
-	if (t_val[2] == t_val[0])
-		get_normal(normal, cylinder, hit_point, t_val[0]);
-	else
-		get_normal(normal, cylinder, hit_point, -1.0);
+	get_normal(normal, cylinder, ray, hit_point);
 	ft_cpy_vec(posnorm[0], hit_point);
 	ft_cpy_vec(posnorm[1], normal);
 	ft_reflect(ray, posnorm);

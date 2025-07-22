@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:40:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/26 19:53:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/17 15:24:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	ft_hit_s(const t_obj *sphere, t_ray ray);
 char	ft_hit_c(const t_obj *cylinder, t_ray ray);
 char	ft_hit_p(const t_obj *plane, t_ray ray);
 char	ft_hit_c3(const t_obj *cube, t_ray ray);
+char	ft_hit_cone(const t_obj *cone, t_ray ray);
 
 /* OBJ FREE FUNCTION */
 void	ft_free_obj(t_obj *head);

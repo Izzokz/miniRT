@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/06 23:37:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/17 17:08:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ static inline void	ft_set_rules_min(t_mlx_obj *mobj, t_rules *rules)
 }
 
 static inline void	ft_move2(const char x, const char y,
-	const char z, t_scene *scene)
+    const char z, t_scene *scene)
 {
-	t_vec	move;
-	t_vec	tmp;
-	t_vec	delta;
+    t_vec	delta;
+    t_vec	tmp;
 
-	ft_new_vec(move, x, y, z);
+	ft_new_vec(delta, x, y, z);
 	ft_vec_scale(delta, (t_vec){(*scene->camera.orientation), 0, 0}, x);
 	ft_vec_scale(tmp, g_up, y);
 	ft_vec_add(delta, delta, tmp);
