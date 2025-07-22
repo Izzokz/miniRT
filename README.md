@@ -12,7 +12,7 @@
 	- <kbd>Ctrl</kbd> + <kbd>D</kbd> : \*does nothing\*
 - <kbd>Ctrl</kbd> + <kbd>C</kbd> : Resets to MRT_BEST_COLORATION
 - <kbd>R</kbd> : Renders (MAX Quality)
-- <kbd>Ctrl</kbd> + <kbd>R</kbd> : Resets camera settings
+- <kbd>Ctrl</kbd> + <kbd>R</kbd> : Resets camera settings (Renders with MIN quality)
 - <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> : Resets camera settings + Renders
 - <kbd>0</kbd> + <kbd>R</kbd> : Resets camera settings + Resets coloration + Renders
 - <kbd>Z</kbd> : Zooms in/out (on release)
