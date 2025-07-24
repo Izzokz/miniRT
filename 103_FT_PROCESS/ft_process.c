@@ -65,6 +65,19 @@ static inline void	ft_put_color(t_mlx_obj *mobj,
 				+ *(iter + 1) * (mobj->bpp / 8))) = color;
 }
 
+static inline unsigned int	ft_no_hit_color(const t_rules r)
+{
+	if (r.coloration == ft_unicorn)
+		return (0xdc96ff);
+	if (r.coloration == ft_color_virus)
+		return (rand());
+	if (r.coloration == ft_color_chill)
+		return (0xcffff9);
+	if (r.coloration == ft_color_error)
+		return (0xff0000 + 255 * (rand() % 2));
+	return (0);
+}
+
 void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 	t_scene *s, const t_rules *r)
 {
@@ -86,7 +99,7 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 			ft_shoot_ray(s->ray, vp, s, scaled);
 			hit = ft_hit_nearest_obj(s->ray, s->objects);
 			if (!hit)
-				ft_put_color(mobj, i, 0xc5eff0 * (r->coloration == ft_unicorn));
+				ft_put_color(mobj, i, ft_no_hit_color(*r));
 			else
 				ft_put_color(mobj, i, r->coloration(s->ray, hit, s, r));
 			(*i) += r->pixel_cross;

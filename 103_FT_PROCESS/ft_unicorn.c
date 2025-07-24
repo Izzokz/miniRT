@@ -156,7 +156,8 @@ static inline void	ft_color_fix(t_color edit)
 	}
 }
 
-static inline void	ft_unicornize(t_color edit, const t_color origin, const float bfactor)
+static inline void	ft_unicornize(t_color edit, const t_color origin,
+	const float bfactor)
 {
 	const static t_color	unicorn = {220, 150, 255};
 	t_vec					tmp;
@@ -167,7 +168,8 @@ static inline void	ft_unicornize(t_color edit, const t_color origin, const float
 	*tmp = fmin(1.0, *tmp * .6 + .4 + .1 * sin(*(tmp + 1) * 5));
 	*(tmp + 1) = fmin(1.0, *(tmp + 1) * .6 + .4 + .05 * cos(*tmp * 7));
 	*(tmp + 2) = fmin(1.0, *(tmp + 2) * .6 + .4 + .1 * sin(*(tmp + 2) * 3));
-	*edit = (1.0f - bfactor) * *origin + bfactor * (.7 * *tmp * 255.0f + .3f * *unicorn);
+	*edit = (1.0f - bfactor) * *origin
+		+ bfactor * (.7 * *tmp * 255.0f + .3f * *unicorn);
 	*(edit + 1) = (1.0f - bfactor) * *(origin + 1)
 		+ bfactor * (.7 * *(tmp + 1) * 255.0f + .3f * *(unicorn + 1));
 	*(edit + 2) = (1.0f - bfactor) * *(origin + 2)

@@ -62,6 +62,8 @@ SRCS			= main.c \
 				$(PROCESSDIR)ft_color_glass.c \
 				$(PROCESSDIR)ft_unicorn.c \
 				$(PROCESSDIR)ft_color_virus.c \
+				$(PROCESSDIR)ft_color_chill.c \
+				$(PROCESSDIR)ft_color_error.c \
 				$(PROCESSDIR)ft_color_mini.c \
 				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \

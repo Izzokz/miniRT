@@ -198,6 +198,12 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 		(rules + 1)->coloration = ft_unicorn;
 	else if (ft_sequals(str, "virus\n"))
 		(rules + 1)->coloration = ft_color_virus;
+	else if (ft_sequals(str, "chill\n"))
+		(rules + 1)->coloration = ft_color_chill;
+	else if (ft_sequals(str, "error\n"))
+		(rules + 1)->coloration = ft_color_error;
+	else
+		return (free(str));
 	free(str);
 	ft_set_rules_max(rules, rules + 1);
 	ft_mlx_img_update(mobj, scene, rules);
