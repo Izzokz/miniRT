@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/24 14:11:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 15:06:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static inline int	key_enable(int keycode, t_keys *keys)
 		keys->c = 1;
 	else if (keycode == XK_0)
 		keys->reset = 1;
+	else if (keycode == XK_Tab)
+        keys->tab = 1;
 	return (0);
 }
 
@@ -84,6 +86,11 @@ static inline int	key_disable(int keycode, t_keys *keys)
 		keys->c = 0;
 	else if (keycode == XK_0)
 		keys->reset = 0;
+	else if (keycode == XK_Tab)
+    {
+        keys->tab = 0;
+        keys->tab_triggd = 0;
+    }
 	return (0);
 }
 
