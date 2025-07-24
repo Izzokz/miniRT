@@ -75,7 +75,7 @@ OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -g3
+CFLAGS	= -Wall -Wextra -Werror -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux
