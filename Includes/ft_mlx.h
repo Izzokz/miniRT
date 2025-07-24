@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:08:38 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/24 15:01:44 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 17:11:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ void		ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene);
 
 /* MLX IMG */
 void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules, int rerender);
+
+//FT_mlx_menu.c
+void	ft_display_menu(t_mlx_obj *mobj, t_rules *rules);
+int		ft_menu_handler(t_keys *keys, t_rules *rules);
+
 #endif

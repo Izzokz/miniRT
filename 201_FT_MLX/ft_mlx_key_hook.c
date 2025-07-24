@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/24 15:49:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 17:15:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,9 @@ inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
     static t_rules	rules[3] = {0};
     static char		init = 0;
+    int				rerender;
 
+    rerender = 0;
     if (!init)
     {
         ft_init_rules(rules + ++init + 1);
@@ -231,22 +233,23 @@ inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
         ft_mlx_img_update(mobj, scene, rules, 1);
         return ;
     }
-    if (keys->tab && !keys->tab_triggd)
+    if (ft_menu_handler(keys, rules))
     {
-        rules->show_help = !rules->show_help;
-        keys->tab_triggd = 1;
         ft_mlx_img_update(mobj, scene, rules, 0);
+        return ;
     }
     if (keys->z && !keys->z_triggd)
-        ft_mlx_img_update(mobj + ++rules->zoom * ++keys->z, scene, rules, 1);
-    if (!keys->ctrl
-        && ft_move(*(unsigned char *)keys, scene) + ft_rotate(*keys, scene))
+        rerender = 1 + (0 * ++rules->zoom * ++keys->z_triggd);
+    if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
+        || ft_rotate(*keys, scene)))
     {
         ft_set_rules_min(mobj, rules);
-        ft_mlx_img_update(mobj, scene, rules, 1);
+        rerender = 1;
     }
     else if (keys->r)
         ft_mlx_key_hook_r(mobj, scene, *keys, rules);
     else if (keys->c)
         ft_mlx_key_hook_c(mobj, scene, keys->ctrl, rules);
+    if (rerender)
+        ft_mlx_img_update(mobj, scene, rules, 1);
 }

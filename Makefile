@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/24 14:08:22 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/24 17:10:56 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRCS			= main.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
+				$(MLXDIR)ft_mlx_menu.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))

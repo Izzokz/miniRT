@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/24 15:49:06 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 17:21:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .001 // INIT : .069
-# define ROT_SPEED .001 // INIT : .069
+# define MOVE_SPEED .0010 // INIT : .069
+# define ROT_SPEED .0010 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
@@ -143,6 +143,10 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	reset : 1;
 	unsigned char	tab : 1;
     unsigned char	tab_triggd : 1;
+    unsigned char	key_1 : 1;
+    unsigned char	key_1_triggd : 1;
+    unsigned char	key_2 : 1;
+    unsigned char	key_2_triggd : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */
@@ -215,7 +219,7 @@ typedef struct s_rules
 	unsigned int	(*coloration)(t_ray, t_obj *hit,
 			const t_scene *, const t_rules *);
 	unsigned char	zoom : 1;
-	unsigned char	show_help : 1;
+	char			*menu_state;
 }	t_rules;
 
 typedef struct s_color_ads
