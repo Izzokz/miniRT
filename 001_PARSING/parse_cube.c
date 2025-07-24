@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 08:23:08 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/21 14:15:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:35:45 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ static inline char	fill_cube(t_obj *new_obj, char **tokens)
 	}
 	parse_vec3(*tokens, new_obj->params);
 	parse_vec3(*(tokens + 1), new_obj->params + 3);
+	if (new_obj->params[3] == 0 && new_obj->params[4] == 0
+		&& new_obj->params[5] == 0)
+	{
+		print_error("Cube orientation vector cannot be null");
+		free(new_obj->params);
+		free(new_obj);
+		return (PARSE_KO);
+	}
 	*(new_obj->params + 6) = ft_atod(*(tokens + 2));
 	parse_color(*(tokens + 3), new_obj->color);
 	new_obj->hit = ft_hit_c3;

@@ -6,26 +6,39 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:36:28 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:14:36 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:45:20 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
+
+static int	validate_plane_vectors(t_obj *obj, char **tokens)
+{
+	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+	{
+		print_error("Invalid vector for plane !");
+		return (PARSE_KO);
+	}
+	if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
+	{
+		print_error("Invalid vector for plane !");
+		return (PARSE_KO);
+	}
+	if (obj->params[3] == 0 && obj->params[4] == 0 && obj->params[5] == 0)
+	{
+		print_error("Plane orientation vector cannot be null");
+		return (PARSE_KO);
+	}
+	return (PARSE_OK);
+}
 
 static int	fill_plane_data(t_obj *obj, char **tokens)
 {
 	obj->params = malloc(sizeof(double) * 6);
 	if (!obj->params)
 		return (MALLOC_FAILED);
-	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+	if (validate_plane_vectors(obj, tokens) == PARSE_KO)
 	{
-		print_error("Invalid vector for plane !");
-		free(obj->params);
-		return (PARSE_KO);
-	}
-	if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
-	{
-		print_error("Invalid vector for plane !");
 		free(obj->params);
 		return (PARSE_KO);
 	}
@@ -38,7 +51,7 @@ static int	fill_plane_data(t_obj *obj, char **tokens)
 	return (PARSE_OK);
 }
 
-int	create_and_fill_plane(t_obj **new_obj, char **tokens)
+static int	create_and_fill_plane(t_obj **new_obj, char **tokens)
 {
 	int	status;
 

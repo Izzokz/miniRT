@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:25:56 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:27:10 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:30:18 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ int	validate_camera(char **tokens, t_scene *scene)
 	if (parse_vec3(tokens[2], scene->camera.orientation) == PARSE_KO)
 	{
 		print_error("Invalid camera orientation vector");
+		return (PARSE_KO);
+	}
+	if (scene->camera.orientation[0] == 0 && scene->camera.orientation[1] == 0
+		&& scene->camera.orientation[2] == 0)
+	{
+		print_error("Camera orientation vector cannot be null");
 		return (PARSE_KO);
 	}
 	scene->camera.is_set = 1;

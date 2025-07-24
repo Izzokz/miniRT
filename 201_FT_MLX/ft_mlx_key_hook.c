@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/17 17:08:44 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:09:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,8 +210,7 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 */
 inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
-	static t_rules	rules[3] = (t_rules [3]){(t_rules){0}, (t_rules){0},
-		(t_rules){0}};
+	static t_rules	rules[3] = {0};
 	static char		init = 0;
 
 	if (!init)
