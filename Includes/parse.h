@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:29:01 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:45:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		fill_light_data(t_light *light, char **tokens);
 int		parse_light(char **tokens, t_scene *scene);
 
 //parse_plane.c
-int		create_and_fill_plane(t_obj **new_obj, char **tokens);
 int		parse_plane(char **tokens, t_scene *scene);
 
 //parse_sphere.c
@@ -63,12 +62,9 @@ int		parse_sphere(char **tokens, t_scene *scene);
 
 //parse_cylinder.c
 void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
-int		create_and_fill_cylinder(t_obj **new_obj, char **tokens);
 int		parse_cylinder(char **tokens, t_scene *scene);
 
 //parse_cone.c
-void	add_cone_to_scene(t_obj **objects, t_obj *new_obj);
-int		create_and_fill_cone(t_obj **new_obj, char **tokens);
 int		parse_cone(char **tokens, t_scene *scene);
 
 //parse_cube.c

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:14:52 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:45:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,33 @@ void	add_obj_to_scene(t_obj **objects, t_obj *new_obj)
 	add_obj_to_scene(&(*objects)->next, new_obj);
 }
 
-static int	fill_cylinder_data(t_obj *obj, char **tokens)
+static int	validate_cylinder_vectors(t_obj *obj, char **tokens)
 {
-	obj->params = malloc(sizeof(double) * 8);
-	if (!obj->params)
-		return (MALLOC_FAILED);
 	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
 	{
 		print_error("Invalid vector for cylinder !");
-		free(obj->params);
 		return (PARSE_KO);
 	}
 	if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
 	{
 		print_error("Invalid vector for cylinder !");
+		return (PARSE_KO);
+	}
+	if (obj->params[3] == 0 && obj->params[4] == 0 && obj->params[5] == 0)
+	{
+		print_error("Cylinder orientation vector cannot be null");
+		return (PARSE_KO);
+	}
+	return (PARSE_OK);
+}
+
+static int	fill_cylinder_data(t_obj *obj, char **tokens)
+{
+	obj->params = malloc(sizeof(double) * 8);
+	if (!obj->params)
+		return (MALLOC_FAILED);
+	if (validate_cylinder_vectors(obj, tokens) == PARSE_KO)
+	{
 		free(obj->params);
 		return (PARSE_KO);
 	}
