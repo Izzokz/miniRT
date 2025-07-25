@@ -6,66 +6,11 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:03:12 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/24 21:02:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:43:48 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/miniRT.h"
-
-static void	ft_display_main_help(t_mlx_obj *mobj)
-{
-	int	y;
-	int	color;
-
-	y = 20;
-	color = 0xFFFFFF;
-	mlx_string_put(mobj->mlx, mobj->win, 15, y, color, "--- MENU PRINCIPAL ---");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "1. Commandes de deplacement");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "2. Options de rendu");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "3. Options des objets");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 30, color, "TAB: Fermer le menu");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 15, color, "ESC: Quitter le programme");
-}
-
-static void	ft_display_movement_help(t_mlx_obj *mobj)
-{
-	int	y;
-	int	color;
-
-	y = 20;
-	color = 0xFFFFFF;
-	mlx_string_put(mobj->mlx, mobj->win, 15, y, color, "--- DEPLACEMENTS ---");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "ZQSD / WASD : Bouger la camera");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "A / E : Monter / Descendre");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "Fleches : Orienter la camera");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 30, color, "ESC: Retour au menu principal");
-}
-
-static void	ft_display_render_help(t_mlx_obj *mobj)
-{
-	int	y;
-	int	color;
-
-	y = 20;
-	color = 0xFFFFFF;
-	mlx_string_put(mobj->mlx, mobj->win, 15, y, color, "--- OPTIONS DE RENDU ---");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "C : Changer la coloration");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "R : Reinitialiser la scene");
-	mlx_string_put(mobj->mlx, mobj->win, 15, y += 30, color, "ESC: Retour au menu principal");
-}
-
-static void	ft_display_object_help(t_mlx_obj *mobj)
-{
-    int	y;
-    int	color;
-
-    y = 20;
-    color = 0xFFFFFF;
-    mlx_string_put(mobj->mlx, mobj->win, 15, y, color, "--- OPTIONS DES OBJECTS ---");
-    mlx_string_put(mobj->mlx, mobj->win, 15, y += 20, color, "G : changer la taille de l'objet");
-    mlx_string_put(mobj->mlx, mobj->win, 15, y += 30, color, "ESC: Retour au menu principal");
-}
-
 
 void	ft_display_menu(t_mlx_obj *mobj, t_rules *rules)
 {
@@ -82,21 +27,8 @@ void	ft_display_menu(t_mlx_obj *mobj, t_rules *rules)
 			"Press TAB to display the key menu");
 }
 
-int	ft_menu_handler(t_keys *keys, t_rules *rules)
+static void	ft_menu_navigation(t_keys *keys, t_rules *rules)
 {
-	if (keys->tab && !keys->tab_triggd)
-	{
-		keys->tab_triggd = 1;
-		rules->menu_state = (rules->menu_state == 0);
-		return (1);
-	}
-	if (rules->menu_state == 0)
-		return (0);
-	if (keys->esc)
-	{
-		rules->menu_state = (rules->menu_state > 1);
-		return (1);
-	}
 	if (keys->key_1 && !keys->key_1_triggd)
 	{
 		keys->key_1_triggd = 1;
@@ -121,5 +53,33 @@ int	ft_menu_handler(t_keys *keys, t_rules *rules)
 		else if (rules->menu_state == 4)
 			rules->menu_state = 1;
 	}
+}
+
+static int	ft_menu_toggle_and_back(t_keys *keys, t_rules *rules)
+{
+	if (keys->tab && !keys->tab_triggd)
+	{
+		keys->tab_triggd = 1;
+		rules->menu_state = (rules->menu_state == 0);
+		return (1);
+	}
+	if (rules->menu_state == 0)
+		return (0);
+	if (keys->esc)
+	{
+		rules->menu_state = (rules->menu_state > 1);
+		return (1);
+	}
+	return (-1);
+}
+
+int	ft_menu_handler(t_keys *keys, t_rules *rules)
+{
+	int	status;
+
+	status = ft_menu_toggle_and_back(keys, rules);
+	if (status != -1)
+		return (status);
+	ft_menu_navigation(keys, rules);
 	return (1);
 }
