@@ -36,7 +36,9 @@ unsigned int	ft_color_chill(t_ray, t_obj *hit,
 					const t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_error(t_ray, t_obj *hit,
 					const t_scene *scene, const t_rules *rules);
-void			ft_process(t_mlx_obj *mobj, const t_viewport *vp,
+void			ft_process(t_mlx_obj *mobj,
 					t_scene *scene, const t_rules *rules);
+void			ft_shoot_ray(t_ray,
+					const t_scene *scene, const t_vec scaled[2]);
 
 #endif

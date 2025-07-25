@@ -19,6 +19,7 @@ TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
 UTILDIR			= 200_UTILS/
 MLXDIR			= 201_FT_MLX/
+EDITORDIR		= 202_EDITOR/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -70,6 +71,10 @@ SRCS			= main.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
+				$(MLXDIR)ft_mlx_click.c \
+				$(EDITORDIR)ft_editor.c \
+				$(EDITORDIR)ft_rewrite.c \
+				$(EDITORDIR)ft_editor_utils.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
@@ -134,7 +139,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR) .
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR) $(EDITORDIR) .
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)

@@ -24,6 +24,7 @@
 # include "ft_vec.h"
 # include "ft_obj.h"
 # include "ft_process.h"
+# include "ft_editor.h"
 
 /* CONSTANTS */
 extern const t_vec	g_right;

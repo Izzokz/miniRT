@@ -17,14 +17,14 @@ static int	fill_sphere_data(t_obj *obj, char **tokens)
 	obj->params = malloc(sizeof(double) * 4);
 	if (!obj->params)
 		return (MALLOC_FAILED);
-	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+	if (parse_vec3(tokens[0], obj->params) == PARSE_KO)
 	{
 		print_error("Invalid vector for sphere !");
 		free(obj->params);
 		return (PARSE_KO);
 	}
-	obj->params[3] = ft_atod(tokens[2]);
-	if (parse_color(tokens[3], obj->color) == PARSE_KO)
+	obj->params[3] = ft_atod(tokens[1]);
+	if (parse_color(tokens[2], obj->color) == PARSE_KO)
 	{
 		print_error("Invalid color for sphere !");
 		free(obj->params);
@@ -56,8 +56,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 {
 	t_obj	*new_obj;
 
-	if (ft_strncmp(tokens[0], "sp", 3) != 0 || !tokens[1] || !tokens[2]
-		|| !tokens[3])
+	if (!tokens[0] || !tokens[1] || !tokens[2] || tokens[3])
 	{
 		print_error("Invalid sphere format: "
 			"sp <pos x,y,z> <diameter> <color r,g,b>");

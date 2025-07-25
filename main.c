@@ -143,6 +143,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+		ft_memset(scene.vp, 0, sizeof(t_viewport));
 		save_cam(&save, &scene);
 		init_world(&scene);
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);

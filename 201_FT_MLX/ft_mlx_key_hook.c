@@ -219,6 +219,21 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 	ft_mlx_img_update(mobj, scene, rules, 1);
 }
 
+static inline char	ft_mlx_key_hook2(t_mlx_obj *mobj, t_scene *scene,
+	t_keys *keys, t_rules *rules)
+{
+	if (keys->tab && !keys->tab_triggd)
+	{
+		rules->show_help = !rules->show_help;
+		keys->tab_triggd = 1;
+		ft_mlx_img_update(mobj, scene, rules, 0);
+		return (1);
+	}
+	else if (keys->t)
+		ft_open_editor(mobj, scene, rules);
+	return (0);
+}
+
 /*
 *rules = actual
 *(rules + 1) = custom maxed
@@ -237,15 +252,11 @@ inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
         ft_mlx_img_update(mobj, scene, rules, 1);
         return ;
     }
-    if (keys->tab && !keys->tab_triggd)
-    {
-        rules->show_help = !rules->show_help;
-        keys->tab_triggd = 1;
-        ft_mlx_img_update(mobj, scene, rules, 0);
-    }
-    if (keys->z && !keys->z_triggd)
+	if (ft_mlx_key_hook2(mobj, scene, keys, rules))
+		;
+    else if (keys->z && !keys->z_triggd)
         ft_mlx_img_update(mobj + ++rules->zoom * ++keys->z, scene, rules, 1);
-    if (!keys->ctrl
+    else if (!keys->ctrl
         && ft_move(*(unsigned char *)keys, scene) + ft_rotate(*keys, scene))
     {
         ft_set_rules_min(mobj, rules);

@@ -47,12 +47,12 @@ t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 	return (*(o + 1));
 }
 
-static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
+inline void	ft_shoot_ray(t_ray ray,
 	const t_scene *scene, const t_vec scaled[2])
 {
 	t_vec	dir;
 
-	ft_vec_add(dir, vp->pos, *scaled);
+	ft_vec_add(dir, scene->vp->pos, *scaled);
 	ft_vec_add(dir, dir, *(scaled + 1));
 	ft_vec_sub(dir, dir, scene->camera.pos);
 	ft_new_ray(ray, scene->camera.pos, dir);
@@ -65,23 +65,28 @@ static inline void	ft_put_color(t_mlx_obj *mobj,
 				+ *(iter + 1) * (mobj->bpp / 8))) = color;
 }
 
-static inline unsigned int	ft_no_hit_color(const t_rules r)
-{
-	if (r.coloration == ft_unicorn)
-		return (0xdc96ff);
-	if (r.coloration == ft_color_virus)
-		return (rand());
-	if (r.coloration == ft_color_chill)
-		return (0xcffff9);
-	if (r.coloration == ft_color_error)
-		return (0xff0000 + 255 * (rand() % 2));
-	return (0);
-}
-
-void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
+static inline void	ft_hit_parse(t_mlx_obj *mobj, int i[2],
 	t_scene *s, const t_rules *r)
 {
 	t_obj	*hit;
+
+	hit = ft_hit_nearest_obj(s->ray, s->objects);
+	if (hit)
+		return (ft_put_color(mobj, i, r->coloration(s->ray, hit, s, r)));
+	if (r->coloration == ft_unicorn)
+		return (ft_put_color(mobj, i, 0xdc96ff));
+	if (r->coloration == ft_color_virus)
+		return (ft_put_color(mobj, i, rand()));
+	if (r->coloration == ft_color_chill)
+		return (ft_put_color(mobj, i, 0xcffff9));
+	if (r->coloration == ft_color_error)
+		return (ft_put_color(mobj, i, 0xff0000 + 255 * (rand() % 2)));
+	ft_put_color(mobj, i, 0);
+}
+
+void	ft_process(t_mlx_obj *mobj,
+	t_scene *s, const t_rules *r)
+{
 	t_vec	scaled[2];
 	double	pixel[2];
 	int		i[2];
@@ -91,17 +96,13 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 	*(i + 1) = 0;
 	while (*(i + 1) < mobj->win_i)
 	{
-		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
+		ft_vec_scale(*scaled, s->vp->hor, (*(i + 1) + .5) * *pixel);
 		*i = 0;
 		while (*i < mobj->win_j)
 		{
-			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
-			ft_shoot_ray(s->ray, vp, s, scaled);
-			hit = ft_hit_nearest_obj(s->ray, s->objects);
-			if (!hit)
-				ft_put_color(mobj, i, ft_no_hit_color(*r));
-			else
-				ft_put_color(mobj, i, r->coloration(s->ray, hit, s, r));
+			ft_vec_scale(*(scaled + 1), s->vp->ver, (*i + .5) * *(pixel + 1));
+			ft_shoot_ray(s->ray, s, scaled);
+			ft_hit_parse(mobj, i, s, r);
 			(*i) += r->pixel_cross;
 		}
 		(*(i + 1)) += r->pixel_cross;

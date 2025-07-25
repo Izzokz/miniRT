@@ -142,7 +142,8 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	c : 1;
 	unsigned char	reset : 1;
 	unsigned char	tab : 1;
-    unsigned char	tab_triggd : 1;
+	unsigned char	tab_triggd : 1;
+	unsigned char	t : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */
@@ -182,19 +183,6 @@ typedef struct s_camera
 	int				is_set;
 }	t_camera;
 
-typedef struct s_scene
-{
-	t_ambient		ambient_light;
-	t_camera		camera;
-	t_light			*lights;
-	t_obj			*objects;
-	t_ray			ray;
-	t_vec			_right;
-	t_vec			_up;
-	t_vec			_forward;
-	double			_pitch;
-}	t_scene;
-
 /* *** CRITICAL STRUCT *** */
 // ========================================
 // DO NOT CHANGE THE ORDER OF THE VARIABLES
@@ -206,6 +194,20 @@ typedef struct s_viewport
 	t_vec	ver;
 	t_vec	pos;
 }	t_viewport;
+
+typedef struct s_scene
+{
+	t_ambient		ambient_light;
+	t_camera		camera;
+	t_light			*lights;
+	t_obj			*objects;
+	t_ray			ray;
+	t_vec			_right;
+	t_vec			_up;
+	t_vec			_forward;
+	double			_pitch;
+	t_viewport		vp[1];
+}	t_scene;
 
 typedef struct s_rules
 {

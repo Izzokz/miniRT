@@ -51,6 +51,8 @@ static inline int	key_enable(int keycode, t_keys *keys)
 		keys->reset = 1;
 	else if (keycode == XK_Tab)
         keys->tab = 1;
+	else if (keycode == XK_t)
+		keys->t = 1;
 	return (0);
 }
 
@@ -91,6 +93,8 @@ static inline int	key_disable(int keycode, t_keys *keys)
         keys->tab = 0;
         keys->tab_triggd = 0;
     }
+	else if (keycode == XK_t)
+		keys->t = 0;
 	return (0);
 }
 
@@ -98,6 +102,7 @@ static inline int	loop(uintptr_t objscenekeys[3])
 {
 	if (((t_keys *)(void *)*(objscenekeys + 2))->esc)
 	{
+		write(1, "\n", 1);
 		free_scene((t_scene *)(void *)*(objscenekeys + 1));
 		ft_free_mlx_obj((t_mlx_obj *)(void *)*objscenekeys);
 		exit(0);
@@ -123,6 +128,7 @@ inline void	ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene)
 	*objscenekeys = (uintptr_t)(void *)mobj;
 	*(objscenekeys + 1) = (uintptr_t)(void *)scene;
 	*(objscenekeys + 2) = (uintptr_t)(void *)&keys;
+	mlx_mouse_hook(mobj->win, ft_mlx_click, objscenekeys);
 	mlx_hook(mobj->win, 17, 0, quit, objscenekeys);
 	mlx_hook(mobj->win, 3, 1L << 1, key_disable, &keys);
 	mlx_hook(mobj->win, 2, 1L << 0, key_enable, &keys);

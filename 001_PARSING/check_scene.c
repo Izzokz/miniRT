@@ -51,21 +51,21 @@ int	check_element(char **tokens, t_scene *scene)
 	status = PARSE_KO;
 	(void)scene;
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
-		status = parse_ambient(tokens, scene);
+		status = parse_ambient(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)
-		status = parse_camera(tokens, scene);
+		status = parse_camera(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "L", 2) == 0)
-		status = parse_light(tokens, scene);
+		status = parse_light(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "sp", 3) == 0)
-		status = parse_sphere(tokens, scene);
+		status = parse_sphere(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "pl", 3) == 0)
-		status = parse_plane(tokens, scene);
+		status = parse_plane(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
-		status = parse_cylinder(tokens, scene);
+		status = parse_cylinder(++tokens, scene);
 	else if (!ft_strncmp(*tokens, "c3", 3))
 		status = parse_cube(++tokens, scene);
 	else if (!ft_strncmp(*tokens, "co", 3))
-		status = parse_cone(tokens, scene);
+		status = parse_cone(++tokens, scene);
 	else
 		print_error("Unknown identifier");
 	return (status);
