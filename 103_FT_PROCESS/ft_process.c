@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/26 12:57:41 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/26 16:08:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,12 @@ static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
 }
 
 static inline void	ft_put_color(t_mlx_obj *mobj,
-	int iter[2], unsigned int color)
+	int x, int y, unsigned int color)
 {
-	*(unsigned int *)(mobj->img_data + (*iter * mobj->size_line
-				+ *(iter + 1) * (mobj->bpp / 8))) = color;
+	char	*dst;
+
+	dst = mobj->img_data + (y * mobj->size_line + x * (mobj->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
@@ -75,27 +77,26 @@ void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
 {
 	t_obj	*hit;
 	t_vec	scaled[2];
-	double	pixel[2];
-	int		i[2];
+	int		x;
+	int		y;
 
-	*pixel = 1.0 / mobj->win_i;
-	*(pixel + 1) = 1.0 / mobj->win_j;
-	*(i + 1) = 0;
-	while (*(i + 1) < mobj->win_i)
+	y = 0;
+	while (y < mobj->win_j)
 	{
-		ft_vec_scale(*scaled, vp->hor, (*(i + 1) + .5) * *pixel);
-		*i = 0;
-		while (*i < mobj->win_j)
+		x = 0;
+		while (x < mobj->win_i)
 		{
-			ft_vec_scale(*(scaled + 1), vp->ver, (*i + .5) * *(pixel + 1));
-			ft_shoot_ray(s->ray, vp, s, scaled);
+			ft_vec_scale(scaled[0], vp->hor, (x + 0.5) / mobj->win_i);
+			ft_vec_scale(scaled[1], vp->ver, (y + 0.5) / mobj->win_j);
+			ft_shoot_ray(s->ray, vp, s, (const t_vec *)scaled);
 			hit = ft_hit_nearest_obj(s->ray, s->objects);
 			if (!hit)
-				ft_put_color(mobj, i, 0xc5eff0 * (r->coloration == ft_unicorn));
+				ft_put_color(mobj, x, y,
+					0xc5eff0 * (r->coloration == ft_unicorn));
 			else
-				ft_put_color(mobj, i, r->coloration(s->ray, hit, s, r));
-			(*i) += r->pixel_cross;
+				ft_put_color(mobj, x, y, r->coloration(s->ray, hit, s, r));
+			x += r->pixel_cross;
 		}
-		(*(i + 1)) += r->pixel_cross;
+		y += r->pixel_cross;
 	}
 }
