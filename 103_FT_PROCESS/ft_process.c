@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/26 16:09:46 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/26 19:29:25 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 }
 
 static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
-	const t_scene *scene, const t_vec scaled[2])
+    const t_scene *scene, const t_vec scaled[2])
 {
-	t_vec	dir;
+    t_vec	dir;
+    t_vec	point_on_viewport;
 
-	ft_vec_add(dir, vp->pos, *scaled);
-	ft_vec_add(dir, dir, *(scaled + 1));
-	ft_vec_sub(dir, dir, scene->camera.pos);
-	ft_new_ray(ray, scene->camera.pos, dir);
+    ft_vec_add(point_on_viewport, vp->pos, *scaled);
+    ft_vec_add(point_on_viewport, point_on_viewport, *(scaled + 1));
+    ft_vec_sub(dir, point_on_viewport, scene->camera.pos);
+    ft_new_ray(ray, scene->camera.pos, dir);
 }
 
 static inline void	ft_put_color(t_mlx_obj *mobj,
