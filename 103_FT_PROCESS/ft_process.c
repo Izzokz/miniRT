@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/26 12:26:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/26 12:57:41 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,22 @@ t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 {
 	t_ray	tmp[2];
 	t_obj	*o[2];
+	double	nearest_dist;
+	double	current_dist;
 
 	*o = (t_obj *)head;
 	*(o + 1) = NULL;
+	nearest_dist = INFINITY;
 	ft_new_vec(**tmp, INFINITY, INFINITY, INFINITY);
 	while (*o)
 	{
 		ft_cpy_ray(*(tmp + 1), ray);
 		if ((*o)->hit(*o, *(tmp + 1)))
 		{
-			if (ft_vec_dist(**(tmp + 1), *ray) < ft_vec_dist(**tmp, *ray))
+			current_dist = ft_vec_dist(**(tmp + 1), *ray);
+			if (current_dist < nearest_dist)
 			{
+				nearest_dist = current_dist;
 				*(o + 1) = *o;
 				ft_cpy_ray(*tmp, *(tmp + 1));
 			}
