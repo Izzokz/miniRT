@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:03:12 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/25 11:43:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/26 12:25:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,24 @@ static void	ft_menu_navigation(t_keys *keys, t_rules *rules)
 	}
 }
 
-static int	ft_menu_toggle_and_back(t_keys *keys, t_rules *rules)
+static void	ft_menu_toggle_and_back(t_keys *keys, t_rules *rules)
 {
 	if (keys->tab && !keys->tab_triggd)
 	{
 		keys->tab_triggd = 1;
 		rules->menu_state = (rules->menu_state == 0);
-		return (1);
 	}
 	if (rules->menu_state == 0)
-		return (0);
+		return ;
 	if (keys->esc)
 	{
 		rules->menu_state = (rules->menu_state > 1);
-		return (1);
 	}
-	return (-1);
 }
 
-int	ft_menu_handler(t_keys *keys, t_rules *rules)
+void	ft_menu_handler(t_keys *keys, t_rules *rules)
 {
-	int	status;
-
-	status = ft_menu_toggle_and_back(keys, rules);
-	if (status != -1)
-		return (status);
-	ft_menu_navigation(keys, rules);
-	return (1);
+	ft_menu_toggle_and_back(keys, rules);
+	if (rules->menu_state > 0)
+		ft_menu_navigation(keys, rules);
 }
