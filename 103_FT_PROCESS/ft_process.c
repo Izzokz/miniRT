@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 01:05:55 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 01:19:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,50 @@
 Tries to hit every single object and get the nearest one.
 On hit, returns the nearest object and edits the incoming ray.
 Else returns NULL.
-*o = tmp object (iteration).
-*(o + 1) = nearest object.
-*tmp = outray.
-*(tmp + 1) = tmpray.
+o[0] = tmp object (iteration).
+o[1] = nearest object.
+tmp[0] = outray.
+tmp[1] = tmpray.
 */
+static void	ft_init_hit_vars(const t_obj *head, t_ray tmp[2],
+	t_obj *objs[2], double *nearest_dist)
+{
+	objs[0] = (t_obj *)head;
+	objs[1] = NULL;
+	*nearest_dist = INFINITY;
+	ft_new_vec(tmp[0][0], INFINITY, INFINITY, INFINITY);
+}
+
+static void	ft_update_nearest(double *nearest_dist, double current_dist,
+	t_obj *objs[2], t_ray tmp[2])
+{
+	*nearest_dist = current_dist;
+	objs[1] = objs[0];
+	ft_cpy_ray(tmp[0], tmp[1]);
+}
+
 t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 {
 	t_ray	tmp[2];
-	t_obj	*o[2];
+	t_obj	*objs[2];
 	double	nearest_dist;
 	double	current_dist;
 
-	*o = (t_obj *)head;
-	*(o + 1) = NULL;
-	nearest_dist = INFINITY;
-	ft_new_vec(**tmp, INFINITY, INFINITY, INFINITY);
-	while (*o)
+	ft_init_hit_vars(head, tmp, objs, &nearest_dist);
+	while (objs[0])
 	{
-		ft_cpy_ray(*(tmp + 1), ray);
-		if ((*o)->hit(*o, *(tmp + 1)))
+		ft_cpy_ray(tmp[1], ray);
+		if (objs[0]->hit(objs[0], tmp[1]))
 		{
-			current_dist = ft_vec_dist(**(tmp + 1), *ray);
+			current_dist = ft_vec_dist(tmp[1][0], ray[0]);
 			if (current_dist < nearest_dist)
-			{
-				nearest_dist = current_dist;
-				*(o + 1) = *o;
-				ft_cpy_ray(*tmp, *(tmp + 1));
-			}
+				ft_update_nearest(&nearest_dist, current_dist, objs, tmp);
 		}
-		*o = (*o)->next;
+		objs[0] = objs[0]->next;
 	}
-	if (***tmp != INFINITY)
-		ft_cpy_ray(ray, *tmp);
-	return (*(o + 1));
+	if (tmp[0][0][0] != INFINITY)
+		ft_cpy_ray(ray, tmp[0]);
+	return (objs[1]);
 }
 
 static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
