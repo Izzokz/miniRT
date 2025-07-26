@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/26 19:38:14 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 00:55:47 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .0010 // INIT : .069
-# define ROT_SPEED .0010 // INIT : .069
+# define MOVE_SPEED .020 // INIT : .069
+# define ROT_SPEED .0020 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
@@ -196,10 +196,12 @@ typedef struct s_scene
 	t_light			*lights;
 	t_obj			*objects;
 	t_ray			ray;
+	int				coords[2];
 	t_vec			_right;
 	t_vec			_up;
 	t_vec			_forward;
 	double			_pitch;
+	double			_yaw;
 }	t_scene;
 
 /* *** CRITICAL STRUCT *** */

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/26 18:53:31 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 00:52:49 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,18 +115,8 @@ static inline int	key_disable(int keycode, t_keys *keys)
     return (0);
 }
 
-static void	print_vec(const char *name, t_vec vec)
-{
-    printf("\t%s: (%.2f, %.2f, %.2f)\n", name, vec[0], vec[1], vec[2]);
-}
-
 static inline int	loop(uintptr_t objscenekeys[3])
 {
-    t_scene	*scene;
-
-    scene = (t_scene *)(void *)*(objscenekeys + 1);
-    print_vec("Camera Position", scene->camera.pos);
-     print_vec("Camera Orientation", scene->camera.orientation);
 	if (((t_keys *)(void *)*(objscenekeys + 2))->esc)
     {
 		free_scene((t_scene *)(void *)*(objscenekeys + 1));

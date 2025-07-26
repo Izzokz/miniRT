@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/26 20:11:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 01:06:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static inline void	init_world(t_scene *scene)
 	ft_new_vec(scene->_up, 0, 1, 0);
 	ft_cpy_vec(scene->_forward, scene->camera.orientation);
 	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
-	scene->_pitch = asin(*(scene->camera.orientation + 1));
+	ft_vec_norm(scene->_right, scene->_right);
+	scene->_pitch = asin(scene->_forward[1]);
+	scene->_yaw = atan2(scene->_forward[2], scene->_forward[0]);
 }
 
 int	main(int argc, char **argv)
@@ -59,3 +61,6 @@ int	main(int argc, char **argv)
 	free_scene(&scene);
 	return (PARSE_OK);
 }
+
+
+// Régler le problème qui fais que tout est absolument à l'envers...

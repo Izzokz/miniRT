@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/26 19:00:05 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 01:02:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene,
 {
 	double	tmp_width;
 	double	tmp_height;
-	t_vec	ruf[3];
-	t_vec	tmp;
+	t_vec	cam_basis[3];
+	t_vec	center_point;
 
-	ft_cpy_vec(*(ruf + 2), scene->camera.orientation);
-	ft_vec_cross(*ruf, scene->_up, *(ruf + 2));
-	ft_vec_norm(*ruf, *ruf);
-	ft_vec_cross(*(ruf + 1), *(ruf + 2), *ruf);
-	ft_vec_norm(*(ruf + 1), *(ruf + 1));
+	ft_cpy_vec(cam_basis[2], scene->camera.orientation);
+	ft_vec_cross(cam_basis[0], scene->_up, cam_basis[2]);
+	ft_vec_norm(cam_basis[0], cam_basis[0]);
+	ft_vec_cross(cam_basis[1], cam_basis[2], cam_basis[0]);
+	ft_vec_norm(cam_basis[1], cam_basis[1]);
 	tmp_width = 2 * tan((scene->camera.fov / (zoom + 1)) * (PI / 360.0));
-	tmp_height = tmp_width * ((double)*(i + 1) / *i);
-	ft_vec_scale(*viewport, *ruf, tmp_width);
-	ft_vec_scale(*(viewport + 1), *(ruf + 1), -tmp_height);
-	ft_vec_add(*ruf, scene->camera.pos, *(ruf + 2));
-	ft_vec_div(tmp, *viewport, 2);
-	ft_vec_sub(*ruf, *ruf, tmp);
-	ft_vec_div(tmp, *(viewport + 1), 2);
-	ft_vec_sub(*(viewport + 2), *ruf, tmp);
+	tmp_height = tmp_width * ((double)i[1] / i[0]);
+	ft_vec_scale(viewport[0], cam_basis[0], tmp_width);
+	ft_vec_scale(viewport[1], cam_basis[1], -tmp_height);
+	ft_vec_add(center_point, scene->camera.pos, cam_basis[2]);
+	ft_vec_div(cam_basis[0], viewport[0], 2);
+	ft_vec_sub(center_point, center_point, cam_basis[0]);
+	ft_vec_div(cam_basis[1], viewport[1], 2);
+	ft_vec_sub(viewport[2], center_point, cam_basis[1]);
 }
 
 inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules, int rerender)

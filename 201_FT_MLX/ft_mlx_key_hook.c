@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/26 20:21:07 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 00:52:50 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,31 +121,44 @@ static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-	double	yaw;
-	double	pitch;
+	char	rotate = 0;
 
-	yaw = (keys.right - keys.left) * ROT_SPEED;
-	pitch = (keys.down - keys.up) * ROT_SPEED;
-	if (yaw == 0 && pitch == 0)
-		return (0);
-	if (yaw)
+	if (keys.left)
 	{
-		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
-		ft_vec_cross(scene->_right, scene->camera.orientation, g_up);
-		ft_vec_norm(scene->_right, scene->_right);
-		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
-		ft_vec_norm(scene->_up, scene->_up);
+		rotate = 1;
+		scene->_yaw -= ROT_SPEED;
 	}
-	ft_clamp_rotation_pitch(&scene->_pitch, &pitch);
-	if (pitch)
+	else if (keys.right)
 	{
-		ft_rotate_vec(scene->camera.orientation, scene->_right, -pitch);
-		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
-		ft_vec_norm(scene->_up, scene->_up);
-		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
-		ft_vec_norm(scene->_right, scene->_right);
+		rotate = 1;
+		scene->_yaw += ROT_SPEED;
 	}
-	return (1);
+	if (keys.up)
+	{
+		rotate = 1;
+		scene->_pitch -= ROT_SPEED;
+	}
+	else if (keys.down)
+	{
+		rotate = 1;
+		scene->_pitch += ROT_SPEED;
+	}
+
+	if (rotate)
+	{
+		if (scene->_pitch > 1.57)
+			scene->_pitch = 1.57;
+		if (scene->_pitch < -1.57)
+			scene->_pitch = -1.57;
+		scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
+		scene->_forward[1] = sin(scene->_pitch);
+		scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
+		ft_vec_norm(scene->_forward, scene->_forward);
+		ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+		ft_vec_norm(scene->_right, scene->_right);
+		ft_cpy_vec(scene->camera.orientation, scene->_forward);
+	}
+	return (rotate);
 }
 
 static inline void	ft_reset_cam(t_scene *scene)
