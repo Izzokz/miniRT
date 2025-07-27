@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/24 14:08:22 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/26 20:13:33 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,9 @@ SRCS			= main.c \
 				$(EDITORDIR)ft_rewrite3.c \
 				$(EDITORDIR)ft_edit_ambient.c \
 				$(EDITORDIR)ft_edit_light.c \
-				$(EDITORDIR)ft_editor_utils.c
+				$(EDITORDIR)ft_editor_utils.c \
+				$(MLXDIR)ft_mlx_menu.c \
+				$(MLXDIR)display_menu.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))

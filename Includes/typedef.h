@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/24 15:49:06 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 00:55:47 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,13 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	tab : 1;
 	unsigned char	tab_triggd : 1;
 	unsigned char	t : 1;
+    unsigned char	key_1 : 1;
+    unsigned char	key_1_triggd : 1;
+    unsigned char	key_2 : 1;
+    unsigned char	key_2_triggd : 1;
+    unsigned char	key_3 : 1;
+    unsigned char	key_3_triggd : 1;
+
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */
@@ -202,10 +209,12 @@ typedef struct s_scene
 	t_light			*lights;
 	t_obj			*objects;
 	t_ray			ray;
+	int				coords[2];
 	t_vec			_right;
 	t_vec			_up;
 	t_vec			_forward;
 	double			_pitch;
+	double			_yaw;
 	t_viewport		vp[1];
 }	t_scene;
 
@@ -217,7 +226,7 @@ typedef struct s_rules
 	unsigned int	(*coloration)(t_ray, t_obj *hit,
 			const t_scene *, const t_rules *);
 	unsigned char	zoom : 1;
-	unsigned char	show_help : 1;
+	int				menu_state;
 }	t_rules;
 
 typedef struct s_color_ads

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/24 15:49:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 11:51:25 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,30 @@ static inline void	ft_set_rules_min(t_mlx_obj *mobj, t_rules *rules)
 }
 
 static inline void	ft_move2(const char x, const char y,
-    const char z, t_scene *scene)
+	const char z, t_scene *scene)
 {
-    t_vec	delta;
-    t_vec	tmp;
+	t_vec	delta;
+	t_vec	tmp;
 
-    ft_new_vec(delta, 0, 0, 0);
-    if (x)
-    {
-        ft_vec_scale(tmp, scene->_right, x);
-        ft_vec_add(delta, delta, tmp);
-    }
-    if (y)
-    {
-        ft_vec_scale(tmp, g_up, y);
-        ft_vec_add(delta, delta, tmp);
-    }
-    if (z)
-    {
-        ft_vec_scale(tmp, scene->camera.orientation, z);
-        ft_vec_add(delta, delta, tmp);
-    }
-    ft_vec_norm(delta, delta);
-    ft_vec_scale(delta, delta, MOVE_SPEED);
-    ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
+	ft_new_vec(delta, 0, 0, 0);
+	if (x)
+	{
+		ft_vec_scale(tmp, scene->_right, x);
+		ft_vec_add(delta, delta, tmp);
+	}
+	if (y)
+	{
+		ft_vec_scale(tmp, g_up, y);
+		ft_vec_add(delta, delta, tmp);
+	}
+	if (z)
+	{
+		ft_vec_scale(tmp, scene->camera.orientation, z);
+		ft_vec_add(delta, delta, tmp);
+	}
+	ft_vec_norm(delta, delta);
+	ft_vec_scale(delta, delta, MOVE_SPEED);
+	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
 }
 
 static inline char	ft_move(unsigned char keys, t_scene *scene)
@@ -80,72 +80,46 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	return (1);
 }
 
-static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const double angle)
-{
-	t_vec	tmp;
-	double	c;
-	double	s;
-	double	dot;
-
-	ft_cpy_vec(tmp, v);
-	dot = ft_vec_dot(v, axis);
-	c = cos(angle);
-	s = sin(angle);
-	*v = *tmp * c + (1 - c) * dot * *axis
-		+ s * (*(axis + 1) * *(tmp + 2) - *(axis + 2) * *(tmp + 1));
-	*(v + 1) = *(tmp + 1) * c + (1 - c) * dot * *(axis + 1)
-		+ s * (*(axis + 2) * *tmp - *axis * *(tmp + 2));
-	*(v + 2) = *(tmp + 2) * c + (1 - c) * dot * *(axis + 2)
-		+ s * (*axis * *(tmp + 1) - *(axis + 1) * *tmp);
-	ft_vec_norm(v, v);
-}
-
-static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
-{
-	double	tmp;
-
-	tmp = *actual + *add;
-	if (tmp > 1.5533430342749532)
-	{
-		*add = 1.5533430342749532 - *actual;
-		*actual = 1.5533430342749532;
-	}
-	else if (tmp < -1.5533430342749532)
-	{
-		*add = -1.5533430342749532 - *actual;
-		*actual = -1.5533430342749532;
-	}
-	else
-		*actual += *add;
-}
-
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-	double	yaw;
-	double	pitch;
+	char	rotate = 0;
 
-	yaw = (keys.right - keys.left) * ROT_SPEED;
-	pitch = (keys.down - keys.up) * ROT_SPEED;
-	if (yaw == 0 && pitch == 0)
-		return (0);
-	if (yaw)
+	if (keys.left)
 	{
-		ft_rotate_vec(scene->camera.orientation, g_up, yaw);
-		ft_vec_cross(scene->_right, scene->camera.orientation, g_up);
-		ft_vec_norm(scene->_right, scene->_right);
-		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
-		ft_vec_norm(scene->_up, scene->_up);
+		rotate = 1;
+		scene->_yaw -= ROT_SPEED;
 	}
-	ft_clamp_rotation_pitch(&scene->_pitch, &pitch);
-	if (pitch)
+	else if (keys.right)
 	{
-		ft_rotate_vec(scene->camera.orientation, scene->_right, -pitch);
-		ft_vec_cross(scene->_up, scene->_right, scene->camera.orientation);
-		ft_vec_norm(scene->_up, scene->_up);
-		ft_vec_cross(scene->_right, scene->camera.orientation, scene->_up);
-		ft_vec_norm(scene->_right, scene->_right);
+		rotate = 1;
+		scene->_yaw += ROT_SPEED;
 	}
-	return (1);
+	if (keys.up)
+	{
+		rotate = 1;
+		scene->_pitch += ROT_SPEED;
+	}
+	else if (keys.down)
+	{
+		rotate = 1;
+		scene->_pitch -= ROT_SPEED;
+	}
+
+	if (rotate)
+	{
+		if (scene->_pitch > 1.57)
+			scene->_pitch = 1.57;
+		if (scene->_pitch < -1.57)
+			scene->_pitch = -1.57;
+		scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
+		scene->_forward[1] = sin(scene->_pitch);
+		scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
+		ft_vec_norm(scene->_forward, scene->_forward);
+		ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+		ft_vec_norm(scene->_right, scene->_right);
+		ft_cpy_vec(scene->camera.orientation, scene->_forward);
+	}
+	return (rotate);
 }
 
 static inline void	ft_reset_cam(t_scene *scene)
@@ -219,19 +193,32 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 	ft_mlx_img_update(mobj, scene, rules, 1);
 }
 
-static inline char	ft_mlx_key_hook2(t_mlx_obj *mobj, t_scene *scene,
-	t_keys *keys, t_rules *rules)
+static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
+	t_keys *keys, t_rules rules[3])
 {
-	if (keys->tab && !keys->tab_triggd)
-	{
-		rules->show_help = !rules->show_help;
-		keys->tab_triggd = 1;
-		ft_mlx_img_update(mobj, scene, rules, 0);
-		return (1);
-	}
-	else if (keys->t)
+	int	rerender;
+
+	rerender = 0;
+	if (keys->t)
 		ft_open_editor(mobj, scene, rules);
-	return (0);
+	else if (keys->z && !keys->z_triggd)
+	{
+		rules->zoom = !rules->zoom;
+		keys->z_triggd = 1;
+		rerender = 1;
+	}
+	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
+		| ft_rotate(*keys, scene)))
+	{
+		ft_set_rules_min(mobj, rules);
+		rerender = 1;
+	}
+	else if (keys->r)
+		ft_mlx_key_hook_r(mobj, scene, *keys, rules);
+	else if (keys->c)
+		ft_mlx_key_hook_c(mobj, scene, keys->ctrl, rules);
+	if (rerender)
+		ft_mlx_img_update(mobj, scene, rules, 1);
 }
 
 /*
@@ -241,29 +228,18 @@ static inline char	ft_mlx_key_hook2(t_mlx_obj *mobj, t_scene *scene,
 */
 inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
-    static t_rules	rules[3] = {0};
-    static char		init = 0;
+	static t_rules	rules[3] = {0};
+	static char		init = 0;
 
-    if (!init)
-    {
-        ft_init_rules(rules + ++init + 1);
-        ft_set_rules_max(rules + 1, rules + 2);
-        ft_set_rules_max(rules, rules + 1);
-        ft_mlx_img_update(mobj, scene, rules, 1);
-        return ;
-    }
-	if (ft_mlx_key_hook2(mobj, scene, keys, rules))
-		;
-    else if (keys->z && !keys->z_triggd)
-        ft_mlx_img_update(mobj + ++rules->zoom * ++keys->z, scene, rules, 1);
-    else if (!keys->ctrl
-        && ft_move(*(unsigned char *)keys, scene) + ft_rotate(*keys, scene))
-    {
-        ft_set_rules_min(mobj, rules);
-        ft_mlx_img_update(mobj, scene, rules, 1);
-    }
-    else if (keys->r)
-        ft_mlx_key_hook_r(mobj, scene, *keys, rules);
-    else if (keys->c)
-        ft_mlx_key_hook_c(mobj, scene, keys->ctrl, rules);
+	if (!init)
+	{
+		ft_init_rules(rules + ++init + 1);
+		ft_set_rules_max(rules + 1, rules + 2);
+		ft_set_rules_max(rules, rules + 1);
+		ft_mlx_img_update(mobj, scene, rules, 1);
+		return ;
+	}
+	ft_menu_handler(keys, rules);
+	ft_handle_actions(mobj, scene, keys, rules);
+	ft_mlx_img_update(mobj, scene, rules, 0);
 }
