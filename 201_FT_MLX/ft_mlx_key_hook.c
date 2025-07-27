@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 14:32:14 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 15:52:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static inline void	ft_move2(const char x, const char y,
 	ft_new_vec(delta, 0, 0, 0);
 	if (x)
 	{
-		ft_vec_scale(tmp, scene->_right, x);
+		ft_vec_scale(tmp, scene->_right, -x);
 		ft_vec_add(delta, delta, tmp);
 	}
 	if (y)
@@ -80,45 +80,74 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	return (1);
 }
 
+static void	ft_limit_pitch(t_scene *scene, double pitch_limit)
+{
+	if (scene->_pitch > pitch_limit)
+		scene->_pitch = pitch_limit;
+	if (scene->_pitch < -pitch_limit)
+		scene->_pitch = -pitch_limit;
+}
+
+static void	ft_calc_forward(t_scene *scene)
+{
+	scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
+	scene->_forward[1] = sin(scene->_pitch);
+	scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
+	ft_vec_norm(scene->_forward, scene->_forward);
+}
+
+static void	ft_calc_right_up(t_scene *scene)
+{
+	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+	ft_vec_norm(scene->_right, scene->_right);
+}
+
+static void	ft_apply_roll(t_scene *scene, t_vec right_rot, t_vec up_rot)
+{
+	double	cr;
+	double	sr;
+	double	roll;
+
+	roll = scene->_roll;
+	cr = cos(roll);
+	sr = sin(roll);
+	right_rot[0] = cr * scene->_right[0] - sr * scene->_up[0];
+	right_rot[1] = cr * scene->_right[1] - sr * scene->_up[1];
+	right_rot[2] = cr * scene->_right[2] - sr * scene->_up[2];
+	up_rot[0] = sr * scene->_right[0] + cr * scene->_up[0];
+	up_rot[1] = sr * scene->_right[1] + cr * scene->_up[1];
+	up_rot[2] = sr * scene->_right[2] + cr * scene->_up[2];
+	ft_cpy_vec(scene->_right, right_rot);
+	ft_cpy_vec(scene->_up, up_rot);
+	ft_vec_norm(scene->_right, scene->_right);
+	ft_vec_norm(scene->_up, scene->_up);
+}
+
 static inline void	ft_apply_rotation(t_scene *scene)
 {
-    // if (scene->_pitch > 1.57)
-    //     scene->_pitch = 1.57;
-    // if (scene->_pitch < -1.57)
-    //     scene->_pitch = -1.57;
-    ft_new_vec(scene->_up, 0, 1, 0);
-    scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
-    scene->_forward[1] = sin(scene->_pitch);
-    scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
-    ft_vec_norm(scene->_forward, scene->_forward);
-    ft_vec_cross(scene->_right, scene->_forward, scene->_up);
-    ft_vec_norm(scene->_right, scene->_right);
-    t_vec right_rot, up_rot;
-    double cr = cos(scene->_roll);
-    double sr = sin(scene->_roll);
-    right_rot[0] = cr * scene->_right[0] - sr * scene->_up[0];
-    right_rot[1] = cr * scene->_right[1] - sr * scene->_up[1];
-    right_rot[2] = cr * scene->_right[2] - sr * scene->_up[2];
-    up_rot[0] = sr * scene->_right[0] + cr * scene->_up[0];
-    up_rot[1] = sr * scene->_right[1] + cr * scene->_up[1];
-    up_rot[2] = sr * scene->_right[2] + cr * scene->_up[2];
-    ft_cpy_vec(scene->_right, right_rot);
-    ft_cpy_vec(scene->_up, up_rot);
-    ft_vec_norm(scene->_right, scene->_right);
-    ft_vec_norm(scene->_up, scene->_up);
-    ft_cpy_vec(scene->camera.orientation, scene->_forward);
+	t_vec	right_rot;
+	t_vec	up_rot;
+	double	pitch_limit;
+
+	pitch_limit = M_PI_2 - 0.15;
+	ft_limit_pitch(scene, pitch_limit);
+	ft_new_vec(scene->_up, 0, 1, 0);
+	ft_calc_forward(scene);
+	ft_calc_right_up(scene);
+	ft_apply_roll(scene, right_rot, up_rot);
+	ft_cpy_vec(scene->camera.orientation, scene->_forward);
 }
 
 static inline char ft_rotate_yaw(const t_keys keys, t_scene *scene)
 {
 	if (keys.left)
 	{
-		scene->_yaw -= ROT_SPEED;
+		scene->_yaw += ROT_SPEED;
 		return (1);
 	}
 	else if (keys.right)
 	{
-		scene->_yaw += ROT_SPEED;
+		scene->_yaw -= ROT_SPEED;
 		return (1);
 	}
 	return (0);
@@ -142,33 +171,33 @@ static inline char ft_rotate_pitch(const t_keys keys, t_scene *scene)
 
 static inline char ft_rotate_roll(const t_keys keys, t_scene *scene)
 {
-    if (keys.q)
-    {
-        scene->_roll += ROT_SPEED;
-        return (1);
-    }
-    else if (keys.e)
-    {
-        scene->_roll -= ROT_SPEED;
-        return (1);
-    }
-    return (0);
+	if (keys.q)
+	{
+		scene->_roll += ROT_SPEED;
+		return (1);
+	}
+	else if (keys.e)
+	{
+		scene->_roll -= ROT_SPEED;
+		return (1);
+	}
+	return (0);
 }
 
 static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 {
-    char	rotated;
+	char	rotated;
 
-    rotated = 0;
-    if (ft_rotate_yaw(keys, scene))
-        rotated = 1;
-    if (ft_rotate_pitch(keys, scene))
-        rotated = 1;
-    if (ft_rotate_roll(keys, scene)) // Ajoute cette ligne
-        rotated = 1;
-    if (rotated)
-        ft_apply_rotation(scene);
-    return (rotated);
+	rotated = 0;
+	if (ft_rotate_yaw(keys, scene))
+		rotated = 1;
+	if (ft_rotate_pitch(keys, scene))
+		rotated = 1;
+	if (ft_rotate_roll(keys, scene))
+		rotated = 1;
+	if (rotated)
+		ft_apply_rotation(scene);
+	return (rotated);
 }
 
 static inline void	ft_reset_cam(t_scene *scene)
