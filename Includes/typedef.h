@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 12:45:15 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 13:39:14 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@
 // MRT_LIGHT_RADIUS != 0
 // ================================
 /* *** CRITICAL MACRO *** */
-# define MRT_LIGHT_RADIUS .69 // INIT : .69
+# define MRT_LIGHT_RADIUS 6.9 // INIT : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
@@ -142,7 +142,8 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	c : 1;
 	unsigned char	reset : 1;
 	unsigned char	tab : 1;
-    unsigned char	tab_triggd : 1;
+	unsigned char	tab_triggd : 1;
+	unsigned char	t : 1;
     unsigned char	key_1 : 1;
     unsigned char	key_1_triggd : 1;
     unsigned char	key_2 : 1;
@@ -189,6 +190,18 @@ typedef struct s_camera
 	int				is_set;
 }	t_camera;
 
+/* *** CRITICAL STRUCT *** */
+// ========================================
+// DO NOT CHANGE THE ORDER OF THE VARIABLES
+// ========================================
+/* *** CRITICAL STRUCT *** */
+typedef struct s_viewport
+{
+	t_vec	hor;
+	t_vec	ver;
+	t_vec	pos;
+}	t_viewport;
+
 typedef struct s_scene
 {
 	t_ambient		ambient_light;
@@ -202,19 +215,8 @@ typedef struct s_scene
 	t_vec			_forward;
 	double			_pitch;
 	double			_yaw;
+	t_viewport		vp[1];
 }	t_scene;
-
-/* *** CRITICAL STRUCT *** */
-// ========================================
-// DO NOT CHANGE THE ORDER OF THE VARIABLES
-// ========================================
-/* *** CRITICAL STRUCT *** */
-typedef struct s_viewport
-{
-	t_vec	hor;
-	t_vec	ver;
-	t_vec	pos;
-}	t_viewport;
 
 typedef struct s_rules
 {

@@ -41,7 +41,8 @@ char	parse_cube(char **tokens, t_scene *scene)
 {
 	t_obj	*new_obj;
 
-	if (!*tokens || !*(tokens + 1) || !*(tokens + 2) || !*(tokens + 3))
+	if (!*tokens || !*(tokens + 1) || !*(tokens + 2) || !*(tokens + 3)
+		|| *(tokens + 4))
 	{
 		print_error("Invalid cube format: "
 			"c3 <pos x,y,z> <size> <color r,g,b>");

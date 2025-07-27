@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_color_virus.c                                   :+:      :+:    :+:   */
+/*   ft_color_ads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/24 16:49:38 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/04 14:41:38 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ static inline void	ft_color_fix(t_color edit)
 	}
 }
 
-static inline void	ft_vir(t_color edit, const t_color origin,
+static inline void	ft_chill(t_color edit, const t_color origin,
 	const float bfactor)
 {
-	static const t_color	virus = {220, 150, 255};
+	const static t_color	chill = {207, 255, 249};
 	t_vec					tmp;
 
 	*tmp = (double)*origin / 255;
@@ -169,14 +169,14 @@ static inline void	ft_vir(t_color edit, const t_color origin,
 	*(tmp + 1) = fmin(1.0, *(tmp + 1) * .6 + .4 + .05 * cos(*tmp * 7));
 	*(tmp + 2) = fmin(1.0, *(tmp + 2) * .6 + .4 + .1 * sin(*(tmp + 2) * 3));
 	*edit = (1.0f - bfactor) * *origin
-		+ bfactor * (.7 * *tmp * 255.0f + .3f * *tmp);
-	*(edit + 1) = (1.0f - bfactor) * *(virus + 1)
-		+ bfactor * (.7 * *(tmp + 1) * 255.0f * *(virus + 1));
+		+ bfactor * (.7 * *tmp * 255.0f + .3f * *chill);
+	*(edit + 1) = (1.0f - bfactor) * *(origin + 1)
+		+ bfactor * (.7 * *(tmp + 1) * 255.0f + .3f * *(chill + 1));
 	*(edit + 2) = (1.0f - bfactor) * *(origin + 2)
-		+ bfactor * (.7 * *(tmp + 2) * 255.0f * *(virus + 2));
+		+ bfactor * (.7 * *(tmp + 2) * 255.0f + .3f * *(chill + 2));
 }
 
-unsigned int	ft_color_virus(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;
@@ -201,6 +201,6 @@ unsigned int	ft_color_virus(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 		mult *= .75f;
 	}
 	ft_color_fix(color);
-	ft_vir(color, color, 0.969f);
+	ft_chill(color, color, .969);
 	return (ft_convert_color(color));
 }

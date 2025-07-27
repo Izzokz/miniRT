@@ -12,8 +12,7 @@
 
 #include "miniRT.h"
 
-static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene,
-	int i[2], char zoom)
+static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene, int i[2], char zoom)
 {
 	double	tmp_width;
 	double	tmp_height;
@@ -36,7 +35,8 @@ static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene,
 	ft_vec_sub(viewport[2], center_point, cam_basis[1]);
 }
 
-inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules, int rerender)
+inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene,
+	t_rules *rules, int rerender)
 {
 	t_vec	vp[3];
 
@@ -44,7 +44,7 @@ inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene, t_rules *rules, i
 	{
 		ft_get_viewport(vp, scene, (int *)mobj, rules->zoom);
 		ft_putstr_fd("\r\e[94;7mR\e[0m  ", 1);
-		ft_process(mobj, (t_viewport *)vp, scene, rules);
+		ft_process(mobj, scene, rules);
 		ft_putstr_fd("\r\e[94;7mR\e[0m\e[32;1mOK\e[0m", 1);
 	}
 	mlx_put_image_to_window(mobj->mlx, mobj->win, mobj->img, 0, 0);

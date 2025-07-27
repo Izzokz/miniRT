@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sequals.c                                       :+:      :+:    :+:   */
+/*   ft_editor_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/22 13:06:10 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/22 13:06:11 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/07/25 10:42:37 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/07/25 10:42:38 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	ft_sequals(const char *s1, const char *s2)
+#include "miniRT.h"
+
+char	not_numeric_free(char *s)
 {
 	int	i;
 
-	if (!s1 || !s2)
-		return (0);
 	i = -1;
-	while ((*(s1 + ++i) && *(s2 + i)) && *(s1 + i) == *(s2 + i))
-		;
-	return (*(s1 + i) == *(s2 + i));
+	while (*(s + ++i))
+	{
+		if (*(s + i) == '\n')
+			break ;
+		if (*(s + i) < '0' || *(s + i) > '9')
+		{
+			free(s);
+			return (1);
+		}
+	}
+	i = !i;
+	free((void *)(i * (uintptr_t)s));
+	return (i);
 }

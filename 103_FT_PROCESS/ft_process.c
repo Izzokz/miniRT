@@ -62,13 +62,13 @@ t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 	return (objs[1]);
 }
 
-static inline void	ft_shoot_ray(t_ray ray, const t_viewport *vp,
+inline void	ft_shoot_ray(t_ray ray,
 	const t_scene *scene, const t_vec scaled[2])
 {
 	t_vec	dir;
 	t_vec	point_on_viewport;
 
-	ft_vec_add(point_on_viewport, vp->pos, *scaled);
+	ft_vec_add(point_on_viewport, scene->vp->pos, *scaled);
 	ft_vec_add(point_on_viewport, point_on_viewport, *(scaled + 1));
 	ft_vec_sub(dir, point_on_viewport, scene->camera.pos);
 	ft_new_ray(ray, scene->camera.pos, dir);
@@ -111,6 +111,27 @@ static void	ft_init_cam_vectors(t_vec cam_vectors[3], const t_scene *s)
 	ft_vec_sub(cam_vectors[2], s->camera.pos, cam_d);
 }
 
+static inline void	ft_hit_parse(t_mlx_obj *mobj, int i[2],
+	t_scene *s, const t_rules *r)
+{
+	t_obj	*hit;
+
+	hit = ft_hit_nearest_obj(s->ray, s->objects);
+	if (hit)
+		return (ft_put_color(mobj, *i, *(i + 1),
+			r->coloration(s->ray, hit, s, r)));
+	if (r->coloration == ft_unicorn)
+		return (ft_put_color(mobj, *i, *(i + 1), 0xdc96ff));
+	if (r->coloration == ft_color_virus)
+		return (ft_put_color(mobj, *i, *(i + 1), rand()));
+	if (r->coloration == ft_color_chill)
+		return (ft_put_color(mobj, *i, *(i + 1), 0xcffff9));
+	if (r->coloration == ft_color_error)
+		return (ft_put_color(mobj, *i, *(i + 1),
+			0xff0000 + 255 * (rand() % 2)));
+	ft_put_color(mobj, *i, *(i + 1), 0);
+}
+
 static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	const t_rules *r, const t_vec cam_vectors[3])
 {
@@ -128,8 +149,7 @@ static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	ft_vec_norm(s->ray[1], s->ray[1]);
 	hit = ft_hit_nearest_obj(s->ray, s->objects);
 	if (!hit)
-		ft_put_color(mobj, s->coords[0], s->coords[1],
-			0xc5eff0 * (r->coloration == ft_unicorn));
+		ft_hit_parse(mobj, s->coords, s, r);
 	else
 		ft_put_color(mobj, s->coords[0], s->coords[1],
 			r->coloration(s->ray, hit, s, r));
@@ -151,12 +171,11 @@ static void	ft_calculate_pixels(t_mlx_obj *mobj, t_scene *s,
 	}
 }
 
-void	ft_process(t_mlx_obj *mobj, const t_viewport *vp,
+void	ft_process(t_mlx_obj *mobj,
 	t_scene *s, const t_rules *r)
 {
 	t_vec	cam_vectors[3];
 
-	(void)vp;
 	ft_init_cam_vectors(cam_vectors, s);
 	ft_calculate_pixels(mobj, s, r, cam_vectors);
 }

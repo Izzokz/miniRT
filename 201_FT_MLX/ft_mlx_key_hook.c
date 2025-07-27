@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 13:31:10 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 13:36:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,45 +80,6 @@ static inline char	ft_move(unsigned char keys, t_scene *scene)
 	return (1);
 }
 
-static inline void	ft_rotate_vec(t_vec v, const t_vec axis, const double angle)
-{
-	t_vec	tmp;
-	double	c;
-	double	s;
-	double	dot;
-
-	ft_cpy_vec(tmp, v);
-	dot = ft_vec_dot(v, axis);
-	c = cos(angle);
-	s = sin(angle);
-	*v = *tmp * c + (1 - c) * dot * *axis
-		+ s * (*(axis + 1) * *(tmp + 2) - *(axis + 2) * *(tmp + 1));
-	*(v + 1) = *(tmp + 1) * c + (1 - c) * dot * *(axis + 1)
-		+ s * (*(axis + 2) * *tmp - *axis * *(tmp + 2));
-	*(v + 2) = *(tmp + 2) * c + (1 - c) * dot * *(axis + 2)
-		+ s * (*axis * *(tmp + 1) - *(axis + 1) * *tmp);
-	ft_vec_norm(v, v);
-}
-
-static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
-{
-	double	tmp;
-
-	tmp = *actual + *add;
-	if (tmp > 1.5533430342749532)
-	{
-		*add = 1.5533430342749532 - *actual;
-		*actual = 1.5533430342749532;
-	}
-	else if (tmp < -1.5533430342749532)
-	{
-		*add = -1.5533430342749532 - *actual;
-		*actual = -1.5533430342749532;
-	}
-	else
-		*actual += *add;
-}
-
 static inline void	ft_apply_rotation(t_scene *scene)
 {
 	if (scene->_pitch > 1.57)
@@ -184,8 +145,8 @@ static inline void	ft_reset_cam(t_scene *scene)
 	const t_camera	*save;
 
 	save = ft_get_const_cam();
-	ft_memcpy(scene->camera.pos, save->pos, 3 * sizeof(double));
-	ft_memcpy(scene->camera.orientation, save->orientation, 3 * sizeof(double));
+	ft_memcpy(scene->camera.pos, save->pos, sizeof(t_vec));
+	ft_memcpy(scene->camera.orientation, save->orientation, sizeof(t_vec));
 	scene->camera.fov = save->fov;
 	ft_new_vec(scene->_up, 0, 1, 0);
 	ft_cpy_vec(scene->_forward, scene->camera.orientation);
@@ -240,6 +201,12 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 		(rules + 1)->coloration = ft_unicorn;
 	else if (ft_sequals(str, "virus\n"))
 		(rules + 1)->coloration = ft_color_virus;
+	else if (ft_sequals(str, "chill\n"))
+		(rules + 1)->coloration = ft_color_chill;
+	else if (ft_sequals(str, "error\n"))
+		(rules + 1)->coloration = ft_color_error;
+	else
+		return (free(str));
 	free(str);
 	ft_set_rules_max(rules, rules + 1);
 	ft_mlx_img_update(mobj, scene, rules, 1);
@@ -251,13 +218,15 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	int	rerender;
 
 	rerender = 0;
-	if (keys->z && !keys->z_triggd)
+	if (keys->t)
+		ft_open_editor(mobj, scene, rules);
+	else if (keys->z && !keys->z_triggd)
 	{
 		rules->zoom = !rules->zoom;
 		keys->z_triggd = 1;
 		rerender = 1;
 	}
-	if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
+	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
 		| ft_rotate(*keys, scene)))
 	{
 		ft_set_rules_min(mobj, rules);

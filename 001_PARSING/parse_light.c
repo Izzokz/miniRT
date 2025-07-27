@@ -14,18 +14,18 @@
 
 int	fill_light_data(t_light *light, char **tokens)
 {
-	if (parse_vec3(tokens[1], light->pos) != PARSE_OK)
+	if (parse_vec3(tokens[0], light->pos) != PARSE_OK)
 	{
 		print_error("Invalid light position format");
 		return (PARSE_KO);
 	}
-	light->brightness = ft_atod(tokens[2]);
+	light->brightness = ft_atod(tokens[1]);
 	if (light->brightness < 0.0 || light->brightness > 1.0)
 	{
 		print_error("Light brightness ratio must be in range [0.0,1.0]");
 		return (PARSE_KO);
 	}
-	if (parse_color(tokens[3], light->color) != PARSE_OK)
+	if (parse_color(tokens[2], light->color) != PARSE_OK)
 	{
 		print_error("Invalid light color");
 		return (PARSE_KO);
@@ -54,8 +54,7 @@ int	parse_light(char **tokens, t_scene *scene)
 {
 	t_light	*light;
 
-	if (ft_strncmp(tokens[0], "L", 2) != 0 || !tokens[1] || !tokens[2]
-		|| !tokens[3] || tokens[4])
+	if (!tokens[0] || !tokens[1] || !tokens[2] || tokens[3])
 	{
 		print_error("Invalid light format: "
 			"L <pos x,y,z> <ratio> <color r,g,b>");

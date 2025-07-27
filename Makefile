@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/26 20:13:33 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/27 13:34:43 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ TOBJDIR			= 102_FT_OBJ/
 PROCESSDIR		= 103_FT_PROCESS/
 UTILDIR			= 200_UTILS/
 MLXDIR			= 201_FT_MLX/
+EDITORDIR		= 202_EDITOR/
 LIBFTDIR		= Libft/
 GNLDIR			= get_next_line/
 INCLUDEDIR		= Includes/
@@ -62,12 +63,22 @@ SRCS			= main.c \
 				$(PROCESSDIR)ft_color_glass.c \
 				$(PROCESSDIR)ft_unicorn.c \
 				$(PROCESSDIR)ft_color_virus.c \
+				$(PROCESSDIR)ft_color_chill.c \
+				$(PROCESSDIR)ft_color_error.c \
 				$(PROCESSDIR)ft_color_mini.c \
 				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
+				$(MLXDIR)ft_mlx_click.c \
+				$(EDITORDIR)ft_editor.c \
+				$(EDITORDIR)ft_rewrite.c \
+				$(EDITORDIR)ft_rewrite2.c \
+				$(EDITORDIR)ft_rewrite3.c \
+				$(EDITORDIR)ft_edit_ambient.c \
+				$(EDITORDIR)ft_edit_light.c \
+				$(EDITORDIR)ft_editor_utils.c \
 				$(MLXDIR)ft_mlx_menu.c \
 				$(MLXDIR)display_menu.c
 
@@ -134,7 +145,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR) .
+vpath %.c $(VECDIR) $(TOBJDIR) $(PROCESSDIR) $(UTILDIR) $(GNLDIR) $(PARSEDIR) $(MLXDIR) $(EDITORDIR) .
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)

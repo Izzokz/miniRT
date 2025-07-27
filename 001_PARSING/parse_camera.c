@@ -14,18 +14,18 @@
 
 int	validate_camera(char **tokens, t_scene *scene)
 {
-	scene->camera.fov = ft_atod(tokens[3]);
+	scene->camera.fov = ft_atod(tokens[2]);
 	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 	{
 		print_error("Camera FOV must be in range [0,180]");
 		return (PARSE_KO);
 	}
-	if (parse_vec3(tokens[1], scene->camera.pos) == PARSE_KO)
+	if (parse_vec3(tokens[0], scene->camera.pos) == PARSE_KO)
 	{
 		print_error("Invalid camera position vector");
 		return (PARSE_KO);
 	}
-	if (parse_vec3(tokens[2], scene->camera.orientation) == PARSE_KO)
+	if (parse_vec3(tokens[1], scene->camera.orientation) == PARSE_KO)
 	{
 		print_error("Invalid camera orientation vector");
 		return (PARSE_KO);
@@ -47,8 +47,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 		print_error("Camera already set");
 		return (PARSE_KO);
 	}
-	if (ft_strncmp(tokens[0], "C", 2) != 0 || !tokens[1] || !tokens[2]
-		|| !tokens[3])
+	if (!tokens[0] || !tokens[1] || !tokens[2] || tokens[3])
 	{
 		print_error("Invalid camera format");
 		return (PARSE_KO);

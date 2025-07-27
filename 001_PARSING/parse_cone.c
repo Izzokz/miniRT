@@ -14,12 +14,12 @@
 
 static int	validate_cone_vectors(t_obj *obj, char **tokens)
 {
-	if (parse_vec3(tokens[1], obj->params) == PARSE_KO)
+	if (parse_vec3(tokens[0], obj->params) == PARSE_KO)
 	{
 		print_error("Invalid vector for cone !");
 		return (PARSE_KO);
 	}
-	if (parse_vec3(tokens[2], obj->params + 3) == PARSE_KO)
+	if (parse_vec3(tokens[1], obj->params + 3) == PARSE_KO)
 	{
 		print_error("Invalid vector for cone !");
 		return (PARSE_KO);
@@ -42,9 +42,9 @@ static int	fill_cone_data(t_obj *obj, char **tokens)
 		free(obj->params);
 		return (PARSE_KO);
 	}
-	obj->params[6] = ft_atod(tokens[3]);
-	obj->params[7] = ft_atod(tokens[4]);
-	if (parse_color(tokens[5], obj->color) == PARSE_KO)
+	obj->params[6] = ft_atod(tokens[2]);
+	obj->params[7] = ft_atod(tokens[3]);
+	if (parse_color(tokens[4], obj->color) == PARSE_KO)
 	{
 		print_error("Invalid color for cone !");
 		free(obj->params);
@@ -76,8 +76,8 @@ int	parse_cone(char **tokens, t_scene *scene)
 {
 	t_obj	*new_obj;
 
-	if (ft_strncmp(tokens[0], "co", 3) != 0 || !tokens[1] || !tokens[2]
-		|| !tokens[3] || !tokens[4] || !tokens[5])
+	if (!tokens[0] || !tokens[1] || !tokens[2] || !tokens[3] || !tokens[4]
+		|| tokens[5])
 	{
 		print_error("Invalid cone format: "
 			"co <pos> <axis> <diameter> <height> <color>");
