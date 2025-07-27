@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 16:20:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 01:08:00 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 12:49:26 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,3 @@ int	main(int argc, char **argv)
 	free_scene(&scene);
 	return (PARSE_OK);
 }
-
-
-// Régler le problème qui fais que tout est absolument à l'envers...

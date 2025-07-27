@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 11:45:43 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 12:49:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,25 @@ static void	ft_init_cam_vectors(t_vec cam_vectors[3], const t_scene *s)
 	double	plane_h;
 	double	plane_w;
 	t_vec	cam_d;
+	t_vec	forward;
+	t_vec	right;
+	t_vec	up;
 
 	win_ratio = (double)WIDTH / (double)HEIGHT;
 	plane_h = tan(s->camera.fov * 0.5 * (PI / 180.0)) * 2.0;
 	plane_w = plane_h * win_ratio;
-	ft_vec_scale(cam_vectors[0], s->_right, plane_w);
-	ft_vec_scale(cam_vectors[1], s->_up, plane_h);
-	ft_vec_scale(cam_d, s->_forward, 2.0);
+	ft_cpy_vec(forward, s->_forward);
+	if (fabs(forward[1]) > 0.99)
+		ft_new_vec(up, 0, 0, 1);
+	else
+		ft_new_vec(up, 0, 1, 0);
+	ft_vec_cross(right, up, forward);
+	ft_vec_norm(right, right);
+	ft_vec_cross(up, forward, right);
+	ft_vec_norm(up, up);
+	ft_vec_scale(cam_vectors[0], right, plane_w);
+	ft_vec_scale(cam_vectors[1], up, plane_h);
+	ft_vec_scale(cam_d, forward, 2.0);
 	ft_vec_sub(cam_vectors[2], s->camera.pos, cam_d);
 }
 

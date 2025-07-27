@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 11:51:25 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 13:31:10 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static inline void	ft_move2(const char x, const char y,
 	ft_new_vec(delta, 0, 0, 0);
 	if (x)
 	{
-		ft_vec_scale(tmp, scene->_right, x);
+		ft_vec_scale(tmp, scene->_right, -x);
 		ft_vec_add(delta, delta, tmp);
 	}
 	if (y)
@@ -119,46 +119,64 @@ static inline void	ft_clamp_rotation_pitch(double *actual, double *add)
 		*actual += *add;
 }
 
-static inline char	ft_rotate(const t_keys keys, t_scene *scene)
+static inline void	ft_apply_rotation(t_scene *scene)
 {
-	char	rotate = 0;
+	if (scene->_pitch > 1.57)
+		scene->_pitch = 1.57;
+	if (scene->_pitch < -1.57)
+		scene->_pitch = -1.57;
+	scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
+	scene->_forward[1] = sin(scene->_pitch);
+	scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
+	ft_vec_norm(scene->_forward, scene->_forward);
+	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
+	ft_vec_norm(scene->_right, scene->_right);
+	ft_cpy_vec(scene->camera.orientation, scene->_forward);
+}
 
+static inline char ft_rotate_yaw(const t_keys keys, t_scene *scene)
+{
 	if (keys.left)
 	{
-		rotate = 1;
-		scene->_yaw -= ROT_SPEED;
+		scene->_yaw += ROT_SPEED;
+		return (1);
 	}
 	else if (keys.right)
 	{
-		rotate = 1;
-		scene->_yaw += ROT_SPEED;
+		scene->_yaw -= ROT_SPEED;
+		return (1);
 	}
+	return (0);
+}
+
+
+static inline char ft_rotate_pitch(const t_keys keys, t_scene *scene)
+{
 	if (keys.up)
 	{
-		rotate = 1;
 		scene->_pitch += ROT_SPEED;
+		return (1);
 	}
 	else if (keys.down)
 	{
-		rotate = 1;
 		scene->_pitch -= ROT_SPEED;
+		return (1);
 	}
+	return (0);
+}
 
-	if (rotate)
-	{
-		if (scene->_pitch > 1.57)
-			scene->_pitch = 1.57;
-		if (scene->_pitch < -1.57)
-			scene->_pitch = -1.57;
-		scene->_forward[0] = cos(scene->_pitch) * cos(scene->_yaw);
-		scene->_forward[1] = sin(scene->_pitch);
-		scene->_forward[2] = cos(scene->_pitch) * sin(scene->_yaw);
-		ft_vec_norm(scene->_forward, scene->_forward);
-		ft_vec_cross(scene->_right, scene->_forward, scene->_up);
-		ft_vec_norm(scene->_right, scene->_right);
-		ft_cpy_vec(scene->camera.orientation, scene->_forward);
-	}
-	return (rotate);
+static inline char	ft_rotate(const t_keys keys, t_scene *scene)
+{
+	char	rotated;
+
+	rotated = 0;
+	if (ft_rotate_yaw(keys, scene))
+		rotated = 1;
+	if (ft_rotate_pitch(keys, scene))
+		rotated = 1;
+	if (rotated)
+		ft_apply_rotation(scene);
+	return (rotated);
 }
 
 static inline void	ft_reset_cam(t_scene *scene)
@@ -173,6 +191,7 @@ static inline void	ft_reset_cam(t_scene *scene)
 	ft_cpy_vec(scene->_forward, scene->camera.orientation);
 	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
 	scene->_pitch = asin(*(scene->camera.orientation + 1));
+	scene->_yaw = atan2(scene->_forward[2], scene->_forward[0]);
 }
 
 static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
