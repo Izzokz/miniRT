@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 13:39:14 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 14:04:08 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	right : 1;
 	unsigned char	down : 1;
 	unsigned char	up : 1;
+	unsigned char	q : 1;
+	unsigned char	e : 1;
 	unsigned char	ctrl : 1;
 	unsigned char	esc : 1;
 	unsigned char	r : 1;
@@ -215,6 +217,7 @@ typedef struct s_scene
 	t_vec			_forward;
 	double			_pitch;
 	double			_yaw;
+	double			_roll;
 	t_viewport		vp[1];
 }	t_scene;
 
