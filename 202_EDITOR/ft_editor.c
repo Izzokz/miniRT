@@ -123,7 +123,7 @@ void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 		ft_edit_object(mobj, scene, rules);
 //	else if (ft_sequals(answer, "1\n"))
 //		ft_edit_light(mobj, scene, rules);
-//	else if (ft_sequals(answer, "2\n"))
-//		ft_edit_ambient(mobj, scene, rules);
+	else if (ft_sequals(answer, "2\n"))
+		ft_edit_ambient(mobj, scene, rules);
 	free(answer);
 }
