@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 00:52:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 11:51:25 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,12 @@ static inline char	ft_rotate(const t_keys keys, t_scene *scene)
 	if (keys.up)
 	{
 		rotate = 1;
-		scene->_pitch -= ROT_SPEED;
+		scene->_pitch += ROT_SPEED;
 	}
 	else if (keys.down)
 	{
 		rotate = 1;
-		scene->_pitch += ROT_SPEED;
+		scene->_pitch -= ROT_SPEED;
 	}
 
 	if (rotate)
@@ -225,7 +225,6 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 	ft_set_rules_max(rules, rules + 1);
 	ft_mlx_img_update(mobj, scene, rules, 1);
 }
-
 
 static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	t_keys *keys, t_rules rules[3])

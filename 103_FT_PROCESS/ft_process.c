@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 01:19:40 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 11:45:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	ft_vec_scale(ray_moves[0], cam_vectors[0],
 		((double)s->coords[0] / WIDTH) - 0.5);
 	ft_vec_scale(ray_moves[1], cam_vectors[1],
-		((double)s->coords[1] / HEIGHT) - 0.5);
+		-(((double)s->coords[1] / HEIGHT) - 0.5));
 	ft_vec_add(ray_move, ray_moves[0], ray_moves[1]);
 	ft_vec_add(s->ray[0], s->camera.pos, ray_move);
 	ft_vec_sub(s->ray[1], s->ray[0], cam_vectors[2]);

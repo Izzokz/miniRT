@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 01:02:43 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/27 11:48:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline void	ft_get_viewport(t_vec viewport[3], t_scene *scene,
 	tmp_width = 2 * tan((scene->camera.fov / (zoom + 1)) * (PI / 360.0));
 	tmp_height = tmp_width * ((double)i[1] / i[0]);
 	ft_vec_scale(viewport[0], cam_basis[0], tmp_width);
-	ft_vec_scale(viewport[1], cam_basis[1], -tmp_height);
+	ft_vec_scale(viewport[1], cam_basis[1], tmp_height);
 	ft_vec_add(center_point, scene->camera.pos, cam_basis[2]);
 	ft_vec_div(cam_basis[0], viewport[0], 2);
 	ft_vec_sub(center_point, center_point, cam_basis[0]);
