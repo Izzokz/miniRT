@@ -13,6 +13,7 @@
 #ifndef FT_EDITOR_H
 # define FT_EDITOR_H
 
+void	ft_edit_light(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 void	ft_edit_ambient(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 char	rewrite_sphere(t_obj *obj, char **tokens);
 char	rewrite_plane(t_obj *obj, char **tokens);

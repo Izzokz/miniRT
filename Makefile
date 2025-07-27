@@ -77,6 +77,7 @@ SRCS			= main.c \
 				$(EDITORDIR)ft_rewrite2.c \
 				$(EDITORDIR)ft_rewrite3.c \
 				$(EDITORDIR)ft_edit_ambient.c \
+				$(EDITORDIR)ft_edit_light.c \
 				$(EDITORDIR)ft_editor_utils.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))

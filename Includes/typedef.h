@@ -85,7 +85,7 @@
 // MRT_LIGHT_RADIUS != 0
 // ================================
 /* *** CRITICAL MACRO *** */
-# define MRT_LIGHT_RADIUS .69 // INIT : .69
+# define MRT_LIGHT_RADIUS 6.9 // INIT : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
