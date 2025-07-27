@@ -17,8 +17,7 @@ char	ft_sequals(const char *s1, const char *s2)
 	if (!s1 || !s2)
 		return (0);
 	i = -1;
-	while (*(s1 + ++i) || *(s2 + i))
-		if (*(s1 + i) != *(s2 + i))
-			break ;
+	while ((*(s1 + ++i) && *(s2 + i)) && *(s1 + i) == *(s2 + i))
+		;
 	return (*(s1 + i) == *(s2 + i));
 }

@@ -27,5 +27,7 @@ char	not_numeric_free(char *s)
 			return (1);
 		}
 	}
-	return (0);
+	i = !i;
+	free((void *)(i * (uintptr_t)s));
+	return (i);
 }

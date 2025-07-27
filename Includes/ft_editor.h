@@ -15,6 +15,8 @@
 
 char	rewrite_sphere(t_obj *obj, char **tokens);
 char	rewrite_plane(t_obj *obj, char **tokens);
+char	rewrite_cylinder(t_obj *obj, char **tokens);
+char	rewrite_cone(t_obj *obj, char **tokens);
 char	not_numeric_free(char *s);
 void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 

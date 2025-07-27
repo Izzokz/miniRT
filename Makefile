@@ -74,6 +74,8 @@ SRCS			= main.c \
 				$(MLXDIR)ft_mlx_click.c \
 				$(EDITORDIR)ft_editor.c \
 				$(EDITORDIR)ft_rewrite.c \
+				$(EDITORDIR)ft_rewrite2.c \
+				$(EDITORDIR)ft_rewrite3.c \
 				$(EDITORDIR)ft_editor_utils.c
 
 OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))

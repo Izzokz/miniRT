@@ -44,12 +44,12 @@ static inline char	ft_edit_object3(char (*hit)(const t_obj *, t_ray),
 		return (rewrite_sphere(edit, tokens));
 	else if (hit == ft_hit_p)
 		return (rewrite_plane(edit, tokens));
-//	else if (hit == ft_hit_c)
-//		status = rewrite_cylinder(edit, tokens);
+	else if (hit == ft_hit_c)
+		return (rewrite_cylinder(edit, tokens));
 //	else if (hit == ft_hit_c3) // WON'T EXIST (CUBES NOT OK)
-//		status = rewrite_cube(edit, tokens);
-//	else if (hit == ft_hit_cone)
-//		status = rewrite_cone(edit, tokens);
+//		return (rewrite_cube(edit, tokens));
+	else if (hit == ft_hit_cone)
+		return (rewrite_cone(edit, tokens));
 	return (1);
 }
 
@@ -94,7 +94,7 @@ static inline void	ft_edit_object(t_mlx_obj *mobj, t_scene *scene,
 	write(1, "\n", 1);
 	while (current)
 	{
-		printf("%d\t-", ++i);
+		printf("%d\t- ", ++i);
 		ft_print_object(current);
 		current = current->next;
 	}
