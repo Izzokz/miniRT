@@ -127,13 +127,14 @@ static inline void	ft_reset_cam(t_scene *scene)
 	const t_camera	*save;
 
 	save = ft_get_const_cam();
-	ft_memcpy(scene->camera.pos, save->pos, 3 * sizeof(double));
-	ft_memcpy(scene->camera.orientation, save->orientation, 3 * sizeof(double));
+	ft_memcpy(scene->camera.pos, save->pos, sizeof(t_vec));
+	ft_memcpy(scene->camera.orientation, save->orientation, sizeof(t_vec));
 	scene->camera.fov = save->fov;
 	ft_new_vec(scene->_up, 0, 1, 0);
 	ft_cpy_vec(scene->_forward, scene->camera.orientation);
 	ft_vec_cross(scene->_right, scene->_forward, scene->_up);
 	scene->_pitch = asin(*(scene->camera.orientation + 1));
+	scene->_yaw = atan2(scene->_forward[2], scene->_forward[0]);
 }
 
 static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
