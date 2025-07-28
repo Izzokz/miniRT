@@ -15,8 +15,8 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .020 // INIT : .069
-# define ROT_SPEED .0020 // INIT : .069
+# define MOVE_SPEED .069 // INIT : .069
+# define ROT_SPEED .069 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035

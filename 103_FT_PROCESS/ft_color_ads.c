@@ -23,14 +23,27 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 {
 	double	u;
 	double	v;
-	double	phi;
+	double	tzr[3];
 
 	u = (double)rand() / (double)(RAND_MAX + 1);
 	v = (double)rand() / (double)(RAND_MAX + 1);
-	phi = acos(2.0 * v - 1);
-	ft_new_vec(random, 2.0 * PI * u, phi, sin(phi));
+	*tzr = 2.0 * PI * u;
+	*(tzr + 1) = 2.0 * v - 1;
+	*(tzr + 2) = sqrt(1.0 - *(tzr + 1) * *(tzr + 1));
+	ft_new_vec(random, *(tzr + 2) * cos(*tzr), *(tzr + 2) * sin(*tzr),
+		*(tzr + 1));
 	ft_vec_scale(random, random, MRT_LIGHT_RADIUS);
 	ft_vec_add(random, random, lpos);
+}
+
+static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
+{
+	t_ray	ray;
+	double	dot;
+
+	ft_new_ray(ray, *hit, dir);
+	dot = ft_vec_dot(*(hit + 1), *(ray + 1));
+	return (dot * (dot >= 0));
 }
 
 /*
@@ -51,10 +64,10 @@ static inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-4);
+		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-3);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
-		hit = ft_hit_nearest_obj(shadow_tester, scene->objects);
+		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
 		if (!hit || ft_vec_dist(*shadow_tester, hit->params)
 			>= ft_vec_dist(*shadow_tester, light->pos))
 			*tmp += 1;
@@ -64,7 +77,8 @@ static inline void	ft_color_light_dist(t_color edit,
 	*(tmp + 1) = ft_vec_dist(light->pos, *oray);
 	*(tmp + 1) = 1.0 / (*factors + *(factors + 1) * *(tmp + 1)
 			+ *(factors + 2) * pow(*(tmp + 1), 2));
-	ft_color_scale(edit, light->brightness * *tmp * *(tmp + 1));
+	ft_color_scale(edit, fmin(1, light->brightness * *tmp * *(tmp + 1)
+		* ft_get_lambert(oray, light->pos)));
 }
 
 /*

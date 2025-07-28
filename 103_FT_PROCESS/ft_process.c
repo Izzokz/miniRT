@@ -62,6 +62,31 @@ t_obj	*ft_hit_nearest_obj(t_ray ray, const t_obj *head)
 	return (objs[1]);
 }
 
+/*
+Same as above, no ray modification (no bounce)
+*/
+t_obj	*ft_hit_nearest_obj_nb(const t_ray ray, const t_obj *head)
+{
+	t_ray	tmp[2];
+	t_obj	*objs[2];
+	double	nearest_dist;
+	double	current_dist;
+
+	ft_init_hit_vars(head, tmp, objs, &nearest_dist);
+	while (objs[0])
+	{
+		ft_cpy_ray(tmp[1], ray);
+		if (objs[0]->hit(objs[0], tmp[1]))
+		{
+			current_dist = ft_vec_dist(tmp[1][0], ray[0]);
+			if (current_dist < nearest_dist)
+				ft_update_nearest(&nearest_dist, current_dist, objs, tmp);
+		}
+		objs[0] = objs[0]->next;
+	}
+	return (objs[1]);
+}
+
 inline void	ft_shoot_ray(t_ray ray,
 	const t_scene *scene, const t_vec scaled[2])
 {
