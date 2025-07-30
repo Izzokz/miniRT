@@ -12,6 +12,11 @@
 
 #include "miniRT.h"
 
+static inline void	print_vec(const t_vec v)
+{
+	printf("{%f, %f, %f}\n", *v, v[1], v[2]);
+}
+
 static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 	const t_vec v2, const double epsilon)
 {
@@ -77,8 +82,7 @@ static inline void	ft_color_light_dist(t_color edit,
 	*(tmp + 1) = ft_vec_dist(light->pos, *oray);
 	*(tmp + 1) = 1.0 / (*factors + *(factors + 1) * *(tmp + 1)
 			+ *(factors + 2) * pow(*(tmp + 1), 2));
-	ft_color_scale(edit, fmin(1, light->brightness * *tmp * *(tmp + 1)
-		* ft_get_lambert(oray, light->pos)));
+	ft_color_scale(edit, fmin(1, light->brightness * *tmp * *(tmp + 1)));
 }
 
 /*
@@ -137,7 +141,7 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 		ft_color_light_dist(*(ads.diffuse + 1), light, tmp, scene);
 		ft_color_mult(*(ads.diffuse + 1), *(ads.diffuse + 1), hit->color);
 		ft_color_scale(*(ads.diffuse + 1),
-			fmax(0, ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
+			fmax(0.15, ft_get_lambert(scene->ray, light->pos)));
 		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
 		ft_store(cat, tmp, scene->ray);
 		ft_blinn_phong(*(ads.specular), scene, cat, light);
