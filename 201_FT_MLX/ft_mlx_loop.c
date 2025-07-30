@@ -157,7 +157,6 @@ inline void	ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene)
 	*objscenekeys = (uintptr_t)(void *)mobj;
 	*(objscenekeys + 1) = (uintptr_t)(void *)scene;
 	*(objscenekeys + 2) = (uintptr_t)(void *)&keys;
-	mlx_mouse_hook(mobj->win, ft_mlx_click, objscenekeys);
 	mlx_hook(mobj->win, 17, 0, quit, objscenekeys);
 	mlx_hook(mobj->win, 3, 1L << 1, key_disable, &keys);
 	mlx_hook(mobj->win, 2, 1L << 0, key_enable, &keys);

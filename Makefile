@@ -71,7 +71,6 @@ SRCS			= main.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
-				$(MLXDIR)ft_mlx_click.c \
 				$(EDITORDIR)ft_editor.c \
 				$(EDITORDIR)ft_rewrite.c \
 				$(EDITORDIR)ft_rewrite2.c \

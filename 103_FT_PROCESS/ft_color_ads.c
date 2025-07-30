@@ -25,8 +25,8 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 	double	v;
 	double	tzr[3];
 
-	u = (double)rand() / (double)(RAND_MAX + 1);
-	v = (double)rand() / (double)(RAND_MAX + 1);
+	u = (double)rand() / (RAND_MAX + 1);
+	v = (double)rand() / (RAND_MAX + 1);
 	*tzr = 2.0 * PI * u;
 	*(tzr + 1) = 2.0 * v - 1;
 	*(tzr + 2) = sqrt(1.0 - *(tzr + 1) * *(tzr + 1));

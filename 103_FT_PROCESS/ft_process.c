@@ -87,18 +87,6 @@ t_obj	*ft_hit_nearest_obj_nb(const t_ray ray, const t_obj *head)
 	return (objs[1]);
 }
 
-inline void	ft_shoot_ray(t_ray ray,
-	const t_scene *scene, const t_vec scaled[2])
-{
-	t_vec	dir;
-	t_vec	point_on_viewport;
-
-	ft_vec_add(point_on_viewport, scene->vp->pos, *scaled);
-	ft_vec_add(point_on_viewport, point_on_viewport, *(scaled + 1));
-	ft_vec_sub(dir, point_on_viewport, scene->camera.pos);
-	ft_new_ray(ray, scene->camera.pos, dir);
-}
-
 static inline void	ft_put_color(t_mlx_obj *mobj,
 	int x, int y, unsigned int color)
 {
@@ -111,9 +99,9 @@ static inline void	ft_put_color(t_mlx_obj *mobj,
 static void	ft_init_up_vec(t_vec up, const t_vec forward)
 {
 	if (fabs(forward[1]) > 0.99)
-		ft_new_vec(up, 0, 0, 1);
+		ft_new_vec(up, 0, 0, 1); // g_forward
 	else
-		ft_new_vec(up, 0, 1, 0);
+		ft_new_vec(up, 0, 1, 0); // g_up
 }
 
 static void	ft_init_right_up(

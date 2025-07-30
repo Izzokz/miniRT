@@ -218,7 +218,6 @@ typedef struct s_scene
 	double			_pitch;
 	double			_yaw;
 	double			_roll;
-	t_viewport		vp[1];
 }	t_scene;
 
 typedef struct s_rules
