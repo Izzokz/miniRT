@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:36:28 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 17:03:19 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 18:10:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	validate_plane_vectors(t_obj *obj, char **tokens)
 static int	fill_plane_data(t_obj *obj, char **tokens)
 {
 	obj->params = malloc(sizeof(double) * 6);
-	obj->type = 'p';
 	if (!obj->params)
 		return (MALLOC_FAILED);
 	if (validate_plane_vectors(obj, tokens) == PARSE_KO)

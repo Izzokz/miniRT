@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/31 17:15:54 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 18:20:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,33 +104,39 @@ static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
 	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
 
-void	ft_obj_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
+
+static void	ft_cy_and_co_normal(const t_obj *obj, const t_vec hit_point,
+	t_vec normal)
 {
 	t_vec	cp;
 	t_vec	proj;
 	t_vec	axis;
 	double	dot;
 
-	if (obj->type == 's')
+	ft_vec_sub(cp, hit_point, obj->params);
+	ft_cpy_vec(axis, obj->params + 3);
+	ft_vec_norm(axis, axis);
+	dot = ft_vec_dot(cp, axis);
+	ft_vec_scale(proj, axis, dot);
+	ft_vec_sub(normal, cp, proj);
+	ft_vec_norm(normal, normal);
+}
+
+static void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
+	t_vec normal)
+{
+	if (obj->hit == ft_hit_s)
 	{
 		ft_vec_sub(normal, hit_point, obj->params);
 		ft_vec_norm(normal, normal);
 	}
-	else if (obj->type == 'p')
+	else if (obj->hit == ft_hit_p)
 	{
 		ft_cpy_vec(normal, obj->params + 3);
 		ft_vec_norm(normal, normal);
 	}
-	else if (obj->type == 'c')
-	{
-		ft_vec_sub(cp, hit_point, obj->params);
-		ft_cpy_vec(axis, obj->params + 3);
-		ft_vec_norm(axis, axis);
-		dot = ft_vec_dot(cp, axis);
-		ft_vec_scale(proj, axis, dot);
-		ft_vec_sub(normal, cp, proj);
-		ft_vec_norm(normal, normal);
-	}
+	else if (obj->hit == ft_hit_c || obj->hit == ft_hit_cone)
+		ft_cy_and_co_normal(obj, hit_point, normal);
 	else
 		ft_new_vec(normal, 0, 1, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:11:25 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 17:03:15 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 18:10:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	validate_cylinder_vectors(t_obj *obj, char **tokens)
 static int	fill_cylinder_data(t_obj *obj, char **tokens)
 {
 	obj->params = malloc(sizeof(double) * 8);
-	obj->type = 'c';
 	if (!obj->params)
 		return (MALLOC_FAILED);
 	if (validate_cylinder_vectors(obj, tokens) == PARSE_KO)
