@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/07/27 13:34:43 by lumugot          ###   ########.fr        #
+#    Updated: 2025/07/31 13:35:41 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -g3
+CFLAGS	= -Wall -Wextra -Werror -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux
