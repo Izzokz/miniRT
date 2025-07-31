@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:15:46 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/04 14:41:56 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 18:47:00 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,5 @@ inline void	ft_color_reflect(t_color edit,
 
 inline unsigned int	ft_convert_color(const t_color color)
 {
-	return (*color << 16 | *(color + 1) << 8 | *(color + 2));
+	return (color[0] << 16 | color[1] << 8 | color[2]);
 }

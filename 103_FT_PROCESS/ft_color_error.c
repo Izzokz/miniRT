@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_color_ads.c                                     :+:      :+:    :+:   */
+/*   ft_color_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/04 14:41:38 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 19:01:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,24 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 
 	ft_color_mult(ads.ambient, hit->color, scene->ambient_light.color);
 	ft_color_scale(ads.ambient, scene->ambient_light.ratio);
-	ft_memset(*(ads.diffuse), 0, 3);
-	ft_memset(*ads.specular, 0, 3);
-	ft_memset(*(ads.specular + 1), 0, 3);
+	ft_memset(ads.diffuse[0], 0, 3);
+	ft_memset(ads.specular[0], 0, 3);
+	ft_memset(ads.specular[1], 0, 3);
 	light = scene->lights;
 	while (light)
 	{
 		ft_new_ray(tmp, *scene->ray, light->pos);
-		ft_color_light_dist(*(ads.diffuse + 1), light, tmp, scene);
-		ft_color_mult(*(ads.diffuse + 1), *(ads.diffuse + 1), hit->color);
-		ft_color_scale(*(ads.diffuse + 1),
-			fmax(0, ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
-		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
+		ft_color_light_dist(ads.diffuse[1], light, tmp, scene);
+		ft_color_mult(ads.diffuse[1], ads.diffuse[1], hit->color);
+		ft_color_scale(ads.diffuse[1],
+			fmax(0, ft_vec_dot(scene->ray[1], tmp[1])));
+		ft_color_add(ads.diffuse[0], ads.diffuse[1]);
 		ft_store(cat, tmp, scene->ray);
-		ft_blinn_phong(*(ads.specular), scene, cat, light);
-		ft_color_add(*(ads.specular + 1), *(ads.specular));
+		ft_blinn_phong(ads.specular[0], scene, cat, light);
+		ft_color_add(ads.specular[1], ads.specular[0]);
 		light = light->next;
 	}
-	ft_color_merge(edit, ads.ambient, *(ads.diffuse), *(ads.specular + 1));
+	ft_color_merge(edit, ads.ambient, ads.diffuse[0], ads.specular[1]);
 }
 
 static inline void	ft_color_fix(t_color edit)
