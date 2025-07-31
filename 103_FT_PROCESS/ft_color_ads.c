@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/31 13:41:04 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:15:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,33 +104,66 @@ static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
 	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
 
+void	ft_obj_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
+{
+	t_vec	cp;
+	t_vec	proj;
+	t_vec	axis;
+	double	dot;
+
+	if (obj->type == 's')
+	{
+		ft_vec_sub(normal, hit_point, obj->params);
+		ft_vec_norm(normal, normal);
+	}
+	else if (obj->type == 'p')
+	{
+		ft_cpy_vec(normal, obj->params + 3);
+		ft_vec_norm(normal, normal);
+	}
+	else if (obj->type == 'c')
+	{
+		ft_vec_sub(cp, hit_point, obj->params);
+		ft_cpy_vec(axis, obj->params + 3);
+		ft_vec_norm(axis, axis);
+		dot = ft_vec_dot(cp, axis);
+		ft_vec_scale(proj, axis, dot);
+		ft_vec_sub(normal, cp, proj);
+		ft_vec_norm(normal, normal);
+	}
+	else
+		ft_new_vec(normal, 0, 1, 0);
+}
+
 static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 {
 	t_color_ads	ads;
 	t_ray		tmp;
 	t_ray		cat[2];
 	t_light		*light;
+	t_vec		normal;
 
 	ft_color_mult(ads.ambient, hit->color, scene->ambient_light.color);
 	ft_color_scale(ads.ambient, scene->ambient_light.ratio);
-	ft_memset(*(ads.diffuse), 0, 3);
-	ft_memset(*ads.specular, 0, 3);
-	ft_memset(*(ads.specular + 1), 0, 3);
+	ft_memset(ads.diffuse[0], 0, 3);
+	ft_memset(ads.specular[0], 0, 3);
+	ft_memset(ads.specular[1], 0, 3);
 	light = scene->lights;
 	while (light)
 	{
 		ft_new_ray(tmp, *scene->ray, light->pos);
-		ft_color_light_dist(*(ads.diffuse + 1), light, tmp, scene);
-		ft_color_mult(*(ads.diffuse + 1), *(ads.diffuse + 1), hit->color);
-		ft_color_scale(*(ads.diffuse + 1),
-			fmax(0, ft_vec_dot(*(scene->ray + 1), *(tmp + 1))));
-		ft_color_add(*(ads.diffuse), *(ads.diffuse + 1));
+		ft_color_light_dist(ads.diffuse[1], light, tmp, scene);
+		ft_color_mult(ads.diffuse[1], ads.diffuse[1], hit->color);
+		ft_obj_normal(hit, *scene->ray, normal);
+		ft_color_scale(ads.diffuse[1],
+			fmax(0, ft_vec_dot(normal, tmp[1])));
+		ft_color_add(ads.diffuse[0], ads.diffuse[1]);
 		ft_store(cat, tmp, scene->ray);
-		ft_blinn_phong(*(ads.specular), scene, cat, light);
-		ft_color_add(*(ads.specular + 1), *(ads.specular));
+		ft_blinn_phong(ads.specular[0], scene, cat, light);
+		ft_color_add(ads.specular[1], ads.specular[0]);
 		light = light->next;
 	}
-	ft_color_merge(edit, ads.ambient, *(ads.diffuse), *(ads.specular + 1));
+	ft_color_merge(edit, ads.ambient, ads.diffuse[0], ads.specular[1]);
 }
 
 static inline void	ft_color_fix(t_color edit)

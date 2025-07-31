@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:35:20 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:15:10 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:03:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	fill_sphere_data(t_obj *obj, char **tokens)
 {
 	obj->params = malloc(sizeof(double) * 4);
+	obj->type = 's';
 	if (!obj->params)
 		return (MALLOC_FAILED);
 	if (parse_vec3(tokens[0], obj->params) == PARSE_KO)
