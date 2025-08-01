@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 17:03:04 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:53:16 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,8 @@ typedef struct __attribute__((__packed__)) s_keys
 /* *** CRITICAL STRUCT *** */
 typedef struct s_mlx_obj
 {
-	int		win_i; //
-	int		win_j; //
+	int		win_i;
+	int		win_j;
 	void	*mlx;
 	void	*win;
 	void	*img;

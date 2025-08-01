@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/31 18:20:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:54:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 	const t_vec v2, const double epsilon)
 {
-	ft_new_vec(newv, *v1 + *v2 * epsilon, *(v1 + 1)
-		+ *(v2 + 1) * epsilon, *(v1 + 2) + *(v2 + 2) * epsilon);
+	ft_new_vec(newv, v1[0] + v2[0] * epsilon, v1[1]
+		+ v2[1] * epsilon, v1[2] + v2[2] * epsilon);
 }
 
 static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
