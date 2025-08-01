@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:22:51 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 01:47:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 13:35:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define OPEN_3 "3. Object options"
 # define CLOSE_1 "1: Close the submenu"
 # define CLOSE_2 "2: Close the submenu"
-# define CLOSE_3 "2: Close the submenu"
+# define CLOSE_3 "3: Close the submenu"
 # define CLOSE_MENU "TAB: Close the menu"
 # define CLOSE_WINDOW "ESC: Close the window"
 

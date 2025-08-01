@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 14:04:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:03:04 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef double			t_vec[3]; // x, y, z
 typedef t_vec			t_ray[2]; // pos, dir
 
 /*
-Objects can be:
+Objects can be:\
 - a sphere 's'
 - a plane 'p'
 - a cylinder 'c'
@@ -105,6 +105,7 @@ typedef struct s_obj
 {
 	t_color	color;
 	double	*params;
+	char	type;
 	char	(*hit)(const t_obj *self, t_ray);
 	t_obj	*next;
 }	t_obj;
@@ -124,12 +125,12 @@ typedef struct s_light
 /* *** CRITICAL STRUCT *** */
 typedef struct __attribute__((__packed__)) s_keys
 {
-	unsigned char	a : 1; //
-	unsigned char	d : 1; //
-	unsigned char	shift : 1; //
-	unsigned char	space : 1; //
-	unsigned char	s : 1; //
-	unsigned char	w : 1; //
+	unsigned char	a : 1;
+	unsigned char	d : 1;
+	unsigned char	shift : 1;
+	unsigned char	space : 1;
+	unsigned char	s : 1;
+	unsigned char	w : 1;
 	unsigned char	left : 1;
 	unsigned char	right : 1;
 	unsigned char	down : 1;
