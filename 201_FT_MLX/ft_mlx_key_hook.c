@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/31 15:59:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/02 16:22:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static inline void	ft_move2(const char x, const char y,
 		ft_vec_add(delta, delta, tmp);
 	}
 	ft_vec_norm(delta, delta);
-	ft_vec_scale(delta, delta, MOVE_SPEED);
+	ft_vec_scale(delta, delta, scene->m_speed);
 	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
 }
 
@@ -129,7 +129,7 @@ static inline void	ft_apply_rotation(t_scene *scene)
 	t_vec	up_rot;
 	double	pitch_limit;
 
-	pitch_limit = M_PI_2 - 0.15;
+	pitch_limit = (PI / 2) - 0.15;
 	ft_limit_pitch(scene, pitch_limit);
 	ft_new_vec(scene->_up, 0, 1, 0);
 	ft_calc_forward(scene);
@@ -142,12 +142,12 @@ static inline char ft_rotate_yaw(const t_keys keys, t_scene *scene)
 {
 	if (keys.left)
 	{
-		scene->_yaw += ROT_SPEED;
+		scene->_yaw += scene->r_speed;
 		return (1);
 	}
 	else if (keys.right)
 	{
-		scene->_yaw -= ROT_SPEED;
+		scene->_yaw -= scene->r_speed;
 		return (1);
 	}
 	return (0);
@@ -158,12 +158,12 @@ static inline char ft_rotate_pitch(const t_keys keys, t_scene *scene)
 {
 	if (keys.up)
 	{
-		scene->_pitch += ROT_SPEED;
+		scene->_pitch += scene->r_speed;
 		return (1);
 	}
 	else if (keys.down)
 	{
-		scene->_pitch -= ROT_SPEED;
+		scene->_pitch -= scene->r_speed;
 		return (1);
 	}
 	return (0);
@@ -173,12 +173,12 @@ static inline char ft_rotate_roll(const t_keys keys, t_scene *scene)
 {
 	if (keys.q)
 	{
-		scene->_roll += ROT_SPEED;
+		scene->_roll += scene->r_speed;
 		return (1);
 	}
 	else if (keys.e)
 	{
-		scene->_roll -= ROT_SPEED;
+		scene->_roll -= scene->r_speed;
 		return (1);
 	}
 	return (0);
@@ -273,12 +273,33 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 	ft_mlx_img_update(mobj, scene, rules, 1);
 }
 
+static void	set_speed(t_scene *scene, t_keys *keys)
+{
+	if (keys->p_up)
+        scene->m_speed += 0.010;
+    if (keys->p_down)
+        scene->m_speed -= 0.010;
+    if (scene->m_speed < 0.010)
+        scene->m_speed = 0.010;
+    if (scene->m_speed > 0.200)
+        scene->m_speed = 0.200;
+    if (keys->r_speed_up)
+        scene->r_speed += 0.0010;
+    if (keys->r_speed_down)
+        scene->r_speed -= 0.0010;
+    if (scene->r_speed < 0.0010)
+        scene->r_speed = 0.0010;
+    if (scene->r_speed > 0.0500)
+        scene->r_speed = 0.0500;
+}
+
 static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	t_keys *keys, t_rules rules[3])
 {
 	int	rerender;
 
 	rerender = 0;
+	set_speed(scene, keys);
 	if (keys->t)
 		ft_open_editor(mobj, scene, rules);
 	else if (keys->z && !keys->z_triggd)
@@ -287,8 +308,7 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 		keys->z_triggd = 1;
 		rerender = 1;
 	}
-	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
-		| ft_rotate(*keys, scene)))
+	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene) | ft_rotate(*keys, scene)))
 	{
 		ft_set_rules_min(mobj, rules);
 		rerender = 1;

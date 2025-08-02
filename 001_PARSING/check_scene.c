@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:59:42 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 14:20:43 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/02 15:13:58 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	check_element(char **tokens, t_scene *scene)
 
 	status = PARSE_KO;
 	(void)scene;
+	scene->m_speed = MOVE_SPEED;
+	scene->r_speed = ROT_SPEED;
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
 		status = parse_ambient(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)

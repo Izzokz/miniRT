@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/01 18:53:16 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/02 16:20:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,10 @@ typedef struct __attribute__((__packed__)) s_keys
     unsigned char	key_2_triggd : 1;
     unsigned char	key_3 : 1;
     unsigned char	key_3_triggd : 1;
-
+	unsigned char	p_up : 1;
+	unsigned char	p_down : 1;
+	unsigned char	r_speed_up : 1;
+	unsigned char	r_speed_down : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */
@@ -220,6 +223,8 @@ typedef struct s_scene
 	double			_yaw;
 	double			_roll;
 	t_viewport		vp[1];
+	double			m_speed;
+	double			r_speed;
 }	t_scene;
 
 typedef struct s_rules
