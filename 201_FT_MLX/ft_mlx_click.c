@@ -6,11 +6,11 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 07:07:29 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/01 11:32:45 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/03 14:08:28 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../Includes/miniRT.h"
 
 inline int	ft_mlx_click(int button, int x, int y, uintptr_t objscene[2])
 {

@@ -20,7 +20,6 @@ t_mlx_obj	*ft_mlx_obj_init(void);
 void		ft_free_mlx_obj(t_mlx_obj *mobj);
 
 /* MLX LOOP */
-int			ft_mlx_click(int button, int x, int y, uintptr_t objscene[2]);
 void		ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys);
 void		ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene);
 

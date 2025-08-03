@@ -25,8 +25,8 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 	double	v;
 	double	phi;
 
-	u = (double)rand() / (double)(RAND_MAX + 1);
-	v = (double)rand() / (double)(RAND_MAX + 1);
+	u = (double)rand() / ((double)RAND_MAX + 1);
+	v = (double)rand() / ((double)RAND_MAX + 1);
 	phi = acos(2.0 * v - 1);
 	ft_new_vec(random, 2.0 * PI * u, phi, sin(phi));
 	ft_vec_scale(random, random, MRT_LIGHT_RADIUS);
@@ -51,7 +51,7 @@ static inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-4);
+		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-3);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj(shadow_tester, scene->objects);
@@ -159,7 +159,7 @@ static inline void	ft_color_fix(t_color edit)
 static inline void	ft_chill(t_color edit, const t_color origin,
 	const float bfactor)
 {
-	const static t_color	chill = {207, 255, 249};
+	static const t_color	chill = {207, 255, 249};
 	t_vec					tmp;
 
 	*tmp = (double)*origin / 255;

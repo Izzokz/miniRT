@@ -16,6 +16,7 @@
 # include "typedef.h"
 
 t_obj			*ft_hit_nearest_obj(t_ray, const t_obj *head);
+t_obj			*ft_hit_nearest_obj_nb(const t_ray, const t_obj *head);
 void			ft_color_mult(t_color edit, const t_color m1, const t_color m2);
 void			ft_color_scale(t_color edit, const float factor);
 void			ft_color_add(t_color edit, const t_color sum);
