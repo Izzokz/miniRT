@@ -176,7 +176,7 @@ static inline void	ft_error_the_color(t_color edit, const t_color origin,
 		+ bfactor * (.7 * *(tmp + 2) * 255.0f + .3f * *(error + 2));
 }
 
-unsigned int	ft_color_error(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_error(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;

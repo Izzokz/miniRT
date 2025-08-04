@@ -25,8 +25,8 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 	double	v;
 	double	phi;
 
-	u = (double)rand() / ((double)RAND_MAX + 1);
-	v = (double)rand() / ((double)RAND_MAX + 1);
+	u = (double)rand() / (RAND_MAX + 1);
+	v = (double)rand() / (RAND_MAX + 1);
 	phi = acos(2.0 * v - 1);
 	ft_new_vec(random, 2.0 * PI * u, phi, sin(phi));
 	ft_vec_scale(random, random, MRT_LIGHT_RADIUS);
@@ -156,7 +156,7 @@ static inline void	ft_color_fix(t_color edit)
 	}
 }
 
-unsigned int	ft_color_glass(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_glass(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:54:09 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 13:42:39 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:51:06 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 	if (fabs(dot) < 1e-6)
 		return (0);
 	ft_vec_sub(tmp[0], plane->params, ray[0]);
-	t = ft_vec_dot(tmp[0], plane->params + 3) / dot;
+	t = ft_vec_dot(*tmp, plane->params + 3) / dot;
 	if (t < 1e-6)
 		return (0);
 	ft_vec_scale(tmp[0], ray[1], t);

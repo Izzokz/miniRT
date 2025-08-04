@@ -25,4 +25,7 @@ int		is_valid_params(const char *str);
 //ft_sequals.c
 char	ft_sequals(const char *s1, const char *s2);
 
+//ft_rand.c
+int		ft_rand(void);
+
 #endif

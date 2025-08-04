@@ -12,8 +12,8 @@
 
 #include "miniRT.h"
 
-inline unsigned int	ft_color_mini(t_ray ray, t_obj *hit,
-	const t_scene *scene, const t_rules *rules)
+inline unsigned int	ft_color_mini(t_ray ray, t_obj *hit, t_scene *scene,
+	const t_rules *rules)
 {
 	(void) ray;
 	(void) scene;

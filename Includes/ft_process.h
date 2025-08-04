@@ -24,19 +24,19 @@ void			ft_color_reflect(t_color edit, const t_color base,
 					const float multiplicator);
 unsigned int	ft_convert_color(const t_color color);
 unsigned int	ft_blend_color(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_mini(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_glass(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_unicorn(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_virus(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_chill(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 unsigned int	ft_color_error(t_ray, t_obj *hit,
-					const t_scene *scene, const t_rules *rules);
+					t_scene *scene, const t_rules *rules);
 void			ft_process(t_mlx_obj *mobj,
 					t_scene *scene, const t_rules *rules);
 void			ft_shoot_ray(t_ray,

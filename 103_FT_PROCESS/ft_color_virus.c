@@ -176,7 +176,7 @@ static inline void	ft_vir(t_color edit, const t_color origin,
 		+ bfactor * (.7 * *(tmp + 2) * 255.0f * *(virus + 2));
 }
 
-unsigned int	ft_color_virus(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_virus(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 13:14:03 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:47:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ static inline void	ft_reset_cam(t_scene *scene)
 }
 
 static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
-	const t_keys keys, t_rules rules[3])
+	const t_keys keys, t_rules rules[2])
 {
 	if (keys.reset)
 	{
@@ -302,13 +302,8 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	set_speed(scene, keys);
 	if (keys->t)
 		ft_open_editor(mobj, scene, rules);
-	else if (keys->z && !keys->z_triggd)
-	{
-		rules->zoom = !rules->zoom;
-		keys->z_triggd = 1;
-		rerender = 1;
-	}
-	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene) | ft_rotate(*keys, scene)))
+	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
+		| ft_rotate(*keys, scene)))
 	{
 		ft_set_rules_min(mobj, rules);
 		rerender = 1;
@@ -323,8 +318,8 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 
 /*
 rules[0] = actual
-*(rules + 1) = custom maxed
-*(rules + 2) = origin maxed
+rules[1] = custom maxed
+rules[2] = origin maxed
 */
 inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
