@@ -25,8 +25,8 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 	double	v;
 	double	phi;
 
-	u = (double)rand() / ((double)RAND_MAX + 1);
-	v = (double)rand() / ((double)RAND_MAX + 1);
+	u = (double)rand() / (RAND_MAX + 1);
+	v = (double)rand() / (RAND_MAX + 1);
 	phi = acos(2.0 * v - 1);
 	ft_new_vec(random, 2.0 * PI * u, phi, sin(phi));
 	ft_vec_scale(random, random, MRT_LIGHT_RADIUS);
@@ -176,7 +176,7 @@ static inline void	ft_unicornize(t_color edit, const t_color origin,
 		+ bfactor * (.7 * *(tmp + 2) * 255.0f + .3f * *(unicorn + 2));
 }
 
-unsigned int	ft_unicorn(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_unicorn(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;

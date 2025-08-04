@@ -21,7 +21,7 @@ o[1] = nearest object.
 tmp[0] = outray.
 tmp[1] = tmpray.
 */
-static void	ft_init_hit_vars(const t_obj *head, t_ray tmp[2],
+static inline void	ft_init_hit_vars(const t_obj *head, t_ray tmp[2],
 	t_obj *objs[2], double *nearest_dist)
 {
 	objs[0] = (t_obj *)head;
@@ -30,7 +30,7 @@ static void	ft_init_hit_vars(const t_obj *head, t_ray tmp[2],
 	ft_new_vec(tmp[0][0], INFINITY, INFINITY, INFINITY);
 }
 
-static void	ft_update_nearest(double *nearest_dist, double current_dist,
+static inline void	ft_update_nearest(double *nearest_dist, double current_dist,
 	t_obj *objs[2], t_ray tmp[2])
 {
 	*nearest_dist = current_dist;
@@ -164,7 +164,7 @@ static inline void	ft_hit_parse(t_mlx_obj *mobj, int i[2],
 	if (r->coloration == ft_unicorn)
 		return (ft_put_color(mobj, *i, *(i + 1), 0xdc96ff));
 	if (r->coloration == ft_color_virus)
-		return (ft_put_color(mobj, *i, *(i + 1), rand()));
+		return (ft_put_color(mobj, *i, *(i + 1), ft_rand()));
 	if (r->coloration == ft_color_chill)
 		return (ft_put_color(mobj, *i, *(i + 1), 0xcffff9));
 	if (r->coloration == ft_color_error)
@@ -176,7 +176,6 @@ static inline void	ft_hit_parse(t_mlx_obj *mobj, int i[2],
 static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	const t_rules *r, const t_vec cam_vectors[3])
 {
-	t_obj	*hit;
 	t_vec	ray_moves[2];
 	t_vec	ray_move;
 
@@ -188,12 +187,7 @@ static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	ft_vec_add(s->ray[0], s->camera.pos, ray_move);
 	ft_vec_sub(s->ray[1], s->ray[0], cam_vectors[2]);
 	ft_vec_norm(s->ray[1], s->ray[1]);
-	hit = ft_hit_nearest_obj(s->ray, s->objects);
-	if (!hit)
-		ft_hit_parse(mobj, s->coords, s, r);
-	else
-		ft_put_color(mobj, s->coords[0], s->coords[1],
-			r->coloration(s->ray, hit, s, r));
+	ft_hit_parse(mobj, s->coords, s, r);
 }
 
 static void	ft_calculate_pixels(t_mlx_obj *mobj, t_scene *s,

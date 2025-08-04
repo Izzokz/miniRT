@@ -47,6 +47,7 @@ SRCS			= main.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_swap.c \
 				$(UTILDIR)ft_sequals.c \
+				$(UTILDIR)ft_rand.c \
                 $(VECDIR)ft_vec0.c \
                 $(VECDIR)ft_vec1.c \
                 $(VECDIR)ft_vec2.c \
@@ -85,7 +86,7 @@ OBJ	= $(patsubst %.c,$(OBJDIR)%.o,$(notdir $(SRCS)))
 DEP	= $(patsubst %.c,$(OBJDIR)%.d,$(notdir $(SRCS)))
 
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror -g3
+CFLAGS	= -Wall -Wextra -g3
 CFLAGS	+= -MP -MMD
 INCLUDES = -I. -I$(INCLUDEDIR) -I$(LIBFTDIR) -I$(GNLDIR) -Imlx-linux
 LDFLAGS	= -L$(LIBFTDIR) -Lmlx-linux

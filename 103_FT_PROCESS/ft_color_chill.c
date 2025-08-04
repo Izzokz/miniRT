@@ -176,7 +176,7 @@ static inline void	ft_chill(t_color edit, const t_color origin,
 		+ bfactor * (.7 * *(tmp + 2) * 255.0f + .3f * *(chill + 2));
 }
 
-unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, const t_scene *scene,
+unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	const t_rules *rules)
 {
 	t_color	color;
@@ -187,7 +187,7 @@ unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 
 	ft_memset(color, 0, 3);
 	ft_color_ads(color, scene, hit);
-	mult = rules->ref_str;
+	scene->mult = rules->ref_str;
 	iter = -1;
 	while (++iter < rules->ref)
 	{
@@ -196,9 +196,9 @@ unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, const t_scene *scene,
 			break ;
 		ft_memset(bounce, 0, 3);
 		ft_color_ads(bounce, scene, hit);
-		ft_color_reflect(reflect, bounce, mult);
+		ft_color_reflect(reflect, bounce, scene->mult);
 		ft_color_add(color, reflect);
-		mult *= .75f;
+		scene->mult *= .75f;
 	}
 	ft_color_fix(color);
 	ft_chill(color, color, .969);

@@ -14,12 +14,7 @@
 
 static inline int	key_enable(int keycode, t_keys *keys)
 {
-	if (keycode == XK_z)
-	{
-		keys->z = 1;
-		keys->z_triggd = 1;
-	}
-	else if (keycode == XK_w)
+	if (keycode == XK_w)
 		keys->w = 1;
 	else if (keycode == XK_a)
 		keys->a = 1;
@@ -68,9 +63,7 @@ static inline int	key_enable(int keycode, t_keys *keys)
 
 static inline int	key_disable(int keycode, t_keys *keys)
 {
-	if (keycode == XK_z)
-		keys->z_triggd = 0;
-	else if (keycode == XK_w)
+	if (keycode == XK_w)
 		keys->w = 0;
 	else if (keycode == XK_a)
 		keys->a = 0;

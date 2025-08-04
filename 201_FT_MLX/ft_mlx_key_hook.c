@@ -217,7 +217,7 @@ static inline void	ft_reset_cam(t_scene *scene)
 }
 
 static inline void	ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
-	const t_keys keys, t_rules rules[3])
+	const t_keys keys, t_rules rules[2])
 {
 	if (keys.reset)
 	{
@@ -281,12 +281,6 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	rerender = 0;
 	if (keys->t)
 		ft_open_editor(mobj, scene, rules);
-	else if (keys->z && !keys->z_triggd)
-	{
-		rules->zoom = !rules->zoom;
-		keys->z_triggd = 1;
-		rerender = 1;
-	}
 	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
 		| ft_rotate(*keys, scene)))
 	{
@@ -302,9 +296,8 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 }
 
 /*
-*rules = actual
-*(rules + 1) = custom maxed
-*(rules + 2) = origin maxed
+*rules = custom maxed
+*(rules + 1) = origin maxed
 */
 inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 {
@@ -321,5 +314,4 @@ inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 	}
 	ft_menu_handler(keys, rules);
 	ft_handle_actions(mobj, scene, keys, rules);
-	ft_mlx_img_update(mobj, scene, rules, 0);
 }
