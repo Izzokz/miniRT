@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:03:12 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/27 01:41:12 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:03:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ static void	ft_menu_toggle_and_back(t_keys *keys, t_rules *rules)
 	}
 }
 
-void	ft_menu_handler(t_keys *keys, t_rules *rules)
+void	ft_menu_handler(t_scene *scene, t_mlx_obj *mobj, t_keys *keys, t_rules *rules)
 {
 	ft_menu_toggle_and_back(keys, rules);
 	if (rules->menu_state > 0)
 		ft_menu_navigation(keys, rules);
+	ft_mlx_img_update(mobj, scene, rules, 0);	
 }

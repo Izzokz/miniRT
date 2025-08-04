@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/03 14:09:34 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 12:47:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .069 // INIT : .069
-# define ROT_SPEED .069 // INIT : .069
+# define MOVE_SPEED .050 // INIT : .069
+# define ROT_SPEED .0060 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
@@ -235,7 +235,7 @@ typedef struct s_rules
 	unsigned int	(*coloration)(t_ray, t_obj *hit,
 			const t_scene *, const t_rules *);
 	unsigned char	zoom : 1;
-	int				menu_state;
+	unsigned char	menu_state : 3;
 }	t_rules;
 
 typedef struct s_color_ads

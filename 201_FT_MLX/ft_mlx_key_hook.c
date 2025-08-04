@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/02 16:22:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:14:03 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,21 +276,21 @@ static inline void	ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
 static void	set_speed(t_scene *scene, t_keys *keys)
 {
 	if (keys->p_up)
-        scene->m_speed += 0.010;
-    if (keys->p_down)
-        scene->m_speed -= 0.010;
-    if (scene->m_speed < 0.010)
-        scene->m_speed = 0.010;
-    if (scene->m_speed > 0.200)
-        scene->m_speed = 0.200;
-    if (keys->r_speed_up)
-        scene->r_speed += 0.0010;
-    if (keys->r_speed_down)
-        scene->r_speed -= 0.0010;
-    if (scene->r_speed < 0.0010)
-        scene->r_speed = 0.0010;
-    if (scene->r_speed > 0.0500)
-        scene->r_speed = 0.0500;
+		scene->m_speed += 0.010;
+	if (keys->p_down)
+		scene->m_speed -= 0.010;
+	if (scene->m_speed < 0.010)
+		scene->m_speed = 0.010;
+	if (scene->m_speed > 0.200)
+		scene->m_speed = 0.200;
+	if (keys->r_speed_up)
+		scene->r_speed += 0.0010;
+	if (keys->r_speed_down)
+		scene->r_speed -= 0.0010;
+	if (scene->r_speed < 0.0010)
+		scene->r_speed = 0.0010;
+	if (scene->r_speed > 0.0500)
+		scene->r_speed = 0.0500;
 }
 
 static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
@@ -322,7 +322,7 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 }
 
 /*
-*rules = actual
+rules[0] = actual
 *(rules + 1) = custom maxed
 *(rules + 2) = origin maxed
 */
@@ -339,7 +339,6 @@ inline void	ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys)
 		ft_mlx_img_update(mobj, scene, rules, 1);
 		return ;
 	}
-	ft_menu_handler(keys, rules);
+	ft_menu_handler(scene, mobj, keys, rules);
 	ft_handle_actions(mobj, scene, keys, rules);
-	ft_mlx_img_update(mobj, scene, rules, 0);
 }

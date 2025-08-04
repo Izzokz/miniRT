@@ -6,16 +6,16 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/02 14:15:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:19:20 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static inline void	print_vec(const t_vec v)
-{
-	printf("{%f, %f, %f}\n", *v, v[1], v[2]);
-}
+// static inline void	print_vec(const t_vec v)
+// {
+// 	printf("{%f, %f, %f}\n", *v, v[1], v[2]);
+// }
 
 static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 	const t_vec v2, const double epsilon)
@@ -41,15 +41,15 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 	ft_vec_add(random, random, lpos);
 }
 
-static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
-{
-	t_ray	ray;
-	double	dot;
+// static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
+// {
+// 	t_ray	ray;
+// 	double	dot;
 
-	ft_new_ray(ray, *hit, dir);
-	dot = ft_vec_dot(*(hit + 1), *(ray + 1));
-	return (dot * (dot >= 0));
-}
+// 	ft_new_ray(ray, *hit, dir);
+// 	dot = ft_vec_dot(*(hit + 1), *(ray + 1));
+// 	return (dot * (dot >= 0));
+// }
 
 /*
 *tmp = visibility;
@@ -69,20 +69,20 @@ static inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1e-3);
+		ft_vec_offset(*shadow_tester, oray[0], oray[1], 1e-3);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
-		if (!hit || ft_vec_dist(*shadow_tester, hit->params)
-			>= ft_vec_dist(*shadow_tester, light->pos))
-			*tmp += 1;
+		if (!hit || ft_vec_dist(shadow_tester[0], hit->params)
+			>= ft_vec_dist(shadow_tester[0], light->pos))
+			tmp[0] += 1;
 	}
-	*tmp /= MRT_SHADOW_SAMPLES;
+	tmp[0] /= MRT_SHADOW_SAMPLES;
 	ft_memcpy(edit, light->color, 3);
-	*(tmp + 1) = ft_vec_dist(light->pos, *oray);
-	*(tmp + 1) = 1.0 / (*factors + *(factors + 1) * *(tmp + 1)
-			+ *(factors + 2) * pow(*(tmp + 1), 2));
-	ft_color_scale(edit, fmin(1, light->brightness * *tmp * *(tmp + 1)));
+	tmp[1] = ft_vec_dist(light->pos, oray[0]);
+	tmp[1] = 1.0 / (factors[0] + factors[0] * tmp[1]
+			+ factors[2] * pow(tmp[1], 2));
+	ft_color_scale(edit, fmin(1, light->brightness * tmp[0] * tmp[1]));
 }
 
 /*
@@ -121,7 +121,6 @@ static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
 	ft_memcpy(cat[0], r1, sizeof(t_ray));
 	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
-
 
 static void	ft_cy_and_co_normal(const t_obj *obj, const t_vec hit_point,
 	t_vec normal)
