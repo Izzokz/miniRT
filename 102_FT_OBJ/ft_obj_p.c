@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:54:09 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 13:51:06 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 20:39:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 	if (fabs(dot) < 1e-6)
 		return (0);
 	ft_vec_sub(tmp[0], plane->params, ray[0]);
-	t = ft_vec_dot(*tmp, plane->params + 3) / dot;
+	t = ft_vec_dot(tmp[0], plane->params + 3) / dot;
 	if (t < 1e-6)
 		return (0);
 	ft_vec_scale(tmp[0], ray[1], t);
@@ -44,6 +44,7 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 		ft_vec_scale(tmp[1], plane->params + 3, -1.0);
 	else
 		ft_cpy_vec(tmp[1], plane->params + 3);
+	ft_vec_norm(tmp[1], tmp[1]);
 	ft_reflect(ray, tmp);
 	return (1);
 }

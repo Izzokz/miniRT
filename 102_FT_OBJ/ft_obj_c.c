@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/02 16:11:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:55:02 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static double	cap_intersection(const t_obj *cy, t_ray ray, t_vec axis, int upper
 	}
 	else
 		ft_cpy_vec(center, cy->params);
-	dot_ray_axis = ft_vec_dot(*(ray + 1), axis);
+	dot_ray_axis = ft_vec_dot(ray[1], axis);
 	if (fabs(dot_ray_axis) < 1e-6)
 		return (-1.0);
-	ft_vec_sub(tmp1, center, *ray);
+	ft_vec_sub(tmp1, center, ray[0]);
 	t = ft_vec_dot(tmp1, axis) / dot_ray_axis;
 	ft_vec_scale(tmp2, ray[1], t);
-	ft_vec_add(tmp2, *ray, tmp2);
+	ft_vec_add(tmp2, ray[0], tmp2);
 	ft_vec_sub(tmp1, tmp2, center);
 	if (!(t > 1e-6 && ft_vec_dot(tmp1, tmp1) < pow(cy->params[6] / 2.0, 2)))
 		return (-1.0);
@@ -141,7 +141,7 @@ char	ft_hit_c(const t_obj *cylinder, t_ray ray)
 	else
 		val[2] = val[1];
 	ft_vec_scale(hit_point, ray[1], val[2]);
-	ft_vec_add(hit_point, *ray, hit_point);
+	ft_vec_add(hit_point, ray[0], hit_point);
 	get_normal(normal, cylinder, ray, hit_point);
 	ft_cpy_vec(posnorm[0], hit_point);
 	ft_cpy_vec(posnorm[1], normal);
