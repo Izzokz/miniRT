@@ -6,16 +6,11 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 20:48:51 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:40:32 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static inline void	print_vec(const t_vec v)
-{
-	printf("{%f, %f, %f}\n", *v, v[1], v[2]);
-}
 
 static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 	const t_vec v2, const double epsilon)
@@ -52,47 +47,31 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 tmp + 2 = random vector;
 */
 static inline void	ft_color_light_dist(t_color edit,
-    const t_light *light, const t_ray oray, const t_scene *scene)
+	const t_light *light, const t_ray oray, const t_scene *scene)
 {
-    static const float factors[3] = {.5, .1, .016};
-    double tmp[5];
-    t_ray shadow_tester;
-    t_obj *hit;
-    unsigned char i;
-    unsigned char valid_samples = 0;
+	static 			const float factors[3] = {.5, .1, .016};
+	double 			tmp[5];
+	t_ray 			shadow_tester;
+	t_obj 			*hit;
+	unsigned char	i;
 
-    tmp[0] = 0;
-    i = -1;
-    while (++i < MRT_SHADOW_SAMPLES)
-    {
-        ft_vec_offset(*shadow_tester, oray[0], oray[1], 1);
-        ft_vec_random_sphere(tmp + 2, light->pos); 
-        ft_ray_dir(shadow_tester, tmp + 2);
-        hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
 
-        // Correction : ignore le sample si le rayon frappe le dos du plan
-        if (hit && hit->hit == ft_hit_p)
-        {
-            t_vec normal;
-            ft_obj_normal(hit, shadow_tester[0], normal, shadow_tester[1]);
-            if (ft_vec_dot(normal, shadow_tester[1]) > 0)
-                continue; // Ignore ce sample, mauvais côté
-        }
-
-        valid_samples++;
-        if (!hit || ft_vec_dist(shadow_tester[0], hit->params)
-            > ft_vec_dist(shadow_tester[0], light->pos))
-            tmp[0] += 1;
-    }
-    if (valid_samples == 0)
-        tmp[0] = 0;
-    else
-        tmp[0] = (tmp[0] / valid_samples) * (1.0 - scene->mult);
-
-    ft_memcpy(edit, light->color, 3);
-    tmp[1] = ft_vec_dist(light->pos, oray[0]);
-    tmp[1] = 1.0 / (factors[0] + factors[1] * tmp[1] + factors[2] * pow(tmp[1], 2));
-    ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]);
+	tmp[0] = 0;
+	i = -1;
+	while (++i < MRT_SHADOW_SAMPLES)
+	{
+		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1);
+		ft_vec_random_sphere(tmp + 2, light->pos);
+		ft_ray_dir(shadow_tester, tmp + 2);
+		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
+		if (!hit || ft_vec_dist(*shadow_tester, hit->params)
+			> ft_vec_dist(*shadow_tester, light->pos))
+			*tmp += 1;
+	}
+	ft_memcpy(edit, light->color, 3);
+	tmp[1] = ft_vec_dist(light->pos, oray[0]);
+	tmp[1] = 1.0 / (factors[0] + factors[1] * tmp[1] + factors[2] * pow(tmp[1], 2));
+	ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]);
 }
 
 /*
@@ -132,8 +111,35 @@ static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
 	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
 
-void	ft_cy_and_co_normal(const t_obj *obj, const t_vec hit_point,
-	t_vec normal)
+void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
+{
+	t_vec	axis;
+	t_vec	cp;
+	t_vec proj;
+	double	dot;
+	double	height;
+
+	ft_cpy_vec(axis, obj->params + 3);
+	ft_vec_norm(axis, axis);
+	ft_vec_sub(cp, hit_point, obj->params);
+	height = obj->params[6];
+	dot = ft_vec_dot(cp, axis);
+	if (fabs(dot) < 1e-4)
+	{
+		ft_vec_scale(normal, axis, -1);
+		return;
+	}
+	if (fabs(dot - height) < 1e-4)
+	{
+		ft_cpy_vec(normal, axis);
+		return;
+	}
+	ft_vec_scale(proj, axis, dot);
+	ft_vec_sub(normal, cp, proj);
+	ft_vec_norm(normal, normal);
+}
+
+void	ft_cone_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
 {
 	t_vec	cp;
 	t_vec	proj;
@@ -162,13 +168,12 @@ void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
 		ft_cpy_vec(normal, obj->params + 3);
 		ft_vec_norm(normal, normal);
 		if (ft_vec_dot(normal, ray_dir) < 0)
-		{
 			ft_vec_scale(normal, normal, -1);
-			printf("J'ai fais le scale(-1)\n");
-		}
 	}
-	else if (obj->hit == ft_hit_c || obj->hit == ft_hit_cone)
-		ft_cy_and_co_normal(obj, hit_point, normal);
+	else if (obj->hit == ft_hit_c)
+		ft_cy_normal(obj, hit_point, normal);
+	else if (obj->hit == ft_hit_cone)
+		ft_cone_normal(obj, hit_point, normal);
 	else
 		ft_new_vec(normal, 0, 1, 0);
 }
