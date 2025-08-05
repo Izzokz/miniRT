@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 23:40:32 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:12:39 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 // 	return (dot * (dot >= 0));
 // }
 
-/*
-*tmp = visibility;
-*(tmp + 1) = attenuation;
-tmp + 2 = random vector;
-*/
+
 static inline void	ft_color_light_dist(t_color edit,
 	const t_light *light, const t_ray oray, const t_scene *scene)
 {
@@ -55,18 +51,17 @@ static inline void	ft_color_light_dist(t_color edit,
 	t_obj 			*hit;
 	unsigned char	i;
 
-
 	tmp[0] = 0;
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(*shadow_tester, *oray, *(oray + 1), 1);
+		ft_vec_offset(shadow_tester[0], oray[0], oray[1], 1e-4);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
-		if (!hit || ft_vec_dist(*shadow_tester, hit->params)
-			> ft_vec_dist(*shadow_tester, light->pos))
-			*tmp += 1;
+		if (!hit || ft_vec_dist(shadow_tester[0], hit->params)
+			> ft_vec_dist(shadow_tester[0], light->pos))
+			tmp[0] += 1;
 	}
 	ft_memcpy(edit, light->color, 3);
 	tmp[1] = ft_vec_dist(light->pos, oray[0]);
