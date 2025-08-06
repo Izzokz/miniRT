@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 17:03:04 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/05 16:12:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .069 // INIT : .069
-# define ROT_SPEED .069 // INIT : .069
+# define MOVE_SPEED .050 // INIT : .069
+# define ROT_SPEED .0060 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
 # define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
@@ -151,7 +151,10 @@ typedef struct __attribute__((__packed__)) s_keys
     unsigned char	key_2_triggd : 1;
     unsigned char	key_3 : 1;
     unsigned char	key_3_triggd : 1;
-
+	unsigned char	p_up : 1;
+	unsigned char	p_down : 1;
+	unsigned char	r_speed_up : 1;
+	unsigned char	r_speed_down : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */
@@ -161,8 +164,8 @@ typedef struct __attribute__((__packed__)) s_keys
 /* *** CRITICAL STRUCT *** */
 typedef struct s_mlx_obj
 {
-	int		win_i; //
-	int		win_j; //
+	int		win_i;
+	int		win_j;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -205,6 +208,8 @@ typedef struct s_scene
 	double			_pitch;
 	double			_yaw;
 	double			_roll;
+	double			m_speed;
+	double			r_speed;
 	double			mult;
 }	t_scene;
 

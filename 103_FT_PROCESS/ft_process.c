@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:17:22 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 13:34:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/01 18:08:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ static void	ft_init_right_up(
 	ft_vec_norm(up, up);
 }
 
-static void	ft_apply_roll(
-	t_vec right, t_vec up, double roll)
+static void	ft_apply_roll(t_vec right, t_vec up, double roll)
 {
 	double	cr;
 	double	sr;

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 14:06:26 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:41:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ static inline int	key_enable(int keycode, t_keys *keys)
     	keys->q = 1;
 	else if (keycode == XK_e)
     	keys->e = 1;
+	else if (keycode == XK_F1)	
+		keys->p_up = 1;
+	else if (keycode == XK_F2)
+		keys->p_down = 1;
+	else if (keycode == XK_F11)
+		keys->r_speed_up = 1;
+	else if (keycode == XK_F12)
+		keys->r_speed_down = 1;
 	return (0);
 }
 
@@ -117,6 +125,14 @@ static inline int	key_disable(int keycode, t_keys *keys)
         keys->q = 0;
     else if (keycode == XK_e)
         keys->e = 0;
+	else if (keycode == XK_F1)
+		keys->p_up = 0;
+	else if (keycode == XK_F2)
+		keys->p_down = 0;
+	else if (keycode == XK_F11)
+		keys->r_speed_up = 0;
+	else if (keycode == XK_F12)
+		keys->r_speed_down = 0;
     return (0);
 }
 
@@ -125,20 +141,20 @@ static inline int	loop(uintptr_t objscenekeys[3])
 	if (((t_keys *)(void *)*(objscenekeys + 2))->esc)
 	{
 		write(1, "\n", 1);
-		free_scene((t_scene *)(void *)*(objscenekeys + 1));
+		free_scene((t_scene *)(void *)objscenekeys[1]);
 		ft_free_mlx_obj((t_mlx_obj *)(void *)*objscenekeys);
 		exit(0);
 	}
-	ft_mlx_key_hook((t_mlx_obj *)(void *)*objscenekeys,
-		(t_scene *)(void *)*(objscenekeys + 1),
-		(t_keys *)(void *)*(objscenekeys + 2));
+	ft_mlx_key_hook((t_mlx_obj *)(void *)objscenekeys[0],
+		(t_scene *)(void *)objscenekeys[1],
+		(t_keys *)(void *)objscenekeys[2]);
 	return (0);
 }
 
 static inline int	quit(uintptr_t objscenekeys[3])
 {
-	ft_free_mlx_obj((t_mlx_obj *)(void *)*objscenekeys);
-	free_scene((t_scene *)(void *)*(objscenekeys + 1));
+	ft_free_mlx_obj((t_mlx_obj *)(void *)objscenekeys[0]);
+	free_scene((t_scene *)(void *)objscenekeys[1]);
 	exit(0);
 }
 
@@ -147,9 +163,9 @@ inline void	ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene)
 	static t_keys	keys = (t_keys){0};
 	uintptr_t		objscenekeys[3];
 
-	*objscenekeys = (uintptr_t)(void *)mobj;
-	*(objscenekeys + 1) = (uintptr_t)(void *)scene;
-	*(objscenekeys + 2) = (uintptr_t)(void *)&keys;
+	objscenekeys[0] = (uintptr_t)(void *)mobj;
+	objscenekeys[1] = (uintptr_t)(void *)scene;
+	objscenekeys[2] = (uintptr_t)(void *)&keys;
 	mlx_hook(mobj->win, 17, 0, quit, objscenekeys);
 	mlx_hook(mobj->win, 3, 1L << 1, key_disable, &keys);
 	mlx_hook(mobj->win, 2, 1L << 0, key_enable, &keys);

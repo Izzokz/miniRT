@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:22:51 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 13:35:30 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/04 13:01:31 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	ft_display_object_help(t_mlx_obj *mobj);
 
 // ft_mlx_menu.c
 void	ft_display_menu(t_mlx_obj *mobj, t_rules *rules);
-void	ft_menu_handler(t_keys *keys, t_rules *rules);
+void	ft_menu_handler(t_scene *scene, t_mlx_obj *mobj, t_keys *keys, t_rules *rules);
 
 #endif

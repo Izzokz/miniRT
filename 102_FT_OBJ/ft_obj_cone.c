@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:18:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 11:57:25 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/05 14:13:05 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static double	intersect_base(const t_obj *co, t_ray ray, t_vec axis)
 	t = ft_vec_dot(p_to_base, axis) / dot_ray_axis;
 	if (t < 1e-6)
 		return (-1.0);
-	ft_vec_scale(hit_point, *(ray + 1), t);
-	ft_vec_add(hit_point, *ray, hit_point);
+	ft_vec_scale(hit_point, ray[1], t);
+	ft_vec_add(hit_point, ray[0], hit_point);
 	ft_vec_sub(p_to_base, hit_point, base_center);
 	if (ft_vec_dot(p_to_base, p_to_base) < pow(co->params[6] / 2.0, 2))
 		return (t);
@@ -64,8 +64,8 @@ static double	intersect_body(const t_obj *co, t_ray ray, t_vec axis)
 	double	t;
 
 	k = pow(co->params[6] / 2.0, 2) / pow(co->params[7], 2);
-	ft_vec_sub(oc, *ray, co->params);
-	dots[0] = ft_vec_dot(*(ray + 1), axis);
+	ft_vec_sub(oc, ray[0], co->params);
+	dots[0] = ft_vec_dot(ray[1], axis);
 	dots[1] = ft_vec_dot(oc, axis);
 	coeffs[0] = ft_vec_dot(*(ray + 1), *(ray + 1)) - (1 + k) * pow(dots[0], 2);
 	coeffs[1] = 2 * (ft_vec_dot(*(ray + 1), oc) - (1 + k) * dots[0] * dots[1]);
