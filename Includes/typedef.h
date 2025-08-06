@@ -125,12 +125,12 @@ typedef struct s_light
 /* *** CRITICAL STRUCT *** */
 typedef struct __attribute__((__packed__)) s_keys
 {
-	unsigned char	a : 1;
-	unsigned char	d : 1;
-	unsigned char	shift : 1;
-	unsigned char	space : 1;
-	unsigned char	s : 1;
-	unsigned char	w : 1;
+	unsigned char	a : 1; //
+	unsigned char	d : 1; //
+	unsigned char	shift : 1; //
+	unsigned char	space : 1; //
+	unsigned char	s : 1; //
+	unsigned char	w : 1; //
 	unsigned char	left : 1;
 	unsigned char	right : 1;
 	unsigned char	down : 1;
