@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/01 11:33:00 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:29:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ unsigned int	ft_color_chill(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	t_color	reflect;
 	t_color	bounce;
 	char	iter;
-	float	mult;
 
 	ft_memset(color, 0, 3);
 	ft_color_ads(color, scene, hit);
