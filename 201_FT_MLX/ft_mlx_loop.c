@@ -58,7 +58,7 @@ static inline int	key_enable(int keycode, t_keys *keys)
     	keys->q = 1;
 	else if (keycode == XK_e)
     	keys->e = 1;
-	else if (keycode == XK_F1)	
+	else if (keycode == XK_F1)
 		keys->p_up = 1;
 	else if (keycode == XK_F2)
 		keys->p_down = 1;

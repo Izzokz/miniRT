@@ -189,6 +189,21 @@ static void	ft_process_one_pixel(t_mlx_obj *mobj, t_scene *s,
 	ft_hit_parse(mobj, s->coords, s, r);
 }
 
+static inline void	ft_progbar(char reset)
+{
+	static unsigned int			prog = -1;
+	static const unsigned int	max = HEIGHT * WIDTH;
+
+	if (reset)
+		prog = -1;
+	else
+	{
+		printf("\r\e[94;7mR\e[0m%d%%\e[32;1m\e[0m    ",
+			(unsigned int)(((double)++prog / max) * 100));
+		fflush(stdout);
+	}
+}
+
 static void	ft_calculate_pixels(t_mlx_obj *mobj, t_scene *s,
 	const t_rules *r, const t_vec cam_vectors[3])
 {
@@ -198,11 +213,14 @@ static void	ft_calculate_pixels(t_mlx_obj *mobj, t_scene *s,
 		s->coords[0] = 0;
 		while (s->coords[0] < WIDTH)
 		{
+			ft_progbar(0);
 			ft_process_one_pixel(mobj, s, r, cam_vectors);
 			s->coords[0] += r->pixel_cross;
 		}
 		s->coords[1] += r->pixel_cross;
 	}
+	ft_putstr_fd("\r\e[94;7mR\e[0m100%\e[32;1mOK\e[0m", 1);
+	ft_progbar(1);
 }
 
 void	ft_process(t_mlx_obj *mobj,
