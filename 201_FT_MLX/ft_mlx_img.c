@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 23:43:36 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:27:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene,
 {
 	if (rerender)
 	{
-		ft_putstr_fd("\r\e[94;7mR\e[0m  ", 1);
+		ft_putstr_fd("\r\e[94;7mR\e[0m     ", 1);
 		ft_process(mobj, scene, rules);
-		ft_putstr_fd("\r\e[94;7mR\e[0m\e[32;1mOK\e[0m", 1);
 	}
 	mlx_put_image_to_window(mobj->mlx, mobj->win, mobj->img, 0, 0);
 	ft_display_menu(mobj, rules);

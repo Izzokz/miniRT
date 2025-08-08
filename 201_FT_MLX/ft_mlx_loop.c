@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 23:41:42 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:55:13 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline int	key_enable(int keycode, t_keys *keys)
     	keys->q = 1;
 	else if (keycode == XK_e)
     	keys->e = 1;
-	else if (keycode == XK_F1)	
+	else if (keycode == XK_F1)
 		keys->p_up = 1;
 	else if (keycode == XK_F2)
 		keys->p_down = 1;

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/05 16:12:39 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/08 16:09:35 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,59 +19,66 @@ static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
 		+ v2[1] * epsilon, v1[2] + v2[2] * epsilon);
 }
 
-static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
-{
-	double	percent;
-
-	percent = (double)(ft_rand() % 101) / 100;
-	random[0] = ((double)(ft_rand() % 201) - 100) / 100;
-	random[1] = ((double)(ft_rand() % 201) - 100) / 100;
-	random[2] = ((double)(ft_rand() % 201) - 100) / 100;
-	ft_vec_scale(random, random, MRT_LIGHT_RADIUS * percent);
-	ft_vec_add(random, lpos, random);
-}
-
-// static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
+// de la merde en puissance...
+// static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
 // {
-// 	t_ray	ray;
-// 	double	dot;
+// 	double	percent;
 
-// 	ft_new_ray(ray, *hit, dir);
-// 	dot = ft_vec_dot(*(hit + 1), *(ray + 1));
-// 	return (dot * (dot >= 0));
+// 	percent = (double)(ft_rand() % 101) / 100;
+// 	random[0] = ((double)(ft_rand() % 201) - 100) / 100;
+// 	random[1] = ((double)(ft_rand() % 201) - 100) / 100;
+// 	random[2] = ((double)(ft_rand() % 201) - 100) / 100;
+// 	ft_vec_scale(random, random, MRT_LIGHT_RADIUS * percent);
+// 	ft_vec_add(random, lpos, random);
 // }
 
-
-static inline void	ft_color_light_dist(t_color edit,
-	const t_light *light, const t_ray oray, const t_scene *scene)
+static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
 {
-	static 			const float factors[3] = {.5, .1, .016};
-	double 			tmp[5];
-	t_ray 			shadow_tester;
-	t_obj 			*hit;
-	unsigned char	i;
+	t_ray	ray;
+	double	dot;
+
+	ft_new_ray(ray, hit[0], dir);
+	dot = ft_vec_dot(hit[1], ray[1]);
+	return (dot * (dot >= 0));
+}
+
+/*
+tmp[0] = percentage
+tmp[1] = attenuation
+tmp[2] = random vector
+*/
+static inline void	ft_color_light_dist(t_color edit,
+	const t_light *light, const t_vec oray_norm[3], const t_scene *scene)
+{
+	static const float	factors[3] = {.5, .1, .016};
+	double				tmp[5];
+	t_ray				shadow_tester;
+	t_obj				*hit;
+	unsigned char		i;
 
 	tmp[0] = 0;
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(shadow_tester[0], oray[0], oray[1], 1e-4);
-		ft_vec_random_sphere(tmp + 2, light->pos);
-		ft_ray_dir(shadow_tester, tmp + 2);
+		ft_vec_offset(shadow_tester[0], oray_norm[0], oray_norm[1], 0.001);
+		ft_new_ray(shadow_tester, oray_norm[0], light->pos);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
 		if (!hit || ft_vec_dist(shadow_tester[0], hit->params)
 			> ft_vec_dist(shadow_tester[0], light->pos))
 			tmp[0] += 1;
 	}
+	tmp[0] /= MRT_SHADOW_SAMPLES;
 	ft_memcpy(edit, light->color, 3);
-	tmp[1] = ft_vec_dist(light->pos, oray[0]);
-	tmp[1] = 1.0 / (factors[0] + factors[1] * tmp[1] + factors[2] * pow(tmp[1], 2));
-	ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]);
+	tmp[1] = ft_vec_dist(oray_norm[0], light->pos);
+	tmp[1] = 1.0 / (factors[0] + factors[1] * tmp[1]
+			+ factors[2] * pow(tmp[1], 2));
+	ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]
+		* ft_get_lambert(oray_norm, light->pos));
 }
 
 /*
-hit[0] = hit_to_light
-hit[1] = hit (just after hit (no modification))
+	hit[0] = hit_to_light
+	hit[1] = hit (just after hit (no modification))
 */
 static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
 	const t_ray hit[2], const t_light *light)
@@ -110,7 +117,7 @@ void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
 {
 	t_vec	axis;
 	t_vec	cp;
-	t_vec proj;
+	t_vec	proj;
 	double	dot;
 	double	height;
 
@@ -122,12 +129,12 @@ void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
 	if (fabs(dot) < 1e-4)
 	{
 		ft_vec_scale(normal, axis, -1);
-		return;
+		return ;
 	}
 	if (fabs(dot - height) < 1e-4)
 	{
 		ft_cpy_vec(normal, axis);
-		return;
+		return ;
 	}
 	ft_vec_scale(proj, axis, dot);
 	ft_vec_sub(normal, cp, proj);
@@ -153,6 +160,7 @@ void	ft_cone_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
 void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
 	t_vec normal, const t_vec ray_dir)
 {
+
 	if (obj->hit == ft_hit_s)
 	{
 		ft_vec_sub(normal, hit_point, obj->params);
@@ -173,13 +181,16 @@ void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
 		ft_new_vec(normal, 0, 1, 0);
 }
 
+/*
+tmp = hit_pos to light (ray)
+tmp[2] = normal
+*/
 static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 {
 	t_color_ads	ads;
-	t_ray		tmp;
+	t_vec		tmp[3];
 	t_ray		cat[2];
 	t_light		*light;
-	t_vec		normal;
 
 	ft_memset(&ads, 0, sizeof(t_color_ads));
 	ft_color_mult(ads.ambient, hit->color, scene->ambient_light.color);
@@ -188,11 +199,10 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 	while (light)
 	{
 		ft_new_ray(tmp, scene->ray[0], light->pos);
+		ft_obj_normal(hit, scene->ray[0], tmp[2], scene->ray[1]);
 		ft_color_light_dist(ads.diffuse[1], light, tmp, scene);
 		ft_color_mult(ads.diffuse[1], ads.diffuse[1], hit->color);
-		ft_obj_normal(hit, scene->ray[0], normal, scene->ray[1]);
-		ft_color_scale(ads.diffuse[1],
-			fmax(0, ft_vec_dot(normal, tmp[1])));
+		ft_color_scale(ads.diffuse[1], fmax(0, ft_vec_dot(tmp[2], tmp[1])));
 		ft_color_add(ads.diffuse[0], ads.diffuse[1]);
 		ft_store(cat, tmp, scene->ray);
 		ft_blinn_phong(ads.specular[0], scene, cat, light);
@@ -234,6 +244,7 @@ unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, t_scene *scene,
 	char	iter;
 
 	ft_memset(color, 0, 3);
+	ft_memset(bounce, 0, 3);
 	ft_color_ads(color, scene, hit);
 	scene->mult = rules->ref_str;
 	iter = -1;
@@ -242,7 +253,6 @@ unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, t_scene *scene,
 		hit = ft_hit_nearest_obj(hit_ray, scene->objects);
 		if (!hit)
 			break ;
-		ft_memset(bounce, 0, 3);
 		ft_color_ads(bounce, scene, hit);
 		ft_color_reflect(reflect, bounce, scene->mult);
 		ft_color_add(color, reflect);
