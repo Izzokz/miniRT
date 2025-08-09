@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/09 16:53:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 17:30:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,27 @@
 // This macro is not protected.
 // If you really need to edit it, ensure :
 // !(MRT_PIXEL_CROSS_PERF <= 0)
+// == SPEED FACTOR (on displacement).
 // =======================================
 /* *** CRITICAL MACRO *** */
 # define MRT_PIXEL_CROSS_PERF 8 // INIT : 8
+
+# ifdef MRT_MAX_REF
+#  undef MRT_MAX_REF
+# endif
+
+/* *** CRITICAL MACRO *** */
+// =========================================
+// This macro is not protected.
+// If you want to edit it, ensure :
+// !(MRT_MAX_REF <= 0 || MRT_MAX_REF >= 255)
+// Note that it involves MRT_SHADOW_SAMPLES.
+// For example : MRT_SHADOW_SAMPLES is set
+// to 100 and this macro to 100, it will be
+// equivalent to this macro set to 10000.
+// == SPEED FACTOR.
+// =========================================
+# define MRT_MAX_REF 4 // INIT : 4 | BEST : 100
 
 # ifdef MRT_SHADOW_SAMPLES
 #  undef MRT_SHADOW_SAMPLES
@@ -70,9 +88,14 @@
 // This macro is not protected.
 // If you want to edit it, ensure :
 // !(MRT_SHADOW_SAMPLES <= 0 || MRT_SHADOW_SAMPLES >= 255)
+// Note that it depends on MRT_MAX_REF meaning it is
+// MRT_MAX_REF times slower. For example : MRT_MAX_REF
+// is set to 100 and this macro to 100, it will be
+// equivalent to this macro set to 10000.
+// == SPEED FACTOR.
 // ======================================================
 /* *** CRITICAL MACRO *** */
-# define MRT_SHADOW_SAMPLES 1 // INIT : 3
+# define MRT_SHADOW_SAMPLES 1 // INIT : 1 | BEST : 100
 
 # ifdef MRT_LIGHT_RADIUS
 #  undef MRT_LIGHT_RADIUS

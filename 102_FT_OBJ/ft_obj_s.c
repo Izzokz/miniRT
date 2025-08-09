@@ -17,8 +17,8 @@ void	ft_reflect(t_ray ray, t_vec posnorm[2])
 	double	dot;
 	t_vec	tmp;
 
-//	ft_vec_scale(tmp, ray[1], 1e-3);
-//	ft_vec_add(ray[0], ray[0], tmp);
+	ft_vec_scale(tmp, ray[1], 1e-3);
+	ft_vec_add(ray[0], ray[0], tmp);
 	dot = 2.0 * ft_vec_dot(ray[1], posnorm[1]);
 	ft_vec_scale(tmp, posnorm[1], dot);
 	ft_cpy_vec(ray[0], posnorm[0]);

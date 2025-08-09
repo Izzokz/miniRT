@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 15:37:41 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/26 15:54:16 by lumugot          ###   ########.fr       */
+/*   Created: 2024/10/21 12:05:38 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2024/11/01 14:28:55 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 4200
 # endif
 
-size_t	my_strlen(const char *str);
-size_t	ft_line_len(const char *str);
-char	*ft_strjoin_buf(char *s1, char *s2);
-int		ft_strchr_endl(const char *str, char c);
-char	*ft_read_and_fill(int fd, char *buffer, char *stash);
-char	*ft_copy_stay(char *str);
-char	*ft_extract_line(char *str);
+size_t	ft_strlen(const char *s);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strjoinfree(char **s1, char **s2);
 char	*get_next_line(int fd);
 
 #endif

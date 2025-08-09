@@ -50,6 +50,11 @@ static inline char	bad_tokens_cone(char **tokens)
 			"co <pos> <axis> <diameter> <height> <color>");
 		return (PARSE_KO);
 	}
+	if (**(tokens + 3) == '-')
+	{
+		print_error("Invalid height for cone !");
+		return (PARSE_KO);
+	}
 	return (PARSE_OK);
 }
 

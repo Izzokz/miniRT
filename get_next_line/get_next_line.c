@@ -3,109 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 13:23:41 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/31 18:09:56 by lumugot          ###   ########.fr       */
+/*   Created: 2024/10/21 12:05:26 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2024/11/01 14:28:34 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read_and_fill(int fd, char *buffer, char *stash)
+static void	free_all(char **buffer, char **temp_str)
 {
-	int	read_char;
-
-	read_char = 1;
-	while ((!ft_strchr_endl(stash, '\n')) && read_char > 0)
+	if (*buffer)
 	{
-		read_char = read(fd, buffer, BUFFER_SIZE);
-		if (read_char <= 0)
+		free(*buffer);
+		*buffer = NULL;
+	}
+	if (*temp_str)
+	{
+		free(*temp_str);
+		*temp_str = NULL;
+	}
+}
+
+static int	endl_in(char *buffer)
+{
+	int	i;
+
+	i = -1;
+	while (buffer[++i])
+		if (buffer[i] == '\n')
+			return (1);
+	return (0);
+}
+
+static int	process_return(char **buffer, char **temp_str)
+{
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	if (!ft_strlen(*buffer))
+		return (-1);
+	while ((*buffer)[++i] && (*buffer)[i] != '\n')
+		;
+	if (!(*buffer)[i])
+		return (0);
+	*temp_str = ft_calloc(ft_strlen(*buffer) - i, 1);
+	if (!(*temp_str))
+		return (-1);
+	j = -1;
+	while ((*buffer)[++i])
+	{
+		(*temp_str)[++j] = (*buffer)[i];
+		(*buffer)[i] = '\0';
+	}
+	return (0);
+}
+
+static int	search_next_line(char **buffer, char **temp_str, int fd)
+{
+	int	term;
+
+	while (!endl_in(*buffer))
+	{
+		if (*temp_str)
+			free_all(temp_str, temp_str);
+		*temp_str = ft_calloc(BUFFER_SIZE + 1, 1);
+		if (!(*temp_str))
+			return (-1);
+		term = read(fd, *temp_str, BUFFER_SIZE);
+		if (term == -1)
+			return (-1);
+		*buffer = ft_strjoinfree(buffer, temp_str);
+		if (!(*buffer))
+			return (-1);
+		if (term < BUFFER_SIZE)
 			break ;
-		buffer[read_char] = '\0';
-		stash = ft_strjoin_buf(stash, buffer);
 	}
-	if (read_char < 0 || (read_char == 0 && my_strlen(stash) == 0))
-	{
-		free(stash);
-		return (NULL);
-	}
-	return (stash);
-}
-
-char	*ft_extract_line(char *str)
-{
-	int		index;
-	int		len_n;
-	char	*stock;
-
-	if (!str)
-		return (NULL);
-	index = 0;
-	len_n = ft_line_len(str);
-	stock = malloc(sizeof(char) * (len_n + 1));
-	if (!stock)
-		return (NULL);
-	while (str[index] && index < len_n)
-	{
-		stock[index] = str[index];
-		index++;
-	}
-	stock[index] = '\0';
-	return (stock);
-}
-
-char	*ft_copy_stay(char *str)
-{
-	int		index;
-	int		len;
-	char	*save;
-
-	if (!str)
-		return (NULL);
-	index = 0;
-	len = ft_line_len(str);
-	save = malloc(sizeof(char) * ((my_strlen(str) - len) + 1));
-	if (!save)
-	{
-		free(str);
-		return (NULL);
-	}
-	while (str[len])
-	{
-		save[index] = str[len];
-		index++;
-		len++;
-	}
-	save[index] = '\0';
-	free(str);
-	return (save);
+	return (process_return(buffer, temp_str));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
-	char		*line;
+	static char	*temp_str;
 	char		*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (!stash)
+	if (!temp_str)
+		temp_str = NULL;
+	buffer = NULL;
+	buffer = ft_calloc(1, 1);
+	if (fd < 0 || BUFFER_SIZE <= 0 || !buffer)
 	{
-		stash = malloc(1);
-		stash[0] = 0;
+		free_all(&buffer, &temp_str);
+		return (buffer);
 	}
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	stash = ft_read_and_fill(fd, buffer, stash);
-	free(buffer);
-	line = ft_extract_line(stash);
-	if (!line)
-	{
-		free(stash);
-		return (NULL);
-	}
-	stash = ft_copy_stay(stash);
-	return (line);
+	if (temp_str)
+		buffer = ft_strjoinfree(&buffer, &temp_str);
+	if (search_next_line(&buffer, &temp_str, fd) == -1)
+		free_all(&buffer, &temp_str);
+	else if (temp_str && temp_str[0] == '\0')
+		free_all(&temp_str, &temp_str);
+	return (buffer);
 }

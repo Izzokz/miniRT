@@ -75,5 +75,13 @@ void	ft_menu_handler(t_scene *scene, t_mlx_obj *mobj, t_keys *keys, t_rules *rul
 	ft_menu_toggle_and_back(keys, rules);
 	if (rules->menu_state > 0)
 		ft_menu_navigation(keys, rules);
-	ft_mlx_img_update(mobj, scene, rules, 0);	
+	if (keys->tab_triggd || keys->key_1_triggd
+		|| keys->key_2_triggd || keys->key_3_triggd)
+	{
+		keys->tab = 0;
+		keys->key_1 = 0;
+		keys->key_2 = 0;
+		keys->key_3 = 0;
+		ft_mlx_img_update(mobj, scene, rules, 0);
+	}
 }
