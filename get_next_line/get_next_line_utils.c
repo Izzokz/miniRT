@@ -3,78 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 13:24:23 by lumugot           #+#    #+#             */
-/*   Updated: 2025/06/25 11:26:03 by lumugot          ###   ########.fr       */
+/*   Created: 2024/10/21 12:05:32 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2024/11/01 14:28:43 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	my_strlen(const char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	count;
+	void	*alloc;
+	size_t	i;
 
-	count = 0;
+	if ((long)nmemb == 0 || (long)size == 0)
+		return (malloc(0));
+	if (size && nmemb > SIZE_MAX / size)
+		return (NULL);
+	alloc = NULL;
+	alloc = malloc(nmemb * size);
+	if (!alloc)
+		return (NULL);
+	i = -1;
+	while (++i < nmemb * size)
+		*(unsigned char *)(alloc + i) = '\0';
+	return (alloc);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
 	if (!str)
 		return (0);
-	while (str[count])
-		count++;
-	return (count);
+	len = -1;
+	while (str[++len])
+		;
+	return (len);
 }
 
-size_t	ft_line_len(const char *str)
+static size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t	count;
+	size_t	i;
+	size_t	j;
+	size_t	init_dest;
+	size_t	init_src;
 
-	count = 0;
-	while (str[count] && str[count] != '\n')
-		count++;
-	if (str[count] == '\n')
-		count++;
-	return (count);
-}
-
-int	ft_strchr_endl(const char *str, char c)
-{
-	int	index;
-
-	index = 0;
-	if (!str)
-		return (0);
-	while (str[index])
-	{
-		if (str[index] == c)
-			return (1);
-		index++;
-	}
-	return (0);
-}
-
-char	*ft_strjoin_buf(char *s1, char *s2)
-{
-	size_t		i;
-	size_t		j;
-	size_t		full_size;
-	char		*tab;
-
-	i = 0;
+	i = ft_strlen((const char *)dest);
 	j = 0;
-	if (!s1 && !s2)
-		return (NULL);
-	full_size = my_strlen(s1) + my_strlen(s2);
-	tab = malloc(sizeof(char) * full_size + 1);
-	if (!tab)
-		return (NULL);
-	while (s1[i] && s1)
+	init_dest = i;
+	init_src = ft_strlen(src);
+	if (size <= init_dest)
+		return (size + init_src);
+	while (src[j] && j < size - init_dest - 1)
 	{
-		tab[i] = s1[i];
+		dest[i] = src[j];
 		i++;
+		j++;
 	}
-	while (s2[j])
-		tab[i++] = s2[j++];
-	tab[i] = '\0';
-	free(s1);
-	return (tab);
+	dest[i] = '\0';
+	return (init_dest + init_src);
+}
+
+char	*ft_strjoinfree(char **s1, char **s2)
+{
+	size_t	len;
+	char	*new_str;
+
+	len = ft_strlen(*s1);
+	if (*s2)
+		len += ft_strlen(*s2);
+	new_str = ft_calloc(len + 1, 1);
+	if (!new_str)
+		return (NULL);
+	if (*s1)
+	{
+		ft_strlcat(new_str, *s1, len + 1);
+		free(*s1);
+		*s1 = NULL;
+	}
+	if (*s2)
+	{
+		ft_strlcat(new_str, *s2, len + 1);
+		free(*s2);
+		*s2 = NULL;
+	}
+	return (new_str);
 }
