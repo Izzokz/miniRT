@@ -47,9 +47,9 @@ tmp[1] = attenuation
 tmp + 2 = random vector
 */
 static inline void	ft_color_light_dist(t_color edit,
-	const t_light *light, const t_vec oray_norm[3], const t_scene *scene)
+	const t_light *light, const t_vec oray[2], const t_scene *scene)
 {
-	static const float	factors[3] = {.5, .1, .016};
+	static const float	f[3] = {.5, .1, .016};
 	double				tmp[5];
 	t_ray				shadow_tester;
 	t_obj				*hit;
@@ -59,7 +59,7 @@ static inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(shadow_tester[0], oray_norm[0], oray_norm[1], .001);
+		ft_vec_offset(shadow_tester[0], oray[0], oray[1], 1);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
@@ -67,36 +67,13 @@ static inline void	ft_color_light_dist(t_color edit,
 			> ft_vec_dist(shadow_tester[0], light->pos))
 			tmp[0] += 1;
 	}
-	tmp[0] /= MRT_SHADOW_SAMPLES;
+	tmp[0] = tmp[0] / MRT_SHADOW_SAMPLES;
+//	tmp[0] = tmp[0] + (1.0 - tmp[0]) * scene->mult;
 	ft_memcpy(edit, light->color, 3);
-	tmp[1] = ft_vec_dist(oray_norm[0], light->pos);
-	tmp[1] = 1.0 / (factors[0] + factors[1] * tmp[1]
-			+ factors[2] * pow(tmp[1], 2));
+	tmp[1] = ft_vec_dist(oray[0], light->pos);
+	tmp[1] = 1.0 / (f[0] + f[1] * tmp[1] + f[2] * pow(tmp[1], 2));
 	ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]
-		* ft_get_lambert(oray_norm, light->pos));
-}
-
-/*
-hit[0] = hit_to_light
-hit[1] = hit (just after hit (no modification))
-*/
-static inline void	ft_blinn_phong(t_color specular, const t_scene *scene,
-	const t_ray hit[2], const t_light *light)
-{
-	t_ray	cam_to_hit;
-	t_vec	halfway;
-	double	spec;
-
-	ft_new_ray(cam_to_hit, scene->camera.pos, hit[0][0]);
-	ft_vec_add(halfway, hit[0][1], cam_to_hit[1]);
-	ft_vec_norm(halfway, halfway);
-	spec = ft_vec_dot(hit[1][1], halfway);
-	if (spec < 0)
-		spec = 0;
-	else
-		spec = pow(spec, PHONG_SHININESS);
-	ft_color_light_dist(specular, light, hit[1], scene);
-	ft_color_scale(specular, spec);
+		* ft_get_lambert(oray, light->pos));
 }
 
 static inline void	ft_color_merge(t_color edit, const t_color ambient,
@@ -105,12 +82,6 @@ static inline void	ft_color_merge(t_color edit, const t_color ambient,
 	ft_color_add(edit, ambient);
 	ft_color_add(edit, diffuse);
 	ft_color_add(edit, specular);
-}
-
-static inline void	ft_store(t_ray cat[2], const t_ray r1, const t_ray r2)
-{
-	ft_memcpy(cat[0], r1, sizeof(t_ray));
-	ft_memcpy(cat[1], r2, sizeof(t_ray));
 }
 
 void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
@@ -124,7 +95,7 @@ void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
 	ft_cpy_vec(axis, obj->params + 3);
 	ft_vec_norm(axis, axis);
 	ft_vec_sub(cp, hit_point, obj->params);
-	height = obj->params[6];
+	height = obj->params[7];
 	dot = ft_vec_dot(cp, axis);
 	if (fabs(dot) < 1e-4)
 	{
@@ -198,13 +169,11 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 	while (light)
 	{
 		ft_new_ray(tmp, scene->ray[0], light->pos);
-		ft_obj_normal(hit, scene->ray[0], tmp[2], scene->ray[1]);
 		ft_color_light_dist(ads.diffuse[1], light, tmp, scene);
 		ft_color_mult(ads.diffuse[1], ads.diffuse[1], hit->color);
+		ft_obj_normal(hit, scene->ray[0], tmp[2], scene->ray[1]);
 		ft_color_scale(ads.diffuse[1], fmax(0, ft_vec_dot(tmp[2], tmp[1])));
 		ft_color_add(ads.diffuse[0], ads.diffuse[1]);
-		ft_store(cat, tmp, scene->ray);
-		ft_blinn_phong(ads.specular[0], scene, cat, light);
 		ft_color_add(ads.specular[1], ads.specular[0]);
 		light = light->next;
 	}
@@ -244,8 +213,8 @@ unsigned int	ft_blend_color(t_ray hit_ray, t_obj *hit, t_scene *scene,
 
 	ft_memset(color, 0, 3);
 	ft_memset(bounce, 0, 3);
-	ft_color_ads(color, scene, hit);
 	scene->mult = rules->ref_str;
+	ft_color_ads(color, scene, hit);
 	iter = -1;
 	while (++iter < rules->ref)
 	{

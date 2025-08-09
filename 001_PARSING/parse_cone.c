@@ -83,6 +83,11 @@ int	parse_cone(char **tokens, t_scene *scene)
 			"co <pos> <axis> <diameter> <height> <color>");
 		return (PARSE_KO);
 	}
+	if (tokens[3][0] == '-')
+	{
+		print_error("Invalid height for cone !");
+		return (PARSE_KO);
+	}
 	if (create_and_fill_cone(&new_obj, tokens) != PARSE_OK)
 		return (PARSE_KO);
 	add_obj_to_scene(&scene->objects, new_obj);

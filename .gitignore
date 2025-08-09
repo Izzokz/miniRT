@@ -3,4 +3,4 @@ miniRT
 666_OBJ
 *.o
 .vscode
-.gitignore
+Libft/libft.a

@@ -50,6 +50,11 @@ static inline char	bad_tokens_cylinder(char **tokens)
 			"cy <pos> <normal> <diameter> <height> <color>");
 		return (PARSE_KO);
 	}
+	if (**(tokens + 3) == '-')
+	{
+		print_error("Invalid height for cylinder !");
+		return (PARSE_KO);
+	}
 	return (PARSE_OK);
 }
 

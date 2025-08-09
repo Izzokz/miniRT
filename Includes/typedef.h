@@ -17,9 +17,9 @@
 # define HEIGHT 690 // INIT : 690
 # define MOVE_SPEED .050 // INIT : .069
 # define ROT_SPEED .0060 // INIT : .069
-# define PHONG_SHININESS 6.9 // INIT : 6.9
-# define MRT_MAX_REF 4 // INIT : 4
-# define MRT_MAX_REF_STR .30035 // INIT : .30035
+# define PHONG_SHININESS 69 // INIT : 6.9
+# define MRT_MAX_REF 10 // INIT : 4
+# define MRT_MAX_REF_STR 1. // INIT : .30035
 
 # ifdef MRT_BEST_COLORATION
 #  undef MRT_BEST_COLORATION
@@ -72,7 +72,7 @@
 // !(MRT_SHADOW_SAMPLES <= 0 || MRT_SHADOW_SAMPLES >= 255)
 // ======================================================
 /* *** CRITICAL MACRO *** */
-# define MRT_SHADOW_SAMPLES 3 // INIT : 3
+# define MRT_SHADOW_SAMPLES 1 // INIT : 3
 
 # ifdef MRT_LIGHT_RADIUS
 #  undef MRT_LIGHT_RADIUS
@@ -85,7 +85,7 @@
 // MRT_LIGHT_RADIUS != 0
 // ================================
 /* *** CRITICAL MACRO *** */
-# define MRT_LIGHT_RADIUS .69 // INIT : .69
+# define MRT_LIGHT_RADIUS .0 // INIT : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
