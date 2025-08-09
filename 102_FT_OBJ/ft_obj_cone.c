@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:18:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/05 14:13:05 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 12:49:42 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static double	intersect_base(const t_obj *co, t_ray ray, t_vec axis)
 
 	ft_vec_scale(base_center, axis, co->params[7]);
 	ft_vec_add(base_center, co->params, base_center);
-	dot_ray_axis = ft_vec_dot(*(ray + 1), axis);
+	dot_ray_axis = ft_vec_dot(ray[1], axis);
 	if (fabs(dot_ray_axis) < 1e-6)
 		return (-1.0);
-	ft_vec_sub(p_to_base, base_center, *ray);
+	ft_vec_sub(p_to_base, base_center, ray[0]);
 	t = ft_vec_dot(p_to_base, axis) / dot_ray_axis;
 	if (t < 1e-6)
 		return (-1.0);
