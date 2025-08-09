@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/09 17:30:07 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 18:16:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 // equivalent to this macro set to 10000.
 // == SPEED FACTOR.
 // =========================================
-# define MRT_MAX_REF 4 // INIT : 4 | BEST : 100
+# define MRT_MAX_REF 10 // INIT : 4 | BEST : 100
 
 # ifdef MRT_SHADOW_SAMPLES
 #  undef MRT_SHADOW_SAMPLES

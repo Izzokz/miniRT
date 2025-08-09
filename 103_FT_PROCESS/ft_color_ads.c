@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/09 17:31:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 17:45:51 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 {
 	t_color_ads	ads;
 	t_vec		tmp[3];
-	t_ray		cat[2];
 	t_light		*light;
 
 	ft_memset(&ads, 0, sizeof(t_color_ads));
