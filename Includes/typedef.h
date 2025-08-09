@@ -15,11 +15,10 @@
 
 # define WIDTH 1069 // INIT : 1069
 # define HEIGHT 690 // INIT : 690
-# define MOVE_SPEED .050 // INIT : .069
-# define ROT_SPEED .0060 // INIT : .069
-# define PHONG_SHININESS 69 // INIT : 6.9
-# define MRT_MAX_REF 10 // INIT : 4
-# define MRT_MAX_REF_STR 1. // INIT : .30035
+# define MOVE_SPEED .069 // INIT : .069
+# define ROT_SPEED .0069 // INIT : .0069
+# define PHONG_SHININESS 69 // INIT : 6.9 NEED TO BE DELETED !!!
+# define MRT_MAX_REF_STR .30035 // INIT : .30035 | BEST : 1.
 
 # ifdef MRT_BEST_COLORATION
 #  undef MRT_BEST_COLORATION
@@ -57,9 +56,27 @@
 // This macro is not protected.
 // If you really need to edit it, ensure :
 // !(MRT_PIXEL_CROSS_PERF <= 0)
+// == SPEED FACTOR (on displacement).
 // =======================================
 /* *** CRITICAL MACRO *** */
 # define MRT_PIXEL_CROSS_PERF 8 // INIT : 8
+
+# ifdef MRT_MAX_REF
+#  undef MRT_MAX_REF
+# endif
+
+/* *** CRITICAL MACRO *** */
+// =========================================
+// This macro is not protected.
+// If you want to edit it, ensure :
+// !(MRT_MAX_REF <= 0 || MRT_MAX_REF >= 255)
+// Note that it involves MRT_SHADOW_SAMPLES.
+// For example : MRT_SHADOW_SAMPLES is set
+// to 100 and this macro to 100, it will be
+// equivalent to this macro set to 10000.
+// == SPEED FACTOR.
+// =========================================
+# define MRT_MAX_REF 4 // INIT : 4 | BEST : 100
 
 # ifdef MRT_SHADOW_SAMPLES
 #  undef MRT_SHADOW_SAMPLES
@@ -70,9 +87,14 @@
 // This macro is not protected.
 // If you want to edit it, ensure :
 // !(MRT_SHADOW_SAMPLES <= 0 || MRT_SHADOW_SAMPLES >= 255)
+// Note that it depends on MRT_MAX_REF meaning it is
+// MRT_MAX_REF times slower. For example : MRT_MAX_REF
+// is set to 100 and this macro to 100, it will be
+// equivalent to this macro set to 10000.
+// == SPEED FACTOR.
 // ======================================================
 /* *** CRITICAL MACRO *** */
-# define MRT_SHADOW_SAMPLES 1 // INIT : 3
+# define MRT_SHADOW_SAMPLES 1 // INIT : 1 | BEST : 100
 
 # ifdef MRT_LIGHT_RADIUS
 #  undef MRT_LIGHT_RADIUS
@@ -85,7 +107,7 @@
 // MRT_LIGHT_RADIUS != 0
 // ================================
 /* *** CRITICAL MACRO *** */
-# define MRT_LIGHT_RADIUS .0 // INIT : .69
+# define MRT_LIGHT_RADIUS .69 // INIT : .0 | BEST : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;
