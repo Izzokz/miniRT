@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:41:45 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/04 14:13:57 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 16:15:30 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static inline void	ft_move2(const char x, const char y,
 		ft_vec_scale(tmp, scene->camera.orientation, z);
 		ft_vec_add(delta, delta, tmp);
 	}
-	ft_vec_norm(delta, delta);
 	ft_vec_scale(delta, delta, scene->m_speed);
 	ft_vec_add(scene->camera.pos, scene->camera.pos, delta);
+	ft_vec_norm(delta, delta);
 }
 
 static inline char	ft_move(unsigned char keys, t_scene *scene)

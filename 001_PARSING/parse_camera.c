@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:25:56 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/24 14:30:18 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 16:17:44 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	validate_camera(char **tokens, t_scene *scene)
 		return (PARSE_KO);
 	}
 	scene->camera.is_set = 1;
+	ft_vec_norm(scene->camera.orientation, scene->camera.orientation);
 	return (PARSE_OK);
 }
 

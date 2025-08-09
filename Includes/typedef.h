@@ -6,20 +6,20 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/09 14:07:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 16:53:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# define WIDTH 1069 // INIT : 1069
-# define HEIGHT 690 // INIT : 690
+# define WIDTH 1000 // INIT : 1069
+# define HEIGHT 800  // INIT : 690
 # define MOVE_SPEED .050 // INIT : .069
 # define ROT_SPEED .0060 // INIT : .069
 # define PHONG_SHININESS 6.9 // INIT : 6.9
-# define MRT_MAX_REF 10 // INIT : 4
-# define MRT_MAX_REF_STR .30035 // INIT : .30035
+# define MRT_MAX_REF 100 // INIT : 4
+# define MRT_MAX_REF_STR 1.0 // INIT : .30035
 
 # ifdef MRT_BEST_COLORATION
 #  undef MRT_BEST_COLORATION
