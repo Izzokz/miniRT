@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 13:00:53 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/09 18:16:59 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 19:24:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 // equivalent to this macro set to 10000.
 // == SPEED FACTOR.
 // =========================================
-# define MRT_MAX_REF 10 // INIT : 4 | BEST : 100
+# define MRT_MAX_REF 4 // INIT : 4 | BEST : 100
 
 # ifdef MRT_SHADOW_SAMPLES
 #  undef MRT_SHADOW_SAMPLES
@@ -168,12 +168,12 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	tab : 1;
 	unsigned char	tab_triggd : 1;
 	unsigned char	t : 1;
-    unsigned char	key_1 : 1;
-    unsigned char	key_1_triggd : 1;
-    unsigned char	key_2 : 1;
-    unsigned char	key_2_triggd : 1;
-    unsigned char	key_3 : 1;
-    unsigned char	key_3_triggd : 1;
+	unsigned char	key_1 : 1;
+	unsigned char	key_1_triggd : 1;
+	unsigned char	key_2 : 1;
+	unsigned char	key_2_triggd : 1;
+	unsigned char	key_3 : 1;
+	unsigned char	key_3_triggd : 1;
 	unsigned char	p_up : 1;
 	unsigned char	p_down : 1;
 	unsigned char	r_speed_up : 1;

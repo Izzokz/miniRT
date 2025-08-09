@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:12:50 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:18:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 18:19:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_params(const char *str)
 		return (PARSE_KO);
 	while (str[index])
 	{
-		if(str[index] == '.')
+		if (str[index] == '.')
 			count_dot++;
 		else if (!ft_isdigit(str[index]))
 			return (PARSE_KO);

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:09:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/09 18:15:37 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 20:57:01 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ static inline int	key_enable(int keycode, t_keys *keys)
 	else if (keycode == XK_0)
 		keys->reset = 1;
 	else if (keycode == XK_Tab)
-        keys->tab = 1;
+		keys->tab = 1;
 	else if (keycode == XK_t)
 		keys->t = 1;
 	else if (keycode == XK_1)
-        keys->key_1 = 1;
-    else if (keycode == XK_2)
-        keys->key_2 = 1;
+		keys->key_1 = 1;
+	else if (keycode == XK_2)
+		keys->key_2 = 1;
 	else if (keycode == XK_3)
-        keys->key_3 = 1;
+		keys->key_3 = 1;
 	else if (keycode == XK_q)
-    	keys->q = 1;
+		keys->q = 1;
 	else if (keycode == XK_e)
-    	keys->e = 1;
+		keys->e = 1;
 	else if (keycode == XK_F1)
 		keys->p_up = 1;
 	else if (keycode == XK_F2)
@@ -100,31 +100,31 @@ static inline int	key_disable(int keycode, t_keys *keys)
 	else if (keycode == XK_0)
 		keys->reset = 0;
 	else if (keycode == XK_Tab)
-    {
-        keys->tab = 0;
-        keys->tab_triggd = 0;
-    }
+	{
+		keys->tab = 0;
+		keys->tab_triggd = 0;
+	}
 	else if (keycode == XK_t)
 		keys->t = 0;
-    else if (keycode == XK_1)
-    {
-        keys->key_1 = 0;
-        keys->key_1_triggd = 0;
-    }
-    else if (keycode == XK_2)
-    {
-        keys->key_2 = 0;
-        keys->key_2_triggd = 0;
-    }
+	else if (keycode == XK_1)
+	{
+		keys->key_1 = 0;
+		keys->key_1_triggd = 0;
+	}
+	else if (keycode == XK_2)
+	{
+		keys->key_2 = 0;
+		keys->key_2_triggd = 0;
+	}
 	else if (keycode == XK_3)
-    {
-        keys->key_3 = 0;
-        keys->key_3_triggd = 0;
-    }
-    else if (keycode == XK_q)
-        keys->q = 0;
-    else if (keycode == XK_e)
-        keys->e = 0;
+	{
+		keys->key_3 = 0;
+		keys->key_3_triggd = 0;
+	}
+	else if (keycode == XK_q)
+		keys->q = 0;
+	else if (keycode == XK_e)
+		keys->e = 0;
 	else if (keycode == XK_F1)
 		keys->p_up = 0;
 	else if (keycode == XK_F2)
@@ -133,7 +133,7 @@ static inline int	key_disable(int keycode, t_keys *keys)
 		keys->r_speed_up = 0;
 	else if (keycode == XK_F12)
 		keys->r_speed_down = 0;
-    return (0);
+	return (0);
 }
 
 static inline int	loop(uintptr_t objscenekeys[3])

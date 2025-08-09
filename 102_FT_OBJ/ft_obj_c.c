@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/09 17:58:24 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 19:20:50 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static double	intersect_body_inside(const t_obj *cy, t_ray ray, t_vec axis)
 	double	t;
 	double	m;
 
-	ft_vec_sub(oc, *ray, cy->params);
+	ft_vec_sub(oc, ray[0], cy->params);
 	dots[0] = ft_vec_dot(ray[1], axis);
 	dots[1] = ft_vec_dot(oc, axis);
 	coeffs[0] = ft_vec_dot(ray[1], ray[1]) - dots[0] * dots[0];

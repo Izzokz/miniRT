@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 13:24:51 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/09 13:26:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 18:23:43 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void			ft_process(t_mlx_obj *mobj,
 void			ft_shoot_ray(t_ray,
 					const t_scene *scene, const t_vec scaled[2]);
 
-
-void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
-	t_vec normal, const t_vec ray_dir);
-void	ft_cy_and_co_normal(const t_obj *obj, const t_vec hit_point,
-	t_vec normal);
+void			ft_obj_normal(const t_obj *obj, const t_vec hit_point,
+					t_vec normal, const t_vec ray_dir);
 #endif

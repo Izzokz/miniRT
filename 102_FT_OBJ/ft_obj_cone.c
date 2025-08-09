@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:18:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/09 18:01:16 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/09 19:17:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static double	intersect_body(const t_obj *co, t_ray ray, t_vec axis)
 	ft_vec_sub(oc, ray[0], co->params);
 	dots[0] = ft_vec_dot(ray[1], axis);
 	dots[1] = ft_vec_dot(oc, axis);
-	coeffs[0] = ft_vec_dot(*(ray + 1), *(ray + 1)) - (1 + k) * pow(dots[0], 2);
-	coeffs[1] = 2 * (ft_vec_dot(*(ray + 1), oc) - (1 + k) * dots[0] * dots[1]);
+	coeffs[0] = ft_vec_dot(ray[1], ray[1]) - (1 + k) * pow(dots[0], 2);
+	coeffs[1] = 2 * (ft_vec_dot(ray[1], oc) - (1 + k) * dots[0] * dots[1]);
 	coeffs[2] = ft_vec_dot(oc, oc) - (1 + k) * pow(dots[1], 2);
 	t = solve_quadratic(coeffs[0], coeffs[1], coeffs[2]);
 	if (t < 0.0)
@@ -109,7 +109,7 @@ char	ft_hit_cone(const t_obj *cone, t_ray ray)
 		t_val[2] = t_val[0];
 	else
 		t_val[2] = t_val[1];
-	ft_vec_scale(hit_point, *(ray + 1), t_val[2]);
+	ft_vec_scale(hit_point, ray[1], t_val[2]);
 	ft_vec_add(hit_point, *ray, hit_point);
 	if (t_val[2] == t_val[0])
 		get_normal(normal, cone, hit_point, axis);
