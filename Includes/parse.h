@@ -67,9 +67,6 @@ int		parse_cylinder(char **tokens, t_scene *scene);
 //parse_cone.c
 int		parse_cone(char **tokens, t_scene *scene);
 
-//parse_cube.c
-char	parse_cube(char **tokens, t_scene *scene);
-
 //free_utils.c
 void	free_tab(char **tab);
 void	free_objects(t_obj *obj);

@@ -23,8 +23,6 @@ static inline void	ft_print_object(t_obj *o)
 			*(o->params + 1), *(o->params + 2), *(o->params + 3),
 			*(o->params + 4), *(o->params + 5), *(o->params + 6),
 			*(o->params + 7), *o->color, *(o->color + 1), *(o->color + 2));
-	else if (o->hit == ft_hit_c3)
-		printf("DEPRACATED c3");
 	else if (o->hit == ft_hit_cone)
 		printf("co\t%f,%f,%f\t%f,%f,%f\t%f\t%f\t%d,%d,%d\n", *o->params,
 			*(o->params + 1), *(o->params + 2), *(o->params + 3),
@@ -46,8 +44,6 @@ static inline char	ft_edit_object3(char (*hit)(const t_obj *, t_ray),
 		return (rewrite_plane(edit, tokens));
 	else if (hit == ft_hit_c)
 		return (rewrite_cylinder(edit, tokens));
-//	else if (hit == ft_hit_c3) // WON'T EXIST (CUBES NOT OK)
-//		return (rewrite_cube(edit, tokens));
 	else if (hit == ft_hit_cone)
 		return (rewrite_cone(edit, tokens));
 	return (1);

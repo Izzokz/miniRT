@@ -41,7 +41,6 @@ SRCS			= main.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
-				$(PARSEDIR)parse_cube.c \
 				$(PARSEDIR)parse_cone.c \
 				$(UTILDIR)check_params.c \
 				$(UTILDIR)split_utils.c \
@@ -55,10 +54,10 @@ SRCS			= main.c \
                 $(TOBJDIR)ft_obj_c.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
-				$(TOBJDIR)ft_obj_c3.c \
-				$(TOBJDIR)ft_obj_c3_reflect.c \
 				$(TOBJDIR)ft_obj_cone.c \
                 $(TOBJDIR)ft_light.c \
+				$(PROCESSDIR)ft_color_utils.c \
+				$(PROCESSDIR)ft_color_obj_norm.c \
 				$(PROCESSDIR)ft_color.c \
 				$(PROCESSDIR)ft_color_ads.c \
 				$(PROCESSDIR)ft_color_glass.c \
@@ -67,6 +66,8 @@ SRCS			= main.c \
 				$(PROCESSDIR)ft_color_chill.c \
 				$(PROCESSDIR)ft_color_error.c \
 				$(PROCESSDIR)ft_color_mini.c \
+				$(PROCESSDIR)ft_obj_hit.c \
+				$(PROCESSDIR)ft_process2.c \
 				$(PROCESSDIR)ft_process.c \
                 $(MLXDIR)ft_mlx_init.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
