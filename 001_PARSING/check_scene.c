@@ -64,8 +64,6 @@ int	check_element(char **tokens, t_scene *scene)
 		status = parse_plane(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
 		status = parse_cylinder(++tokens, scene);
-	else if (!ft_strncmp(*tokens, "c3", 3))
-		status = parse_cube(++tokens, scene);
 	else if (!ft_strncmp(*tokens, "co", 3))
 		status = parse_cone(++tokens, scene);
 	else

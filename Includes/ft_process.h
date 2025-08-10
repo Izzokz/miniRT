@@ -15,6 +15,31 @@
 
 # include "typedef.h"
 
+// ft_color_utils.c
+void			ft_vec_offset(t_vec newv, const t_vec v1,
+					const t_vec v2, const double epsilon);
+void			ft_vec_random_sphere(t_vec random, const t_vec lpos);
+double			ft_get_lambert(const t_ray hit, const t_vec dir);
+void			ft_store(t_ray cat[2], const t_ray r1, const t_ray r2);
+void			ft_color_merge(t_color edit, const t_color ambient,
+					const t_color diffuse, const t_color specular);
+
+// ft_color_obj_norm.c
+void			ft_obj_normal(const t_obj *obj, const t_vec hit_point,
+					t_vec normal, const t_vec ray_dir);
+
+void			ft_color_ads_bug(t_color edit, const t_scene *scene,
+					const t_obj *hit);
+
+void			ft_color_fix(t_color edit);
+
+void			ft_color_light_dist(t_color edit, const t_light *light,
+					const t_vec oray[2], const t_scene *scene);
+
+void			ft_put_color(t_mlx_obj *mobj,
+					int x, int y, unsigned int color);
+void			ft_init_cam_vectors(t_vec cam_vectors[3], const t_scene *s);
+
 t_obj			*ft_hit_nearest_obj(t_ray, const t_obj *head);
 t_obj			*ft_hit_nearest_obj_nb(const t_ray, const t_obj *head);
 void			ft_color_mult(t_color edit, const t_color m1, const t_color m2);
@@ -44,4 +69,5 @@ void			ft_shoot_ray(t_ray,
 
 void			ft_obj_normal(const t_obj *obj, const t_vec hit_point,
 					t_vec normal, const t_vec ray_dir);
+
 #endif

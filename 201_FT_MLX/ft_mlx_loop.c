@@ -12,127 +12,51 @@
 
 #include "miniRT.h"
 
-static inline int	key_enable(int keycode, t_keys *keys)
+static inline int	key_enable(int keycode, uint32_t *keys)
 {
-	if (keycode == XK_w)
-		keys->w = 1;
-	else if (keycode == XK_a)
-		keys->a = 1;
-	else if (keycode == XK_s)
-		keys->s = 1;
-	else if (keycode == XK_d)
-		keys->d = 1;
-	else if (keycode == XK_space)
-		keys->space = 1;
-	else if (keycode == XK_Shift_L)
-		keys->shift = 1;
-	else if (keycode == XK_Up)
-		keys->up = 1;
-	else if (keycode == XK_Down)
-		keys->down = 1;
-	else if (keycode == XK_Left)
-		keys->left = 1;
-	else if (keycode == XK_Right)
-		keys->right = 1;
-	else if (keycode == XK_Control_L)
-		keys->ctrl = 1;
-	else if (keycode == XK_Escape)
-		keys->esc = 1;
-	else if (keycode == XK_r)
-		keys->r = 1;
-	else if (keycode == XK_c)
-		keys->c = 1;
-	else if (keycode == XK_0)
-		keys->reset = 1;
-	else if (keycode == XK_Tab)
-		keys->tab = 1;
-	else if (keycode == XK_t)
-		keys->t = 1;
-	else if (keycode == XK_1)
-		keys->key_1 = 1;
-	else if (keycode == XK_2)
-		keys->key_2 = 1;
-	else if (keycode == XK_3)
-		keys->key_3 = 1;
-	else if (keycode == XK_q)
-		keys->q = 1;
-	else if (keycode == XK_e)
-		keys->e = 1;
-	else if (keycode == XK_F1)
-		keys->p_up = 1;
-	else if (keycode == XK_F2)
-		keys->p_down = 1;
-	else if (keycode == XK_F11)
-		keys->r_speed_up = 1;
-	else if (keycode == XK_F12)
-		keys->r_speed_down = 1;
+	static const int	keys_list[26] = {XK_a, XK_d, XK_Shift_L, XK_space,
+		XK_s, XK_w, XK_Left, XK_Right, XK_Down, XK_Up, XK_q, XK_e, XK_Control_L,
+		XK_Escape, XK_r, XK_c, XK_0, XK_Tab, XK_t, XK_1, XK_2, XK_3, XK_F1,
+		XK_F2, XK_F11, XK_F12};
+	char				i;
+
+	i = -1;
+	while (++i < 26)
+	{
+		if (*(keys_list + i) == keycode)
+		{
+			*keys |= (1u << i);
+			break ;
+		}
+	}
 	return (0);
 }
 
-static inline int	key_disable(int keycode, t_keys *keys)
+static inline int	key_disable(int keycode, uint32_t *keys)
 {
-	if (keycode == XK_w)
-		keys->w = 0;
-	else if (keycode == XK_a)
-		keys->a = 0;
-	else if (keycode == XK_s)
-		keys->s = 0;
-	else if (keycode == XK_d)
-		keys->d = 0;
-	else if (keycode == XK_space)
-		keys->space = 0;
-	else if (keycode == XK_Shift_L)
-		keys->shift = 0;
-	else if (keycode == XK_Up)
-		keys->up = 0;
-	else if (keycode == XK_Down)
-		keys->down = 0;
-	else if (keycode == XK_Left)
-		keys->left = 0;
-	else if (keycode == XK_Right)
-		keys->right = 0;
-	else if (keycode == XK_Control_L)
-		keys->ctrl = 0;
-	else if (keycode == XK_r)
-		keys->r = 0;
-	else if (keycode == XK_c)
-		keys->c = 0;
-	else if (keycode == XK_0)
-		keys->reset = 0;
-	else if (keycode == XK_Tab)
+	static const int	keys_list[26] = {XK_a, XK_d, XK_Shift_L, XK_space,
+		XK_s, XK_w, XK_Left, XK_Right, XK_Down, XK_Up, XK_q, XK_e, XK_Control_L,
+		XK_Escape, XK_r, XK_c, XK_0, XK_Tab, XK_t, XK_1, XK_2, XK_3, XK_F1,
+		XK_F2, XK_F11, XK_F12};
+	char				i;
+
+	i = -1;
+	while (++i < 26)
 	{
-		keys->tab = 0;
-		keys->tab_triggd = 0;
+		if (*(keys_list + i) == keycode)
+		{
+			*keys &= ~(1u << i);
+			break ;
+		}
 	}
-	else if (keycode == XK_t)
-		keys->t = 0;
+	if (keycode == XK_Tab)
+		((t_keys *)keys)->tab_triggd = 0;
 	else if (keycode == XK_1)
-	{
-		keys->key_1 = 0;
-		keys->key_1_triggd = 0;
-	}
+		((t_keys *)keys)->key_1_triggd = 0;
 	else if (keycode == XK_2)
-	{
-		keys->key_2 = 0;
-		keys->key_2_triggd = 0;
-	}
+		((t_keys *)keys)->key_2_triggd = 0;
 	else if (keycode == XK_3)
-	{
-		keys->key_3 = 0;
-		keys->key_3_triggd = 0;
-	}
-	else if (keycode == XK_q)
-		keys->q = 0;
-	else if (keycode == XK_e)
-		keys->e = 0;
-	else if (keycode == XK_F1)
-		keys->p_up = 0;
-	else if (keycode == XK_F2)
-		keys->p_down = 0;
-	else if (keycode == XK_F11)
-		keys->r_speed_up = 0;
-	else if (keycode == XK_F12)
-		keys->r_speed_down = 0;
+		((t_keys *)keys)->key_3_triggd = 0;
 	return (0);
 }
 

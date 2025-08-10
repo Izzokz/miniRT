@@ -12,41 +12,12 @@
 
 #include "miniRT.h"
 
-static inline void	ft_vec_offset(t_vec newv, const t_vec v1,
-	const t_vec v2, const double epsilon)
-{
-	ft_new_vec(newv, v1[0] + v2[0] * epsilon, v1[1]
-		+ v2[1] * epsilon, v1[2] + v2[2] * epsilon);
-}
-
-static inline void	ft_vec_random_sphere(t_vec random, const t_vec lpos)
-{
-	double	percent;
-
-	percent = (double)(ft_rand() % 101) / 100;
-	random[0] = ((double)(ft_rand() % 201) - 100) / 100;
-	random[1] = ((double)(ft_rand() % 201) - 100) / 100;
-	random[2] = ((double)(ft_rand() % 201) - 100) / 100;
-	ft_vec_scale(random, random, MRT_LIGHT_RADIUS * percent);
-	ft_vec_add(random, lpos, random);
-}
-
-static inline double	ft_get_lambert(const t_ray hit, const t_vec dir)
-{
-	t_ray	ray;
-	double	dot;
-
-	ft_new_ray(ray, hit[0], dir);
-	dot = ft_vec_dot(hit[1], ray[1]);
-	return (dot * (dot >= 0));
-}
-
 /*
 tmp[0] = percentage
 tmp[1] = attenuation
 tmp[2] = random vector
 */
-static inline void	ft_color_light_dist(t_color edit,
+inline void	ft_color_light_dist(t_color edit,
 	const t_light *light, const t_vec oray[2], const t_scene *scene)
 {
 	static const float	f[3] = {.5, .1, .016};
@@ -59,7 +30,7 @@ static inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(shadow_tester[0], oray[0], oray[1], 1);
+		ft_vec_offset(shadow_tester[0], oray[0], oray[1], .001);
 		ft_vec_random_sphere(tmp + 2, light->pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);
@@ -68,88 +39,11 @@ static inline void	ft_color_light_dist(t_color edit,
 			tmp[0] += 1;
 	}
 	tmp[0] = tmp[0] / MRT_SHADOW_SAMPLES;
-//	tmp[0] = tmp[0] + (1.0 - tmp[0]) * scene->mult;
 	ft_memcpy(edit, light->color, 3);
 	tmp[1] = ft_vec_dist(oray[0], light->pos);
 	tmp[1] = 1.0 / (f[0] + f[1] * tmp[1] + f[2] * pow(tmp[1], 2));
 	ft_color_scale(edit, light->brightness * tmp[0] * tmp[1]
 		* ft_get_lambert(oray, light->pos));
-}
-
-static inline void	ft_color_merge(t_color edit, const t_color ambient,
-	const t_color diffuse, const t_color specular)
-{
-	ft_color_add(edit, ambient);
-	ft_color_add(edit, diffuse);
-	ft_color_add(edit, specular);
-}
-
-void	ft_cy_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
-{
-	t_vec	axis;
-	t_vec	cp;
-	t_vec	proj;
-	double	dot;
-	double	height;
-
-	ft_cpy_vec(axis, obj->params + 3);
-	ft_vec_norm(axis, axis);
-	ft_vec_sub(cp, hit_point, obj->params);
-	height = obj->params[7];
-	dot = ft_vec_dot(cp, axis);
-	if (fabs(dot) < 1e-4)
-	{
-		ft_vec_scale(normal, axis, -1);
-		return ;
-	}
-	if (fabs(dot - height) < 1e-4)
-	{
-		ft_cpy_vec(normal, axis);
-		return ;
-	}
-	ft_vec_scale(proj, axis, dot);
-	ft_vec_sub(normal, cp, proj);
-	ft_vec_norm(normal, normal);
-}
-
-void	ft_cone_normal(const t_obj *obj, const t_vec hit_point, t_vec normal)
-{
-	t_vec	cp;
-	t_vec	proj;
-	t_vec	axis;
-	double	dot;
-
-	ft_vec_sub(cp, hit_point, obj->params);
-	ft_cpy_vec(axis, obj->params + 3);
-	ft_vec_norm(axis, axis);
-	dot = ft_vec_dot(cp, axis);
-	ft_vec_scale(proj, axis, dot);
-	ft_vec_sub(normal, cp, proj);
-	ft_vec_norm(normal, normal);
-}
-
-void	ft_obj_normal(const t_obj *obj, const t_vec hit_point,
-	t_vec normal, const t_vec ray_dir)
-{
-
-	if (obj->hit == ft_hit_s)
-	{
-		ft_vec_sub(normal, hit_point, obj->params);
-		ft_vec_norm(normal, normal);
-	}
-	else if (obj->hit == ft_hit_p)
-	{
-		ft_cpy_vec(normal, obj->params + 3);
-		ft_vec_norm(normal, normal);
-		if (ft_vec_dot(normal, ray_dir) < 0)
-			ft_vec_scale(normal, normal, -1);
-	}
-	else if (obj->hit == ft_hit_c)
-		ft_cy_normal(obj, hit_point, normal);
-	else if (obj->hit == ft_hit_cone)
-		ft_cone_normal(obj, hit_point, normal);
-	else
-		ft_new_vec(normal, 0, 1, 0);
 }
 
 /*
@@ -180,7 +74,7 @@ static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
 	ft_color_merge(edit, ads.ambient, ads.diffuse[0], ads.specular[1]);
 }
 
-static inline void	ft_color_fix(t_color edit)
+inline void	ft_color_fix(t_color edit)
 {
 	float	exposure;
 	float	gamma;

@@ -70,7 +70,8 @@ static void	ft_menu_toggle_and_back(t_keys *keys, t_rules *rules)
 	}
 }
 
-void	ft_menu_handler(t_scene *scene, t_mlx_obj *mobj, t_keys *keys, t_rules *rules)
+void	ft_menu_handler(t_scene *scene, t_mlx_obj *mobj,
+	t_keys *keys, t_rules *rules)
 {
 	ft_menu_toggle_and_back(keys, rules);
 	if (rules->menu_state > 0)

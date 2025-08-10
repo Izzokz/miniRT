@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/04 23:40:12 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:35:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 # include "ft_editor.h"
 # include "menu.h"
 
-/* CONSTANTS */
-extern const t_vec	g_right;
-extern const t_vec	g_up;
-extern const t_vec	g_forward;
 void				ft_set_const_cam(const t_camera *cam);
 const t_camera		*ft_get_const_cam(void);
 

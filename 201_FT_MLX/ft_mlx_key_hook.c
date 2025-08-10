@@ -138,7 +138,7 @@ static inline void	ft_apply_rotation(t_scene *scene)
 	ft_cpy_vec(scene->camera.orientation, scene->_forward);
 }
 
-static inline char ft_rotate_yaw(const t_keys keys, t_scene *scene)
+static inline char	ft_rotate_yaw(const t_keys keys, t_scene *scene)
 {
 	if (keys.left)
 	{
@@ -153,8 +153,7 @@ static inline char ft_rotate_yaw(const t_keys keys, t_scene *scene)
 	return (0);
 }
 
-
-static inline char ft_rotate_pitch(const t_keys keys, t_scene *scene)
+static inline char	ft_rotate_pitch(const t_keys keys, t_scene *scene)
 {
 	if (keys.up)
 	{
@@ -169,7 +168,7 @@ static inline char ft_rotate_pitch(const t_keys keys, t_scene *scene)
 	return (0);
 }
 
-static inline char ft_rotate_roll(const t_keys keys, t_scene *scene)
+static inline char	ft_rotate_roll(const t_keys keys, t_scene *scene)
 {
 	if (keys.q)
 	{
@@ -303,7 +302,7 @@ static void	ft_handle_actions(t_mlx_obj *mobj, t_scene *scene,
 	if (keys->t)
 		ft_open_editor(mobj, scene, rules);
 	else if (!keys->ctrl && (ft_move(*(unsigned char *)keys, scene)
-		| ft_rotate(*keys, scene)))
+			| ft_rotate(*keys, scene)))
 	{
 		ft_set_rules_min(mobj, rules);
 		rerender = 1;

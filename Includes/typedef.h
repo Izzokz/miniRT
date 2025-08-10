@@ -142,18 +142,18 @@ typedef struct s_light
 }	t_light;
 
 /* *** CRITICAL STRUCT *** */
-// ==============================================
-// DO NOT CHANGE THE ORDER OF COMMENTED VARIABLES
-// ==============================================
+// ========================================
+// DO NOT CHANGE THE ORDER OF THE VARIABLES
+// ========================================
 /* *** CRITICAL STRUCT *** */
-typedef struct __attribute__((__packed__)) s_keys
+typedef struct s_keys
 {
-	unsigned char	a : 1; //
-	unsigned char	d : 1; //
-	unsigned char	shift : 1; //
-	unsigned char	space : 1; //
-	unsigned char	s : 1; //
-	unsigned char	w : 1; //
+	unsigned char	a : 1;
+	unsigned char	d : 1;
+	unsigned char	shift : 1;
+	unsigned char	space : 1;
+	unsigned char	s : 1;
+	unsigned char	w : 1;
 	unsigned char	left : 1;
 	unsigned char	right : 1;
 	unsigned char	down : 1;
@@ -166,18 +166,18 @@ typedef struct __attribute__((__packed__)) s_keys
 	unsigned char	c : 1;
 	unsigned char	reset : 1;
 	unsigned char	tab : 1;
-	unsigned char	tab_triggd : 1;
 	unsigned char	t : 1;
 	unsigned char	key_1 : 1;
-	unsigned char	key_1_triggd : 1;
 	unsigned char	key_2 : 1;
-	unsigned char	key_2_triggd : 1;
 	unsigned char	key_3 : 1;
-	unsigned char	key_3_triggd : 1;
 	unsigned char	p_up : 1;
 	unsigned char	p_down : 1;
 	unsigned char	r_speed_up : 1;
 	unsigned char	r_speed_down : 1;
+	unsigned char	tab_triggd : 1;
+	unsigned char	key_1_triggd : 1;
+	unsigned char	key_2_triggd : 1;
+	unsigned char	key_3_triggd : 1;
 }	t_keys;
 
 /* *** CRITICAL STRUCT *** */

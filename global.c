@@ -6,15 +6,11 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:10:35 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/10 14:44:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:35:07 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-const t_vec	g_right = {1, 0, 0};
-const t_vec	g_up = {0, 1, 0};
-const t_vec	g_forward = {0, 0, 1};
 
 static inline const t_camera	*ft_const_cam(const t_camera *cam)
 {
