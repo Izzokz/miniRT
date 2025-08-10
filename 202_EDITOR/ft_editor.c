@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:27:14 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/09 21:36:39 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:26:11 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ static inline void	ft_edit_object2(int i, t_mlx_obj *mobj,
 		edit = edit->next;
 	write(1, "\n", 1);
 	ft_print_object(edit);
-	write(1, "Rewrite the object's parameters (w/o ID)\n", 41);
-	write(1, "(you can skip parts with \"'\")\n", 30);
+	explain_editor();
 	rewrite = get_next_line(0);
 	if (!rewrite)
 		return ;
@@ -98,7 +97,7 @@ static inline void	ft_edit_object(t_mlx_obj *mobj, t_scene *scene,
 		ft_print_object(current);
 		current = current->next;
 	}
-	write(1, "\nSelect an object to edit\n", 26);
+	ft_putstr_color("\nSelect an object to edit\n", COL_SKYBLUE);
 	answer = get_next_line(0);
 	if (!answer)
 		return ;
@@ -115,7 +114,8 @@ void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 {
 	char	*answer;
 
-	ft_putstr_fd("\nEDITOR\n\t- 0 OBJECTS\n\t- 1 LIGHTS\n\t- 2 AMBIENT\n", 1);
+	ft_putstr_color("\nEDITOR\n\t- 0 OBJECTS\n\t- 1 LIGHTS\n\t- 2 AMBIENT\n",
+		COL_SKYBLUE);
 	answer = get_next_line(0);
 	if (!answer)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_edit_ambient.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:46:49 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/07/27 10:46:50 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:58:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ inline void	ft_edit_ambient(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 	printf("A\t%f\t%d,%d,%d\n", scene->ambient_light.ratio,
 		*scene->ambient_light.color, *(scene->ambient_light.color + 1),
 		*(scene->ambient_light.color + 1));
-	write(1, "Rewrite the ambient's parameters (w/o ID)\n", 42);
-	write(1, "(you can skip parts with \"'\")\n", 30);
+	explain_editor();
 	rewrite = get_next_line(0);
 	if (!rewrite)
 		return ;

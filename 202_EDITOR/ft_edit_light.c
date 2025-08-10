@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:18:25 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/05 13:53:37 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 19:46:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,17 @@ static inline void	ft_edit_light2(int i, t_mlx_obj *mobj,
 		edit = edit->next;
 	write(1, "\n", 1);
 	ft_print_light(edit);
-	write(1, "Rewrite the light's parameters (w/o ID)\n", 40);
-	write(1, "(you can skip parts with \"'\")\n", 30);
+	explain_editor();
 	rewrite = get_next_line(0);
 	if (!rewrite)
 		return ;
 	tokens = ft_split_space(rewrite);
 	free(rewrite);
 	if (!tokens)
-		return ((void)ft_putstr_fd("Malloc failed\n", 2));
+	{
+		ft_putstr_fd("Malloc failed\n", 2);
+		return ;
+	}
 	status = rewrite_light(edit, tokens);
 	free_tab(tokens);
 	if (status == PARSE_OK)
