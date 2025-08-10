@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_color_obj_norm.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 15:23:22 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/10 15:23:25 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:30:08 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ static inline void	ft_cone_normal(const t_obj *obj,
 	const t_vec hit_point, t_vec normal)
 {
 	t_vec	cp;
-	t_vec	proj;
 	t_vec	axis;
-	double	dot;
+	double	m;
+	double	k;
 
+	k = pow(obj->params[6] / 2.0, 2) / pow(obj->params[7], 2);
 	ft_vec_sub(cp, hit_point, obj->params);
 	ft_cpy_vec(axis, obj->params + 3);
 	ft_vec_norm(axis, axis);
-	dot = ft_vec_dot(cp, axis);
-	ft_vec_scale(proj, axis, dot);
-	ft_vec_sub(normal, cp, proj);
+	m = ft_vec_dot(cp, axis);
+	ft_vec_scale(normal, axis, m * (1 + k));
+	ft_vec_sub(normal, cp, normal);
 	ft_vec_norm(normal, normal);
 }
 

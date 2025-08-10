@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:03:12 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/10 14:10:48 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:43:57 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_display_menu(t_mlx_obj *mobj, t_rules *rules)
 	else if (rules->menu_state == 4)
 		ft_display_object_help(mobj);
 	else if (rules->menu_state == 0)
-		mlx_string_put(mobj->mlx, mobj->win, 15, 20, 0xFFFFFF,
+		mlx_string_put(mobj->mlx, mobj->win, 15, 20, 0x00FF00,
 			"Press TAB to display the key menu");
 }
 

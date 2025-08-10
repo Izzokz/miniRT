@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:22:51 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/10 14:06:15 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:37:40 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # define OBJECT_OPTIONS "--- OBJECT OPTIONS ---"
 # define BOOST_SPEED "F1/F2: Speed up / Slow down movement"
 # define BOOST_ROT   "F11/F12: Speed up / Slow down rotation"
-# define CAM_MOVES "WASD: Move the camera position on the x axis"
+# define CAM_MOVES "WASD: Move the camera position"
 # define CAM_ROLL "QE: Turn left (Q) and right (E) on the Z axis"
-# define MOVE_UP_DOWN "SHIFT / SPACE:  Move Up / Down on the y axis"
+# define MOVE_UP_DOWN "SHIFT / SPACE:  Move Up / Down"
 # define CAM_ORIENT "ARROWS: Orient the camera"
 # define OPEN_1 "1. Movement commands"
 # define OPEN_2 "2. Render options"
