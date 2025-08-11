@@ -23,11 +23,83 @@ UTILDIR_BONUS		= $(BONUSDIR)200_UTILS/
 MLXDIR_BONUS		= $(BONUSDIR)201_FT_MLX/
 EDITORDIR_BONUS		= $(BONUSDIR)202_EDITOR/
 
+MANDATORYDIR		= 0_MANDATORY/
+OBJDIR				= $(MANDATORYDIR)666_OBJ/
+PARSEDIR			= $(MANDATORYDIR)001_PARSING/
+VECDIR				= $(MANDATORYDIR)101_FT_VEC/
+TOBJDIR				= $(MANDATORYDIR)102_FT_OBJ/
+PROCESSDIR			= $(MANDATORYDIR)103_FT_PROCESS/
+UTILDIR				= $(MANDATORYDIR)200_UTILS/
+MLXDIR				= $(MANDATORYDIR)201_FT_MLX/
+EDITORDIR			= $(MANDATORYDIR)202_EDITOR/
+
 LIBFTDIR			= Libft/
 GNLDIR				= get_next_line/
+INCLUDEDIR			= $(MANDATORYDIR)Includes/
 INCLUDEDIR_BONUS	= $(BONUSDIR)Includes/
 
 LIBFT			= $(LIBFTDIR)libft.a
+
+SRCS			= $(MANDATORYDIR)main.c \
+				$(MANDATORYDIR)global.c \
+				$(GNLDIR)get_next_line.c \
+				$(GNLDIR)get_next_line_utils.c \
+				$(PARSEDIR)free_utils.c \
+				$(PARSEDIR)check_scene.c \
+				$(PARSEDIR)parse_arg.c \
+				$(PARSEDIR)parse_params.c \
+				$(PARSEDIR)parse_ambient.c \
+				$(PARSEDIR)parse_camera.c \
+				$(PARSEDIR)parse_light.c \
+				$(PARSEDIR)parse_sphere.c \
+				$(PARSEDIR)parse_plane.c \
+				$(PARSEDIR)parse_cylinder.c \
+				$(PARSEDIR)parse_cone.c \
+				$(UTILDIR)check_params.c \
+				$(UTILDIR)split_utils.c \
+				$(UTILDIR)ft_swap.c \
+				$(UTILDIR)ft_sequals.c \
+				$(UTILDIR)ft_rand.c \
+                $(VECDIR)ft_vec0.c \
+                $(VECDIR)ft_vec1.c \
+                $(VECDIR)ft_vec2.c \
+                $(VECDIR)ft_ray.c \
+                $(TOBJDIR)ft_obj_c.c \
+                $(TOBJDIR)ft_obj_p.c \
+                $(TOBJDIR)ft_obj_s.c \
+				$(TOBJDIR)ft_obj_cone.c \
+				$(PROCESSDIR)ft_color_utils.c \
+				$(PROCESSDIR)ft_color_obj_norm.c \
+				$(PROCESSDIR)ft_color.c \
+				$(PROCESSDIR)ft_color_ads.c \
+				$(PROCESSDIR)ft_color_glass.c \
+				$(PROCESSDIR)ft_unicorn.c \
+				$(PROCESSDIR)ft_color_virus.c \
+				$(PROCESSDIR)ft_color_chill.c \
+				$(PROCESSDIR)ft_color_error.c \
+				$(PROCESSDIR)ft_color_mini.c \
+				$(PROCESSDIR)ft_obj_hit.c \
+				$(PROCESSDIR)ft_process2.c \
+				$(PROCESSDIR)ft_process.c \
+				$(PROCESSDIR)ft_rotate2.c \
+				$(PROCESSDIR)ft_rotate.c \
+				$(PROCESSDIR)ft_move.c \
+				$(PROCESSDIR)ft_rules.c \
+                $(MLXDIR)ft_mlx_init.c \
+                $(MLXDIR)ft_mlx_key_hook.c \
+				$(MLXDIR)ft_mlx_key_hook2.c \
+                $(MLXDIR)ft_mlx_loop.c \
+                $(MLXDIR)ft_mlx_img.c \
+				$(EDITORDIR)ft_editor.c \
+				$(EDITORDIR)ft_rewrite.c \
+				$(EDITORDIR)ft_rewrite2.c \
+				$(EDITORDIR)ft_rewrite3.c \
+				$(EDITORDIR)ft_edit_ambient.c \
+				$(EDITORDIR)ft_edit_light.c \
+				$(EDITORDIR)ft_editor_utils.c \
+				$(EDITORDIR)editor_helper.c \
+				$(MLXDIR)ft_mlx_menu.c \
+				$(MLXDIR)display_menu.c
 
 SRCS_BONUS		= $(BONUSDIR)main_bonus.c \
 				$(BONUSDIR)global_bonus.c \
@@ -57,7 +129,6 @@ SRCS_BONUS		= $(BONUSDIR)main_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_p_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_s_bonus.c \
 				$(TOBJDIR_BONUS)ft_obj_cone_bonus.c \
-                $(TOBJDIR_BONUS)ft_light_bonus.c \
 				$(PROCESSDIR_BONUS)ft_color_utils_bonus.c \
 				$(PROCESSDIR_BONUS)ft_color_obj_norm_bonus.c \
 				$(PROCESSDIR_BONUS)ft_color_bonus.c \
@@ -168,7 +239,7 @@ $(OBJDIR_BONUS):
 	@mkdir -p $(OBJDIR_BONUS)
 	@printf "\033[32m\033[1mminiRT: \033[1;37m$(OBJDIR_BONUS) Generated !\033[0m\n"
 
-vpath %.c $(VECDIR_BONUS) $(TOBJDIR_BONUS) $(PROCESSDIR_BONUS) $(UTILDIR_BONUS) $(GNLDIR) $(PARSEDIR_BONUS) $(MLXDIR_BONUS) $(EDITORDIR_BONUS) $(BONUSDIR)
+vpath %.c $(VECDIR) $(VECDIR_BONUS) $(TOBJDIR) $(TOBJDIR_BONUS) $(PROCESSDIR) $(PROCESSDIR_BONUS) $(UTILDIR) $(UTILDIR_BONUS) $(GNLDIR) $(PARSEDIR) $(PARSEDIR_BONUS) $(MLXDIR) $(MLXDIR_BONUS) $(EDITORDIR) $(EDITORDIR_BONUS) $(MANDATORYDIR) $(BONUSDIR)
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(PRINT_PROGRESS)
@@ -180,10 +251,10 @@ $(OBJDIR_BONUS)%.o: %.c | $(OBJDIR_BONUS)
 
 clean:
 	@$(MAKE) clean -C $(LIBFTDIR)
-	@rm -f $(OBJ) $(OBJ_BONUS) $(DEP) $(DEP_BONUS)
+	@rm -rf $(OBJDIR) $(OBJDIR_BONUS)
 	@printf "\033[32m\033[1mminiRT: \033[1;37mObject files Cleaned !\033[0m\n"
 
-fclean: clean
+fclean:
 	@$(MAKE) fclean -C $(LIBFTDIR)
 	@rm -f $(NAME) $(NAME_BONUS)
 	@rm -rf $(OBJDIR) $(OBJDIR_BONUS)

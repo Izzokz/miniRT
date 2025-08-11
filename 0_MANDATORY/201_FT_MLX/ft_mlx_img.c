@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_img_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_mlx_img.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 18:45:24 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:27:22 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene,
 	t_rules *rules, int rerender)

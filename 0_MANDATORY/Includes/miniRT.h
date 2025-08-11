@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_obj_bonus.h                                     :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 14:40:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 18:57:14 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/06/19 12:54:10 by lumugot           #+#    #+#             */
+/*   Updated: 2025/08/10 20:35:17 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_OBJ_BONUS_H
-# define FT_OBJ_BONUS_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
-# include "typedef_bonus.h"
+# include <math.h>
+# include <errno.h>
+# include <stdint.h>
+# include <X11/keysym.h>
+# include "../mlx-linux/mlx.h"
+# include "typedef.h"
+# include "ft_mlx.h"
+# include "parse.h"
+# include "ft_vec.h"
+# include "ft_obj.h"
+# include "ft_process.h"
+# include "ft_editor.h"
+# include "menu.h"
 
-/* OBJ METHODS */
-void	ft_reflect(t_ray, t_vec posnorm[2]);
-char	ft_hit_s(const t_obj *sphere, t_ray ray);
-char	ft_hit_c(const t_obj *cylinder, t_ray ray);
-char	ft_hit_p(const t_obj *plane, t_ray ray);
-char	ft_hit_cone(const t_obj *cone, t_ray ray);
-
-/* OBJ FREE FUNCTION */
-void	ft_free_obj(t_obj *head);
+void				ft_set_const_cam(const t_camera *cam);
+const t_camera		*ft_get_const_cam(void);
 
 #endif

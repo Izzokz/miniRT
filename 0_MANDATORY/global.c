@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_img_bonus.c                                 :+:      :+:    :+:   */
+/*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 18:45:24 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/07/07 11:10:35 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/08/11 19:32:28 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
-inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene,
-	t_rules *rules, int rerender)
+static inline const t_camera	*ft_const_cam(const t_camera *cam)
 {
-	if (rerender)
-	{
-		ft_putstr_fd("\r\e[94;7mR\e[0m     ", 1);
-		ft_process(mobj, scene, rules);
-	}
-	mlx_put_image_to_window(mobj->mlx, mobj->win, mobj->img, 0, 0);
-	ft_display_menu(mobj, rules);
+	static t_camera	*const_cam = (void *)0;
+
+	if (!const_cam && cam)
+		const_cam = (t_camera *)cam;
+	return (const_cam);
+}
+
+inline void	ft_set_const_cam(const t_camera *cam)
+{
+	ft_const_cam(cam);
+}
+
+inline const t_camera	*ft_get_const_cam(void)
+{
+	return (ft_const_cam((void *)0));
 }

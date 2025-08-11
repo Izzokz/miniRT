@@ -1,25 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx_img_bonus.c                                 :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 13:33:06 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 18:45:24 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/06/26 12:07:52 by lumugot           #+#    #+#             */
+/*   Updated: 2025/07/21 14:15:05 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "../Includes/miniRT.h"
 
-inline void	ft_mlx_img_update(t_mlx_obj *mobj, t_scene *scene,
-	t_rules *rules, int rerender)
+void	free_tab(char **tab)
 {
-	if (rerender)
+	int	iter;
+
+	iter = 0;
+	while (tab[iter])
 	{
-		ft_putstr_fd("\r\e[94;7mR\e[0m     ", 1);
-		ft_process(mobj, scene, rules);
+		free(tab[iter]);
+		iter++;
 	}
-	mlx_put_image_to_window(mobj->mlx, mobj->win, mobj->img, 0, 0);
-	ft_display_menu(mobj, rules);
+	free(tab);
+}
+
+void	free_objects(t_obj *obj)
+{
+	t_obj	*tmp;
+
+	while (obj)
+	{
+		tmp = obj->next;
+		if (obj->params)
+			free(obj->params);
+		free(obj);
+		obj = tmp;
+	}
+}
+
+void	free_scene(t_scene *scene)
+{
+	if (scene)
+		free_objects(scene->objects);
 }
