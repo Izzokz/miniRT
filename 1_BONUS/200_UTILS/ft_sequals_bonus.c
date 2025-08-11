@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_sequals_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 12:05:38 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2024/11/01 14:28:55 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/07/22 13:06:10 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/08/11 18:38:08 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+inline char	ft_sequals(const char *const s1, const char *const s2)
+{
+	int	i;
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>
+	if (!s1 || !s2)
+		return (0);
+	i = -1;
+	while ((*(s1 + ++i) && *(s2 + i)) && *(s1 + i) == *(s2 + i))
+		;
+	return (*(s1 + i) == *(s2 + i));
+}
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4200
-# endif
-
-size_t	ft_strlen(const char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoinfree(char **s1, char **s2);
-char	*get_next_line(int fd);
-
-#endif
+char	ft_sequals(const char *const s1, const char *const s2);

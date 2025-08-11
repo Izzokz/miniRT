@@ -1,0 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
+/*   Updated: 2025/08/11 18:57:47 by kzhen-cl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PARSE_BONUS_H
+# define PARSE_BONUS_H
+
+# define PARSE_OK 0
+# define PARSE_KO 1
+# define MALLOC_FAILED -1
+
+# include "typedef_bonus.h"
+# include "libft.h"
+# include <stdio.h>
+# include "../get_next_line/get_next_line.h"
+# include "utils_bonus.h"
+# include <fcntl.h>
+
+// check_scene_bonus.c
+void	print_error(char *message);
+int		check_extension(const char *filename);
+int		check_arg(int argc, char **argv);
+int		check_element(char **tokens, t_scene *scene);
+
+// parse_arg_bonus.c
+int		dispatch_line(char *line, t_scene *scene);
+int		read_scene_file(int fd, t_scene *scene);
+int		parse_scene(const char *filename, t_scene *scene);
+
+// parse_params_bonus.c
+int		check_and_parse_vec3(char **components, t_vec vec);
+int		parse_vec3(char *token, t_vec vec);
+int		check_and_parse_color(char **components, t_color color);
+int		parse_color(char *token, t_color color);
+
+// parse_ambient_bonus.c
+int		validate_ambient_light(char **tokens, t_scene *scene);
+int		parse_ambient(char **tokens, t_scene *scene);
+
+// parse_camera_bonus.c
+int		validate_camera(char **tokens, t_scene *scene);
+int		parse_camera(char **tokens, t_scene *scene);
+
+// parse_light_bonus.c
+int		fill_light_data(t_light *light, char **tokens);
+int		parse_light(char **tokens, t_scene *scene);
+
+// parse_plane_bonus.c
+int		parse_plane(char **tokens, t_scene *scene);
+
+// parse_sphere_bonus.c
+int		create_and_fill_sphere(t_obj **new_obj, char **tokens);
+int		parse_sphere(char **tokens, t_scene *scene);
+
+// parse_cylinder_bonus.c
+void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
+int		parse_cylinder(char **tokens, t_scene *scene);
+
+// parse_cone_bonus.c
+int		parse_cone(char **tokens, t_scene *scene);
+
+// free_utils_bonus.c
+void	free_tab(char **tab);
+void	free_objects(t_obj *obj);
+void	free_lights(t_light *lights);
+void	free_scene(t_scene *scene);
+
+#endif

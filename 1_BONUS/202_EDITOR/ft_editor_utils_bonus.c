@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_editor_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kzhen-cl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 12:05:38 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2024/11/01 14:28:55 by kzhen-cl         ###   ########.fr       */
+/*   Created: 2025/07/25 10:42:37 by kzhen-cl          #+#    #+#             */
+/*   Updated: 2025/08/11 18:48:48 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "miniRT_bonus.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>
+inline char	not_numeric_free(char *const s)
+{
+	int	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4200
-# endif
-
-size_t	ft_strlen(const char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoinfree(char **s1, char **s2);
-char	*get_next_line(int fd);
-
-#endif
+	i = -1;
+	while (*(s + ++i))
+	{
+		if (*(s + i) == '\n')
+			break ;
+		if (*(s + i) < '0' || *(s + i) > '9')
+		{
+			free(s);
+			return (1);
+		}
+	}
+	i = !i;
+	free((void *)(i * (uintptr_t)s));
+	return (i);
+}

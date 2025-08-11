@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_helper_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/10 14:28:50 by lumugot           #+#    #+#             */
+/*   Updated: 2025/08/11 18:48:06 by kzhen-cl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "miniRT_bonus.h"
+
+void	ft_putstr_color(const char *str, int color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	if (!str)
+		return ;
+	printf("\033[38;2;%d;%d;%dm%s\033[0m", r, g, b, str);
+}
+
+void	explain_editor(void)
+{
+	ft_putstr_color(NB_OBJECT, COL_PEACH);
+	ft_putstr_color(EX_CHANGE, COL_PEACH);
+	ft_putstr_color(EX_1, COL_PEACH);
+	ft_putstr_color(KEEP_PARAMS, COL_PEACH);
+	ft_putstr_color(EX_2, COL_PEACH);
+	ft_putstr_color(SET_PARAMS, COL_MINT);
+}
