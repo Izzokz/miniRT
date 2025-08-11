@@ -56,7 +56,6 @@ SRCS			= $(MANDATORYDIR)main.c \
 				$(PARSEDIR)parse_cylinder.c \
 				$(UTILDIR)check_params.c \
 				$(UTILDIR)split_utils.c \
-				$(UTILDIR)ft_swap.c \
 				$(UTILDIR)ft_sequals.c \
 				$(UTILDIR)ft_rand.c \
                 $(VECDIR)ft_vec0.c \
@@ -115,7 +114,6 @@ SRCS_BONUS		= $(BONUSDIR)main_bonus.c \
 				$(PARSEDIR_BONUS)parse_cone_bonus.c \
 				$(UTILDIR_BONUS)check_params_bonus.c \
 				$(UTILDIR_BONUS)split_utils_bonus.c \
-				$(UTILDIR_BONUS)ft_swap_bonus.c \
 				$(UTILDIR_BONUS)ft_sequals_bonus.c \
 				$(UTILDIR_BONUS)ft_rand_bonus.c \
                 $(VECDIR_BONUS)ft_vec0_bonus.c \

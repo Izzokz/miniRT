@@ -16,9 +16,6 @@
 //split_utils.c
 char	**ft_split_space(const char *s);
 
-//ft_swap.c
-void	ft_swap(double *a, double *b);
-
 //check_params.c
 int		is_valid_params(const char *str);
 

@@ -16,21 +16,21 @@ static inline int	ft_seed_set2(void)
 {
 	int	i;
 
-	return ((uintptr_t) & i ^ (uintptr_t)ft_unicorn);
+	return ((uintptr_t)(&i) ^ (uintptr_t)ft_unicorn);
 }
 
 static inline int	ft_seed_set1(void)
 {
 	double	i;
 
-	return ((uintptr_t) & i ^ ft_seed_set2());
+	return ((uintptr_t)(&i) ^ ft_seed_set2());
 }
 
 static inline int	ft_seed_set(void)
 {
 	char	i;
 
-	return ((uintptr_t) & i ^ ft_seed_set1());
+	return ((uintptr_t)(&i) ^ ft_seed_set1());
 }
 
 inline int	ft_rand(void)

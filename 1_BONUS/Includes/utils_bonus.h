@@ -16,9 +16,6 @@
 // split_utils_bonus.c
 char	**ft_split_space(const char *s);
 
-// ft_swap_bonus.c
-void	ft_swap(double *a, double *b);
-
 // check_params_bonus.c
 int		is_valid_params(const char *str);
 
