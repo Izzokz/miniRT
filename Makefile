@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/08/10 19:19:35 by lumugot          ###   ########.fr        #
+#    Updated: 2025/08/11 22:42:21 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,9 @@ SRCS			= $(MANDATORYDIR)main.c \
                 $(VECDIR)ft_vec2.c \
                 $(VECDIR)ft_ray.c \
                 $(TOBJDIR)ft_obj_c.c \
+				$(TOBJDIR)ft_cy_outside.c \
+				$(TOBJDIR)ft_cy_inside.c \
+				$(TOBJDIR)ft_cy_caps.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
 				$(TOBJDIR)ft_obj_cone.c \
@@ -126,6 +129,9 @@ SRCS_BONUS		= $(BONUSDIR)main_bonus.c \
                 $(VECDIR_BONUS)ft_vec2_bonus.c \
                 $(VECDIR_BONUS)ft_ray_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_c_bonus.c \
+				$(TOBJDIR_BONUS)ft_cy_outside_bonus.c \
+				$(TOBJDIR_BONUS)ft_cy_inside_bonus.c \
+				$(TOBJDIR_BONUS)ft_cy_caps_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_p_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_s_bonus.c \
 				$(TOBJDIR_BONUS)ft_obj_cone_bonus.c \

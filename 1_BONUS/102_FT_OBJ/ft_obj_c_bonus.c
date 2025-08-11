@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:51:55 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 18:31:44 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/08/11 22:39:34 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,166 +18,21 @@ static void	get_axis(const t_obj *cy, t_vec axis)
 	ft_vec_norm(axis, axis);
 }
 
-static int	is_inside_cylinder(const t_obj *cy, t_vec point, t_vec axis)
-{
-	t_vec	tmp;
-	double	m;
-
-	ft_vec_sub(tmp, point, cy->params);
-	m = ft_vec_dot(tmp, axis);
-	if (m < 0 || m > cy->params[7])
-		return (0);
-	if (ft_vec_dot(tmp, tmp) - m * m < pow(cy->params[6] / 2.0, 2))
-		return (1);
-	return (0);
-}
-
-static double	solve_cylinder_quadratic_outside(double a, double b, double c)
-{
-	double	discriminant;
-	double	t1;
-	double	t2;
-
-	discriminant = b * b - 4.0 * a * c;
-	if (discriminant < 0)
-		return (-1.0);
-	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 1e-6 && t2 > 1e-6)
-	{
-		if (t1 < t2)
-			return (t1);
-		else
-			return (t2);
-	}
-	if (t1 > 1e-6)
-		return (t1);
-	if (t2 > 1e-6)
-		return (t2);
-	return (-1.0);
-}
-
-static double	solve_cylinder_quadratic_inside(double a, double b, double c)
-{
-	double	discriminant;
-	double	t1;
-	double	t2;
-
-	discriminant = b * b - 4.0 * a * c;
-	if (discriminant < 0)
-		return (-1.0);
-	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 1e-6 && t2 > 1e-6)
-	{
-		if (t1 > t2)
-			return (t1);
-		else
-			return (t2);
-	}
-	if (t1 > 1e-6)
-		return (t1);
-	if (t2 > 1e-6)
-		return (t2);
-	return (-1.0);
-}
-
-static double	intersect_body_outside(const t_obj *cy, t_ray ray, t_vec axis)
-{
-	t_vec	oc;
-	double	coeffs[3];
-	double	dots[2];
-	double	t;
-	double	m;
-
-	ft_vec_sub(oc, *ray, cy->params);
-	dots[0] = ft_vec_dot(ray[1], axis);
-	dots[1] = ft_vec_dot(oc, axis);
-	coeffs[0] = ft_vec_dot(ray[1], ray[1]) - dots[0] * dots[0];
-	coeffs[1] = 2.0 * (ft_vec_dot(ray[1], oc) - dots[0] * dots[1]);
-	coeffs[2] = ft_vec_dot(oc, oc) - dots[1] * dots[1]
-		- pow(cy->params[6] / 2.0, 2);
-	t = solve_cylinder_quadratic_outside(coeffs[0], coeffs[1], coeffs[2]);
-	if (t < 1e-6)
-		return (-1.0);
-	m = dots[1] + t * dots[0];
-	if (m >= 0 && m <= cy->params[7])
-		return (t);
-	return (-1.0);
-}
-
-static double	intersect_body_inside(const t_obj *cy, t_ray ray, t_vec axis)
-{
-	t_vec	oc;
-	double	coeffs[3];
-	double	dots[2];
-	double	t;
-	double	m;
-
-	ft_vec_sub(oc, ray[0], cy->params);
-	dots[0] = ft_vec_dot(ray[1], axis);
-	dots[1] = ft_vec_dot(oc, axis);
-	coeffs[0] = ft_vec_dot(ray[1], ray[1]) - dots[0] * dots[0];
-	coeffs[1] = 2.0 * (ft_vec_dot(ray[1], oc) - dots[0] * dots[1]);
-	coeffs[2] = ft_vec_dot(oc, oc) - dots[1] * dots[1]
-		- pow(cy->params[6] / 2.0, 2);
-	t = solve_cylinder_quadratic_inside(coeffs[0], coeffs[1], coeffs[2]);
-	if (t < 1e-6)
-		return (-1.0);
-	m = dots[1] + t * dots[0];
-	if (m >= 0 && m <= cy->params[7])
-		return (t);
-	return (-1.0);
-}
-
-static double	cap_intersection(const t_obj *cy, t_ray ray, t_vec axis,
-	int upper)
-{
-	t_vec	center;
-	t_vec	tmp1;
-	t_vec	tmp2;
-	double	t;
-	double	dot_ray_axis;
-
-	if (upper)
-	{
-		ft_vec_scale(center, axis, cy->params[7]);
-		ft_vec_add(center, cy->params, center);
-	}
-	else
-		ft_cpy_vec(center, cy->params);
-	dot_ray_axis = ft_vec_dot(ray[1], axis);
-	if (fabs(dot_ray_axis) < 1e-6)
-		return (-1.0);
-	ft_vec_sub(tmp1, center, ray[0]);
-	t = ft_vec_dot(tmp1, axis) / dot_ray_axis;
-	ft_vec_scale(tmp2, ray[1], t);
-	ft_vec_add(tmp2, ray[0], tmp2);
-	ft_vec_sub(tmp1, tmp2, center);
-	if (t > 1e-6 && ft_vec_dot(tmp1, tmp1) < pow(cy->params[6] / 2.0, 2))
-		return (t);
-	return (-1.0);
-}
-
-static double	intersect_caps(const t_obj *cy, t_ray ray, t_vec axis)
-{
-	double	t[2];
-
-	t[0] = cap_intersection(cy, ray, axis, 0);
-	t[1] = cap_intersection(cy, ray, axis, 1);
-	if (t[0] > 0 && (t[1] < 0 || t[0] < t[1]))
-		return (t[0]);
-	if (t[1] > 0)
-		return (t[1]);
-	return (-1.0);
-}
-
 static double	intersect_body(const t_obj *cy, t_ray ray, t_vec axis)
 {
+	double	inside;
+	double	outside;
+
 	if (is_inside_cylinder(cy, ray[0], axis))
-		return (intersect_body_inside(cy, ray, axis));
+	{
+		inside = intersect_body_inside(cy, ray, axis);
+		return (inside);
+	}
 	else
-		return (intersect_body_outside(cy, ray, axis));
+	{
+		outside = intersect_body_outside(cy, ray, axis);
+		return (outside);
+	}
 }
 
 static void	get_normal(t_vec normal, const t_obj *cy, t_ray ray, t_vec hit)
