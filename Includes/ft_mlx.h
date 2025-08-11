@@ -20,6 +20,10 @@ t_mlx_obj	*ft_mlx_obj_init(void);
 void		ft_free_mlx_obj(t_mlx_obj *mobj);
 
 /* MLX LOOP */
+void		ft_mlx_key_hook_c(t_mlx_obj *mobj, t_scene *scene,
+				char ctrl, t_rules rules[2]);
+void		ft_mlx_key_hook_r(t_mlx_obj *mobj, t_scene *scene,
+				const t_keys keys, t_rules rules[2]);
 void		ft_mlx_key_hook(t_mlx_obj *mobj, t_scene *scene, t_keys *keys);
 void		ft_mlx_loop(t_mlx_obj *mobj, t_scene *scene);
 

@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-char	not_numeric_free(char *s)
+inline char	not_numeric_free(char *const s)
 {
 	int	i;
 

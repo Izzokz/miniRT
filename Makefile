@@ -69,8 +69,13 @@ SRCS			= main.c \
 				$(PROCESSDIR)ft_obj_hit.c \
 				$(PROCESSDIR)ft_process2.c \
 				$(PROCESSDIR)ft_process.c \
+				$(PROCESSDIR)ft_rotate2.c \
+				$(PROCESSDIR)ft_rotate.c \
+				$(PROCESSDIR)ft_move.c \
+				$(PROCESSDIR)ft_rules.c \
                 $(MLXDIR)ft_mlx_init.c \
                 $(MLXDIR)ft_mlx_key_hook.c \
+				$(MLXDIR)ft_mlx_key_hook2.c \
                 $(MLXDIR)ft_mlx_loop.c \
                 $(MLXDIR)ft_mlx_img.c \
 				$(EDITORDIR)ft_editor.c \

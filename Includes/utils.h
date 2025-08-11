@@ -23,7 +23,7 @@ void	ft_swap(double *a, double *b);
 int		is_valid_params(const char *str);
 
 //ft_sequals.c
-char	ft_sequals(const char *s1, const char *s2);
+char	ft_sequals(const char *const s1, const char *const s2);
 
 //ft_rand.c
 int		ft_rand(void);

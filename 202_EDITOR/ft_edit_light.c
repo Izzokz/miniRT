@@ -83,7 +83,7 @@ static inline void	ft_edit_light2(int i, t_mlx_obj *mobj,
 	ft_print_light(edit);
 	explain_editor();
 	rewrite = get_next_line(0);
-	if (!rewrite)
+	if (!rewrite && write(1, "^D\n", 3))
 		return ;
 	tokens = ft_split_space(rewrite);
 	free(rewrite);
@@ -117,7 +117,7 @@ void	ft_edit_light(t_mlx_obj *mobj, t_scene *scene,
 	}
 	write(1, "\nSelect a light to edit\n", 24);
 	answer = get_next_line(0);
-	if (!answer)
+	if (!answer && write(1, "^D\n", 3))
 		return ;
 	if (not_numeric_free(answer))
 		return ((void)printf("\e[31mInvalid.\n\e[0m"));

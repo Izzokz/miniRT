@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Includes/miniRT.h"
+#include "../Includes/miniRT.h"
 
 void	ft_putstr_color(const char *str, int color)
 {

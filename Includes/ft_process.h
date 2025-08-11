@@ -28,6 +28,20 @@ void			ft_color_merge(t_color edit, const t_color ambient,
 void			ft_obj_normal(const t_obj *obj, const t_vec hit_point,
 					t_vec normal, const t_vec ray_dir);
 
+// ft_rules.c
+void			ft_set_rules_max(t_rules *rules, t_rules *max);
+void			ft_init_rules(t_rules *rules);
+void			ft_set_rules_min(t_mlx_obj *mobj, t_rules *rules);
+
+// ft_move.c
+char			ft_move(unsigned char keys, t_scene *scene);
+
+// ft_rotate2.c
+void			ft_apply_rotation(t_scene *scene);
+
+// ft_rotate.c
+char			ft_rotate(const t_keys keys, t_scene *scene);
+
 void			ft_color_ads_bug(t_color edit, const t_scene *scene,
 					const t_obj *hit);
 

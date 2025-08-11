@@ -62,7 +62,7 @@ inline void	ft_edit_ambient(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 		*(scene->ambient_light.color + 1));
 	explain_editor();
 	rewrite = get_next_line(0);
-	if (!rewrite)
+	if (!rewrite && write(1, "^D\n", 3))
 		return ;
 	tokens = ft_split_space(rewrite);
 	free(rewrite);

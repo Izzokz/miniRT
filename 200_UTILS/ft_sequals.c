@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	ft_sequals(const char *s1, const char *s2)
+inline char	ft_sequals(const char *const s1, const char *const s2)
 {
 	int	i;
 
@@ -21,3 +21,5 @@ char	ft_sequals(const char *s1, const char *s2)
 		;
 	return (*(s1 + i) == *(s2 + i));
 }
+
+char	ft_sequals(const char *const s1, const char *const s2);

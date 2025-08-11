@@ -64,7 +64,7 @@ static inline void	ft_edit_object2(int i, t_mlx_obj *mobj,
 	ft_print_object(edit);
 	explain_editor();
 	rewrite = get_next_line(0);
-	if (!rewrite)
+	if (!rewrite && write(1, "^D\n", 3))
 		return ;
 	tokens = ft_split_space(rewrite);
 	free(rewrite);
@@ -95,7 +95,7 @@ static inline void	ft_edit_object(t_mlx_obj *mobj, t_scene *scene,
 	}
 	ft_putstr_color("\nSelect an object to edit\n", COL_SKYBLUE);
 	answer = get_next_line(0);
-	if (!answer)
+	if (!answer && write(1, "^D\n", 3))
 		return ;
 	if (not_numeric_free(answer))
 		return ((void)printf("\e[31mInvalid.\n\e[0m"));
@@ -113,7 +113,7 @@ void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 	ft_putstr_color("\nEDITOR\n\t- 0 OBJECTS\n\t- 1 LIGHTS\n\t- 2 AMBIENT\n",
 		COL_SKYBLUE);
 	answer = get_next_line(0);
-	if (!answer)
+	if (!answer && write(1, "^D\n", 3))
 		return ;
 	if (ft_sequals(answer, "0\n"))
 		ft_edit_object(mobj, scene, rules);
@@ -121,5 +121,7 @@ void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules)
 		ft_edit_light(mobj, scene, rules);
 	else if (ft_sequals(answer, "2\n"))
 		ft_edit_ambient(mobj, scene, rules);
+	else
+		printf("\e[31mInvalid.\n\e[0m");
 	free(answer);
 }
