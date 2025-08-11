@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:17:39 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/06/19 13:23:28 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 22:28:11 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ double	ft_vec_dot(const t_vec v1, const t_vec v2);
 double	ft_vec_mag(const t_vec v);
 double	ft_vec_dist(const t_vec v1, const t_vec v2);
 void	ft_vec_norm(t_vec newv, const t_vec v);
-void	ft_vec_neg(t_vec newv, const t_vec v);
 void	ft_vec_cross(t_vec newv, const t_vec v1, const t_vec v2);
 
 /* RAY SETTER */

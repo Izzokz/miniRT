@@ -54,7 +54,6 @@ SRCS			= $(MANDATORYDIR)main.c \
 				$(PARSEDIR)parse_sphere.c \
 				$(PARSEDIR)parse_plane.c \
 				$(PARSEDIR)parse_cylinder.c \
-				$(PARSEDIR)parse_cone.c \
 				$(UTILDIR)check_params.c \
 				$(UTILDIR)split_utils.c \
 				$(UTILDIR)ft_swap.c \
@@ -67,7 +66,6 @@ SRCS			= $(MANDATORYDIR)main.c \
                 $(TOBJDIR)ft_obj_c.c \
                 $(TOBJDIR)ft_obj_p.c \
                 $(TOBJDIR)ft_obj_s.c \
-				$(TOBJDIR)ft_obj_cone.c \
 				$(PROCESSDIR)ft_color_utils.c \
 				$(PROCESSDIR)ft_color_obj_norm.c \
 				$(PROCESSDIR)ft_color.c \
@@ -93,7 +91,6 @@ SRCS			= $(MANDATORYDIR)main.c \
 				$(EDITORDIR)ft_editor.c \
 				$(EDITORDIR)ft_rewrite.c \
 				$(EDITORDIR)ft_rewrite2.c \
-				$(EDITORDIR)ft_rewrite3.c \
 				$(EDITORDIR)ft_edit_ambient.c \
 				$(EDITORDIR)ft_edit_light.c \
 				$(EDITORDIR)ft_editor_utils.c \

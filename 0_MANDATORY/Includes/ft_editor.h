@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:30:21 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/10 20:25:37 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 22:27:55 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_edit_ambient(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 char	rewrite_sphere(t_obj *obj, char **tokens);
 char	rewrite_plane(t_obj *obj, char **tokens);
 char	rewrite_cylinder(t_obj *obj, char **tokens);
-char	rewrite_cone(t_obj *obj, char **tokens);
 char	not_numeric_free(char *const s);
 void	ft_open_editor(t_mlx_obj *mobj, t_scene *scene, t_rules *rules);
 

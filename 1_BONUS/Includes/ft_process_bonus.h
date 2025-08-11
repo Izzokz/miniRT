@@ -78,7 +78,4 @@ void			ft_process(t_mlx_obj *mobj,
 void			ft_shoot_ray(t_ray,
 					const t_scene *scene, const t_vec scaled[2]);
 
-void			ft_obj_normal(const t_obj *obj, const t_vec hit_point,
-					t_vec normal, const t_vec ray_dir);
-
 #endif

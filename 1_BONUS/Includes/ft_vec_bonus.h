@@ -30,7 +30,6 @@ double	ft_vec_dot(const t_vec v1, const t_vec v2);
 double	ft_vec_mag(const t_vec v);
 double	ft_vec_dist(const t_vec v1, const t_vec v2);
 void	ft_vec_norm(t_vec newv, const t_vec v);
-void	ft_vec_neg(t_vec newv, const t_vec v);
 void	ft_vec_cross(t_vec newv, const t_vec v1, const t_vec v2);
 
 /* RAY SETTER */

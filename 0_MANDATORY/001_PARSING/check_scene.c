@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:59:42 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/10 14:20:50 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 21:40:17 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	check_element(char **tokens, t_scene *scene)
 		status = parse_plane(++tokens, scene);
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
 		status = parse_cylinder(++tokens, scene);
-	else if (!ft_strncmp(*tokens, "co", 3))
-		status = parse_cone(++tokens, scene);
 	else
 		print_error("Unknown identifier");
 	return (status);
