@@ -38,7 +38,7 @@ static void	ft_init_right_up(
 	ft_vec_norm(up, up);
 }
 
-static void	ft_apply_roll(t_vec right, t_vec up, double roll)
+static void	ft_init_roll(t_vec right, t_vec up, double roll)
 {
 	double	cr;
 	double	sr;
@@ -69,7 +69,7 @@ inline void	ft_init_cam_vectors(t_vec cam_vectors[3], const t_scene *s)
 	ft_cpy_vec(tmp1, s->_forward);
 	ft_init_up_vec(tmp2, tmp1);
 	ft_init_right_up(cam_vectors[0], tmp2, tmp1);
-	ft_apply_roll(cam_vectors[0], tmp2, s->_roll);
+	ft_init_roll(cam_vectors[0], tmp2, s->_roll);
 	ft_vec_scale(cam_vectors[0], cam_vectors[0], plane_h * win_ratio);
 	ft_vec_scale(cam_vectors[1], tmp2, plane_h);
 	ft_vec_scale(tmp1, s->_forward, 2.0);
