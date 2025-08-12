@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 15:15:43 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 22:23:49 by kzhen-cl         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:21:29 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ inline void	ft_color_light_dist(t_color edit,
 }
 
 /*
-tmp = hit_pos to light (ray)
+tmp[0-1] = hit_pos to light (ray)
 tmp[2] = normal
 */
 static void	ft_color_ads(t_color edit, const t_scene *scene, const t_obj *hit)
