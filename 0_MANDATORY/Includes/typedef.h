@@ -13,13 +13,35 @@
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# define WIDTH 1000 // INIT : 1069
-# define HEIGHT 800  // INIT : 690
-# define MOVE_SPEED .050 // INIT : .069
-# define ROT_SPEED .0060 // INIT : .069
-# define PHONG_SHININESS 6.9 // INIT : 6.9
-# define MRT_MAX_REF 100 // INIT : 4
-# define MRT_MAX_REF_STR 1.0 // INIT : .30035
+# define MOVE_SPEED .069 // INIT : .069
+# define ROT_SPEED .0069 // INIT : .069
+# define MRT_MAX_REF_STR .30035 // INIT : .30035
+
+# ifdef WIDTH
+#  undef WIDTH
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ================================
+// This macro is not protected
+// If you want to edit it, ensure :
+// WIDTH > 0
+// ================================
+/* *** CRITICAL MACRO *** */
+# define WIDTH 1069 // INIT : 1069
+
+# ifdef HEIGHT
+#  undef HEIGHT
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ================================
+// This macro is not protected
+// If you want to edit it, ensure :
+// HEIGHT > 0
+// ================================
+/* *** CRITICAL MACRO *** */
+# define HEIGHT 690 // INIT : 690
 
 # ifdef MRT_BEST_COLORATION
 #  undef MRT_BEST_COLORATION
@@ -108,7 +130,7 @@
 // MRT_LIGHT_RADIUS != 0
 // ================================
 /* *** CRITICAL MACRO *** */
-# define MRT_LIGHT_RADIUS 0.0 // INIT : .69
+# define MRT_LIGHT_RADIUS 0.0 // INIT : .0 | BEST : .69
 
 typedef struct s_obj	t_obj;
 typedef struct s_light	t_light;

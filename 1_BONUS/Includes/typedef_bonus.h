@@ -13,13 +13,35 @@
 #ifndef TYPEDEF_BONUS_H
 # define TYPEDEF_BONUS_H
 
-# define WIDTH 1069 // INIT : 1069
-# define HEIGHT 690  // INIT : 690
 # define MOVE_SPEED .069 // INIT : .069
 # define ROT_SPEED .0069 // INIT : .0069
-# define PHONG_SHININESS 6.9 // INIT : 6.9
-# define MRT_MAX_REF 4 // INIT : 4
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
+
+# ifdef WIDTH
+#  undef WIDTH
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ================================
+// This macro is not protected
+// If you want to edit it, ensure :
+// WIDTH > 0
+// ================================
+/* *** CRITICAL MACRO *** */
+# define WIDTH 1069 // INIT : 1069
+
+# ifdef HEIGHT
+#  undef HEIGHT
+# endif
+
+/* *** CRITICAL MACRO *** */
+// ================================
+// This macro is not protected
+// If you want to edit it, ensure :
+// HEIGHT > 0
+// ================================
+/* *** CRITICAL MACRO *** */
+# define HEIGHT 690 // INIT : 690
 
 # ifdef MRT_BEST_COLORATION
 #  undef MRT_BEST_COLORATION
