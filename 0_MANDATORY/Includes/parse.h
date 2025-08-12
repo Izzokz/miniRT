@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:29:33 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/24 14:45:17 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 22:28:26 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ int		parse_sphere(char **tokens, t_scene *scene);
 // parse_cylinder.c
 void	add_obj_to_scene(t_obj **objects, t_obj *new_obj);
 int		parse_cylinder(char **tokens, t_scene *scene);
-
-// parse_cone.c
-int		parse_cone(char **tokens, t_scene *scene);
 
 // free_utils.c
 void	free_tab(char **tab);

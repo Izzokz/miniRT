@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:30:03 by lumugot           #+#    #+#             */
-/*   Updated: 2025/07/21 12:19:40 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 22:28:35 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 //split_utils.c
 char	**ft_split_space(const char *s);
-
-//ft_swap.c
-void	ft_swap(double *a, double *b);
 
 //check_params.c
 int		is_valid_params(const char *str);

@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:27:14 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/10 20:26:11 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/11 22:27:29 by kzhen-cl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ static inline void	ft_print_object(t_obj *o)
 			*(o->color + 2));
 	else if (o->hit == ft_hit_c)
 		printf("cy\t%f,%f,%f\t%f,%f,%f\t%f\t%f\t%d,%d,%d\n", *o->params,
-			*(o->params + 1), *(o->params + 2), *(o->params + 3),
-			*(o->params + 4), *(o->params + 5), *(o->params + 6),
-			*(o->params + 7), *o->color, *(o->color + 1), *(o->color + 2));
-	else if (o->hit == ft_hit_cone)
-		printf("co\t%f,%f,%f\t%f,%f,%f\t%f\t%f\t%d,%d,%d\n", *o->params,
 			*(o->params + 1), *(o->params + 2), *(o->params + 3),
 			*(o->params + 4), *(o->params + 5), *(o->params + 6),
 			*(o->params + 7), *o->color, *(o->color + 1), *(o->color + 2));
@@ -44,8 +39,6 @@ static inline char	ft_edit_object3(char (*hit)(const t_obj *, t_ray),
 		return (rewrite_plane(edit, tokens));
 	else if (hit == ft_hit_c)
 		return (rewrite_cylinder(edit, tokens));
-	else if (hit == ft_hit_cone)
-		return (rewrite_cone(edit, tokens));
 	return (1);
 }
 
