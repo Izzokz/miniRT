@@ -4,3 +4,4 @@ miniRT
 *.o
 .vscode
 Libft/libft.a
+*.d
