@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:34:19 by lumugot           #+#    #+#             */
-/*   Updated: 2025/08/12 08:18:02 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/12 11:11:52 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parse_light(char **tokens, t_scene *scene)
 		print_error("Light already set");
 		return (PARSE_KO);
 	}
-	if (!tokens[0] || !tokens[1] || !tokens[2])
+	if (!tokens[0] || !tokens[1] || tokens[2])
 	{
 		print_error("Invalid light format: "
 			"L <pos x,y,z> <ratio>");

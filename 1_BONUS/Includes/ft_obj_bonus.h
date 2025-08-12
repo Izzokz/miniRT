@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:40:23 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/11 22:35:45 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/12 10:04:54 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,9 @@ double	intersect_body_inside(const t_obj *cy, t_ray ray, t_vec axis);
 double	cap_intersection(const t_obj *cy, t_ray ray, t_vec axis,
 			int upper);
 double	intersect_caps(const t_obj *cy, t_ray ray, t_vec axis);
+
+//intersect_cone_bonus.c
+double	intersect_body_cone(const t_obj *co, t_ray ray, t_vec axis);
+double	intersect_base_cone(const t_obj *co, t_ray ray, t_vec axis);
 
 #endif

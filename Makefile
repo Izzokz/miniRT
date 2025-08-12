@@ -6,7 +6,7 @@
 #    By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/19 13:30:38 by lumugot           #+#    #+#              #
-#    Updated: 2025/08/11 22:42:21 by lumugot          ###   ########.fr        #
+#    Updated: 2025/08/12 10:03:58 by lumugot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,6 +129,7 @@ SRCS_BONUS		= $(BONUSDIR)main_bonus.c \
 				$(TOBJDIR_BONUS)ft_cy_caps_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_p_bonus.c \
                 $(TOBJDIR_BONUS)ft_obj_s_bonus.c \
+				$(TOBJDIR_BONUS)ft_intersect_cone_bonus.c \
 				$(TOBJDIR_BONUS)ft_obj_cone_bonus.c \
 				$(PROCESSDIR_BONUS)ft_color_utils_bonus.c \
 				$(PROCESSDIR_BONUS)ft_color_obj_norm_bonus.c \
