@@ -29,7 +29,7 @@ static inline void	ft_hit_parse(t_mlx_obj *mobj, int i[2],
 		return (ft_put_color(mobj, *i, *(i + 1), 0xcffff9));
 	if (r->coloration == ft_color_error)
 		return (ft_put_color(mobj, *i, *(i + 1),
-				0xff0000 + 255 * (rand() % 2)));
+				0xff0000 + 255 * (ft_rand() % 2)));
 	ft_put_color(mobj, *i, *(i + 1), 0);
 }
 

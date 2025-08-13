@@ -150,7 +150,6 @@ typedef struct s_obj
 {
 	t_color	color;
 	double	*params;
-	char	type;
 	char	(*hit)(const t_obj *self, t_ray);
 	t_obj	*next;
 }	t_obj;
