@@ -91,3 +91,8 @@ char	*ft_strjoinfree(char **s1, char **s2)
 	}
 	return (new_str);
 }
+
+inline void	gnl_flush(void)
+{
+	get_next_line(-1);
+}

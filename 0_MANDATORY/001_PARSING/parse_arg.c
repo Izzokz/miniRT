@@ -37,14 +37,17 @@ int	read_scene_file(int fd, t_scene *scene)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (status == PARSE_OK && line[0] != '\n' && line[0] != '#')
+		if (line[0] != '\n' && line[0] != '#')
 		{
 			if (dispatch_line(line, scene) != PARSE_OK)
 				status = PARSE_KO;
 		}
 		free(line);
+		if (status)
+			break ;
 		line = get_next_line(fd);
 	}
+	gnl_flush();
 	return (status);
 }
 
@@ -69,7 +72,7 @@ int	parse_scene(const char *filename, t_scene *scene)
 	ft_memset(scene, 0, sizeof(t_scene));
 	status = read_scene_file(fd, scene);
 	close(fd);
-	if (!scene->ambient_light.is_set || !scene->camera.is_set)
+	if (!status && (!scene->ambient_light.is_set || !scene->camera.is_set))
 	{
 		print_error("Scene must contain one Ambient light and one Camera");
 		return (PARSE_KO);

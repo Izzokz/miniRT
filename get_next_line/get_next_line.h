@@ -25,5 +25,6 @@ size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strjoinfree(char **s1, char **s2);
 char	*get_next_line(int fd);
+void	gnl_flush(void);
 
 #endif

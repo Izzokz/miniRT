@@ -39,14 +39,23 @@ static inline void	init_world(t_scene *scene)
 	scene->_yaw = atan2(scene->_forward[2], scene->_forward[0]);
 }
 
+static inline char	set_mobj(t_mlx_obj **mobj)
+{
+	*mobj = ft_mlx_obj_init();
+	return (!*mobj);
+}
+
 int	main(int argc, char **argv)
 {
 	t_scene		scene;
 	t_camera	save;
+	t_mlx_obj	*mobj;
 
+	mobj = NULL;
 	if (check_arg(argc, argv) == PARSE_KO)
 		return (PARSE_KO);
-	if (parse_scene(argv[1], &scene) == PARSE_KO)
+	if (parse_scene(argv[1], &scene) == PARSE_KO
+		|| set_mobj(&mobj) == PARSE_KO)
 	{
 		free_scene(&scene);
 		return (PARSE_KO);
@@ -56,7 +65,7 @@ int	main(int argc, char **argv)
 		save_cam(&save, &scene);
 		init_world(&scene);
 		ft_putendl_fd("\033[1;32mParsing successful!\033[0m", 1);
-		ft_mlx_loop(ft_mlx_obj_init(), &scene);
+		ft_mlx_loop(mobj, &scene);
 	}
 	free_scene(&scene);
 	return (PARSE_OK);
