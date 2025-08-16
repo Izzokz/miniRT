@@ -14,8 +14,20 @@
 # define TYPEDEF_H
 
 # define MOVE_SPEED .069 // INIT : .069
-# define ROT_SPEED .0069 // INIT : .069
+# define ROT_SPEED .0069 // INIT : .0069
 # define MRT_MAX_REF_STR .30035 // INIT : .30035
+
+# ifdef EPSILON
+#  undef EPSILON
+# endif
+
+/* *** SENSIBLE MACRO *** */
+// ============================
+// This macro is not protected.
+// It represents a small value.
+// ============================
+/* *** SENSIBLE MACRO *** */
+# define EPSILON 1e-5 // INIT : 1e-5
 
 # ifdef WIDTH
 #  undef WIDTH
@@ -23,7 +35,7 @@
 
 /* *** CRITICAL MACRO *** */
 // ================================
-// This macro is not protected
+// This macro is not protected.
 // If you want to edit it, ensure :
 // WIDTH > 0
 // ================================
@@ -36,7 +48,7 @@
 
 /* *** CRITICAL MACRO *** */
 // ================================
-// This macro is not protected
+// This macro is not protected.
 // If you want to edit it, ensure :
 // HEIGHT > 0
 // ================================
@@ -99,7 +111,7 @@
 // equivalent to this macro set to 10000.
 // == SPEED FACTOR.
 // =========================================
-# define MRT_MAX_REF 10 // INIT : 4 | BEST : 100
+# define MRT_MAX_REF 4 // INIT : 4 | BEST : 100
 
 # ifdef MRT_SHADOW_SAMPLES
 #  undef MRT_SHADOW_SAMPLES

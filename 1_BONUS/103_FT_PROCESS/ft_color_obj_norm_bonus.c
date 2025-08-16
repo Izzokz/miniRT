@@ -26,12 +26,12 @@ static inline void	ft_cy_normal(const t_obj *obj,
 	ft_vec_sub(cp, hit_point, obj->params);
 	height = obj->params[7];
 	dot = ft_vec_dot(cp, axis);
-	if (fabs(dot) < 1e-4)
+	if (fabs(dot) < EPSILON)
 	{
 		ft_vec_scale(normal, axis, -1);
 		return ;
 	}
-	if (fabs(dot - height) < 1e-4)
+	if (fabs(dot - height) < EPSILON)
 	{
 		ft_cpy_vec(normal, axis);
 		return ;

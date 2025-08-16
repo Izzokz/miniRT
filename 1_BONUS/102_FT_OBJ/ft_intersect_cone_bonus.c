@@ -23,9 +23,9 @@ static double	solve_quadratic(double a, double b, double c)
 		return (-1.0);
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 1e-6 && (t2 < 1e-6 || t1 < t2))
+	if (t1 > EPSILON && (t2 < EPSILON || t1 < t2))
 		return (t1);
-	if (t2 > 1e-6)
+	if (t2 > EPSILON)
 		return (t2);
 	return (-1.0);
 }
@@ -41,11 +41,11 @@ inline	double	intersect_base_cone(const t_obj *co, t_ray ray, t_vec axis)
 	ft_vec_scale(base_center, axis, co->params[7]);
 	ft_vec_add(base_center, co->params, base_center);
 	dot_ray_axis = ft_vec_dot(ray[1], axis);
-	if (fabs(dot_ray_axis) < 1e-6)
+	if (fabs(dot_ray_axis) < EPSILON)
 		return (-1.0);
 	ft_vec_sub(p_to_base, base_center, ray[0]);
 	t = ft_vec_dot(p_to_base, axis) / dot_ray_axis;
-	if (t < 1e-6)
+	if (t < EPSILON)
 		return (-1.0);
 	ft_vec_scale(hit_point, ray[1], t);
 	ft_vec_add(hit_point, ray[0], hit_point);

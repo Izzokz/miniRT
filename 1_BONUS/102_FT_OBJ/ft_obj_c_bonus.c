@@ -44,12 +44,12 @@ static void	get_normal(t_vec normal, const t_obj *cy, t_ray ray, t_vec hit)
 	get_axis(cy, axis);
 	ft_vec_sub(tmp, hit, cy->params);
 	m = ft_vec_dot(tmp, axis);
-	if (fabs(m) < 1e-6)
+	if (fabs(m) < EPSILON)
 	{
 		ft_cpy_vec(normal, axis);
 		ft_vec_scale(normal, normal, -1.0);
 	}
-	else if (fabs(m - cy->params[7]) < 1e-6)
+	else if (fabs(m - cy->params[7]) < EPSILON)
 		ft_cpy_vec(normal, axis);
 	else
 	{

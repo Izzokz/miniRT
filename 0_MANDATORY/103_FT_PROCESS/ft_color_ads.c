@@ -30,7 +30,7 @@ inline void	ft_color_light_dist(t_color edit,
 	i = -1;
 	while (++i < MRT_SHADOW_SAMPLES)
 	{
-		ft_vec_offset(shadow_tester[0], oray[0], oray[1], .001);
+		ft_vec_offset(shadow_tester[0], oray[0], oray[1], EPSILON);
 		ft_vec_random_sphere(tmp + 2, light.pos);
 		ft_ray_dir(shadow_tester, tmp + 2);
 		hit = ft_hit_nearest_obj_nb(shadow_tester, scene->objects);

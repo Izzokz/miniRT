@@ -32,11 +32,11 @@ char	ft_hit_p(const t_obj *plane, t_ray ray)
 	double	t;
 
 	dot = ft_vec_dot(ray[1], plane->params + 3);
-	if (fabs(dot) < 1e-6)
+	if (fabs(dot) < EPSILON)
 		return (0);
 	ft_vec_sub(tmp[0], plane->params, ray[0]);
 	t = ft_vec_dot(tmp[0], plane->params + 3) / dot;
-	if (t < 1e-6)
+	if (t < EPSILON)
 		return (0);
 	ft_vec_scale(tmp[0], ray[1], t);
 	ft_vec_add(tmp[0], ray[0], tmp[0]);

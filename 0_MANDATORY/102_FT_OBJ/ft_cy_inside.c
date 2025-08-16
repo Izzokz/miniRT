@@ -37,16 +37,16 @@ inline	double	solve_cylinder_quadratic_inside(double a, double b, double c)
 		return (-1.0);
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 1e-6 && t2 > 1e-6)
+	if (t1 > EPSILON && t2 > EPSILON)
 	{
 		if (t1 > t2)
 			return (t1);
 		else
 			return (t2);
 	}
-	if (t1 > 1e-6)
+	if (t1 > EPSILON)
 		return (t1);
-	if (t2 > 1e-6)
+	if (t2 > EPSILON)
 		return (t2);
 	return (-1.0);
 }
@@ -67,7 +67,7 @@ inline	double	intersect_body_inside(const t_obj *cy, t_ray ray, t_vec axis)
 	coeffs[2] = ft_vec_dot(oc, oc) - dots[1] * dots[1]
 		- pow(cy->params[6] / 2.0, 2);
 	t = solve_cylinder_quadratic_inside(coeffs[0], coeffs[1], coeffs[2]);
-	if (t < 1e-6)
+	if (t < EPSILON)
 		return (-1.0);
 	m = dots[1] + t * dots[0];
 	if (m >= 0 && m <= cy->params[7])

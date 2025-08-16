@@ -29,14 +29,14 @@ inline	double	cap_intersection(const t_obj *cy, t_ray ray, t_vec axis,
 	else
 		ft_cpy_vec(center, cy->params);
 	dot_ray_axis = ft_vec_dot(ray[1], axis);
-	if (fabs(dot_ray_axis) < 1e-6)
+	if (fabs(dot_ray_axis) < EPSILON)
 		return (-1.0);
 	ft_vec_sub(tmp1, center, ray[0]);
 	t = ft_vec_dot(tmp1, axis) / dot_ray_axis;
 	ft_vec_scale(tmp2, ray[1], t);
 	ft_vec_add(tmp2, ray[0], tmp2);
 	ft_vec_sub(tmp1, tmp2, center);
-	if (t > 1e-6 && ft_vec_dot(tmp1, tmp1) < pow(cy->params[6] / 2.0, 2))
+	if (t > EPSILON && ft_vec_dot(tmp1, tmp1) < pow(cy->params[6] / 2.0, 2))
 		return (t);
 	return (-1.0);
 }

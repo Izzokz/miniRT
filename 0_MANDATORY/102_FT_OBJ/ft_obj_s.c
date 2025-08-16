@@ -22,7 +22,7 @@ void	ft_reflect(t_ray ray, t_vec posnorm[2])
 	ft_cpy_vec(ray[0], posnorm[0]);
 	ft_vec_sub(ray[1], ray[1], tmp);
 	ft_vec_norm(ray[1], ray[1]);
-	ft_vec_scale(tmp, ray[1], 1e-3);
+	ft_vec_scale(tmp, ray[1], EPSILON);
 	ft_vec_add(ray[0], ray[0], tmp);
 }
 
@@ -51,14 +51,14 @@ char	ft_hit_s(const t_obj *sphere, t_ray ray)
 	double		sqrt_d;
 
 	inside = ft_set_sphere(sphere, ray, abdt, tmp);
-	if (abdt[2] < 1e-6)
+	if (abdt[2] < EPSILON)
 		return (0);
 	sqrt_d = sqrt(abdt[2]);
 	abdt[3] = (-abdt[1] - sqrt_d) / (2.0 * abdt[0]);
-	if (abdt[3] < 1e-6)
+	if (abdt[3] < EPSILON)
 	{
 		abdt[3] = (-abdt[1] + sqrt_d) / (2.0 * abdt[0]);
-		if (abdt[3] < 1e-6)
+		if (abdt[3] < EPSILON)
 			return (0);
 	}
 	ft_vec_scale(tmp[0], ray[1], abdt[3]);
