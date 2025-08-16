@@ -6,7 +6,7 @@
 /*   By: lumugot <lumugot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:37:22 by kzhen-cl          #+#    #+#             */
-/*   Updated: 2025/08/12 10:07:08 by lumugot          ###   ########.fr       */
+/*   Updated: 2025/08/16 02:28:59 by lumugot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,20 @@ char	ft_hit_s(const t_obj *sphere, t_ray ray)
 {
 	double		abdt[4];
 	t_vec		tmp[2];
-	const char	inside = ft_set_sphere(sphere, ray, abdt, tmp);
+	char		inside;
+	double		sqrt_d;
 
-	if (inside || abdt[2] < 1e-6)
+	inside = ft_set_sphere(sphere, ray, abdt, tmp);
+	if (abdt[2] < 1e-6)
 		return (0);
-	abdt[3] = (-abdt[1] - sqrt(abdt[2])) / (2.0 * abdt[0]);
+	sqrt_d = sqrt(abdt[2]);
+	abdt[3] = (-abdt[1] - sqrt_d) / (2.0 * abdt[0]);
 	if (abdt[3] < 1e-6)
-		abdt[3] = (-abdt[1] + sqrt(abdt[2])) / (2.0 * abdt[0]);
-	if (abdt[3] < 1e-6)
-		return (0);
+	{
+		abdt[3] = (-abdt[1] + sqrt_d) / (2.0 * abdt[0]);
+		if (abdt[3] < 1e-6)
+			return (0);
+	}
 	ft_vec_scale(tmp[0], ray[1], abdt[3]);
 	ft_vec_add(tmp[0], ray[0], tmp[0]);
 	ft_vec_sub(tmp[1], tmp[0], sphere->params);
